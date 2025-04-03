@@ -7,56 +7,62 @@
   <style>
     /* Reset básico */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; }
-    
-    /* Banner de envío gratis */
+    body { font-family: Arial, sans-serif; background-color:#000000; }
+
+    /* Cabecera fija */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    /* Barra de Envío Gratis */
     #shipping-banner {
       background-color: black;
       color: white;
       text-align: center;
-      padding: 10px;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
     }
-    
     /* Logo */
     #logo {
       text-align: center;
-      padding: 20px;
+      padding: 10px 0;
     }
-    #logo img {
-      max-width: 300px;
-      height: auto;
-    }
-    
-    /* Barra de navegación fija */
+    #logo img { width: 250px; max-width: 80%; height: auto; }
+    /* Navegación */
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #004aad; /* Azul, puedes cambiarlo si lo deseas */
-      z-index: 1000;
+      background-color: #004aad;
       padding: 10px 0;
     }
     nav ul {
       list-style: none;
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
     }
-    nav ul li {
-      margin: 0 15px;
-    }
+    nav ul li { margin: 0 10px; }
     nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: bold;
+      font-size: 16px;
       transition: color 0.3s ease;
     }
-    nav ul li a:hover {
-      color: #ffcc00;
+    nav ul li a:hover { color: #000000; }
+    /* Menú hamburguesa para móvil */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      padding: 10px;
+      cursor: pointer;
     }
-    
-    /* Espacio para compensar el nav fijo */
-    .spacer { height: 60px; }
-    
     /* Carrusel de banners */
     .carousel {
       position: relative;
@@ -64,14 +70,8 @@
       margin: 20px auto;
       overflow: hidden;
     }
-    .carousel img {
-      width: 100%;
-      display: none;
-    }
-    .carousel img.active {
-      display: block;
-    }
-    
+    .carousel img { width: 100%; display: none; }
+    .carousel img.active { display: block; }
     /* Banner Mystery Box */
     #mystery-box {
       text-align: center;
@@ -82,8 +82,7 @@
       max-width: 1200px;
       border-radius: 8px;
     }
-    
-    /* Banner Oferta con contador */
+    /* Banner Oferta */
     #offer-banner {
       text-align: center;
       margin: 20px 0;
@@ -104,90 +103,91 @@
       border-radius: 5px;
       font-size: 1.2em;
     }
+    /* Compensar cabecera fija */
+    main { margin-top: 300px; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      #shipping-banner { font-size: 12px; padding: 5px; }
+      #logo img { width: 180px; }
+      .menu-toggle { display: block; }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+      }
+      nav ul.active { display: flex; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Banner de Envío Gratis -->
-  <div id="shipping-banner">
-    ENVÍO GRATIS POR PEDIDOS MAYORES A S/. 200
-  </div>
-  
-  <!-- Logo -->
-  <div id="logo">
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
-  </div>
-  
-  <!-- Barra de navegación fija -->
-  <nav>
-    <ul>
-      <li><a href="#internacionales">INTERNACIONALES</a></li>
-      <li><a href="#peruanas">PERUANAS</a></li>
-      <li><a href="#selecciones">SELECCIONES</a></li>
-      <li><a href="#mystery-box">MISTERY BOX</a></li>
-      <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
-      <li><a href="#redes-sociales">REDES SOCIALES</a></li>
-    </ul>
-  </nav>
-  
-  <!-- Espaciador para compensar el nav fijo -->
-  <div class="spacer"></div>
-  
-  <!-- Carrusel de banners -->
-  <div class="carousel">
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B1.png?raw=true" alt="Banner 1" class="active">
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B2.png?raw=true" alt="Banner 2">
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B3.png?raw=true" alt="Banner 3">
-  </div>
-  
-  <!-- Banner Mystery Box -->
-  <div id="mystery-box">
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O1.png?raw=true" alt="Banner Mystery Box">
-  </div>
-  
-  <!-- Banner Oferta con contador -->
-  <div id="offer-banner">
-    <!-- Reemplaza 'URL_DEL_BANNER_OFERTA' con la URL real de tu banner de oferta -->
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O2.png?raw=true" alt="Banner Oferta del Mes">
-    <div id="countdown"></div>
-  </div>
-  
-  <!-- JavaScript para carrusel y contador -->
+  <header>
+    <div id="shipping-banner">ENVÍOS GRATIS POR PEDIDOS MAYORES A S/. 200</div>
+    <div id="logo">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
+    </div>
+    <nav>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul>
+        <li><a href="#internacionales">INTERNACIONALES</a></li>
+        <li><a href="#peruanas">PERUANAS</a></li>
+        <li><a href="#selecciones">SELECCIONES</a></li>
+        <li><a href="#mystery-box">MISTERY BOX</a></li>
+        <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
+        <li><a href="#redes-sociales">REDES SOCIALES</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Carrusel de banners -->
+    <div class="carousel">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B1.png?raw=true" alt="Banner 1" class="active">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B2.png?raw=true" alt="Banner 2">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B3.png?raw=true" alt="Banner 3">
+    </div>
+    
+    <!-- Banner Mystery Box -->
+    <div id="mystery-box">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O1.png?raw=true" alt="Banner Mystery Box">
+    </div>
+    
+    <!-- Banner Oferta con contador -->
+    <div id="offer-banner">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O2.png?raw=true" alt="Banner Oferta del Mes">
+      <div id="countdown"></div>
+    </div>
+  </main>
+
   <script>
+    function toggleMenu() {
+      document.querySelector("nav ul").classList.toggle("active");
+    }
     // Carrusel simple
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel img');
     const totalSlides = slides.length;
-    
     function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-      });
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
     }
-    
     function nextSlide() {
       currentSlide = (currentSlide + 1) % totalSlides;
       showSlide(currentSlide);
     }
-    
-    // Cambia de imagen cada 5 segundos
     setInterval(nextSlide, 5000);
-    
-    // Contador para la Oferta del Mes
-    // Fecha de finalización: 30 de abril de 2025
+    // Contador para la Oferta (hasta 30 de abril de 2025)
     const countDownDate = new Date("Apr 30, 2025 00:00:00").getTime();
-    
     const countdownFunction = setInterval(() => {
       const now = new Date().getTime();
       const distance = countDownDate - now;
-      
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-      
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
       if (distance < 0) {
         clearInterval(countdownFunction);
         document.getElementById("countdown").innerHTML = "¡Oferta Finalizada!";
