@@ -1,12 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Camisetas - AURA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA - Tienda de Camisetas</title>
+  <style>
+    /* Reset de estilos */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Estilos para el header */
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    
+    /* Estilos para el menú */
+    nav {
+      margin-top: 10px;
+    }
+    
+    ul.nav-menu {
+      display: flex;
+      list-style: none;
+      justify-content: flex-end;
+    }
+    
+    ul.nav-menu li {
+      margin-left: 20px;
+    }
+    
+    ul.nav-menu li a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+    
+    ul.nav-menu li a:hover {
+      color: #007bff;
+    }
+    
+    /* Diseño responsivo */
+    @media (max-width: 768px) {
+      ul.nav-menu {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      ul.nav-menu li {
+        margin: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Bienvenido a AURA</h1>
-    <p>Tu tienda de camisetas de fútbol.</p>
+  <header>
+    <div class="container">
+      <!-- Logo en mayúsculas -->
+      <div class="logo">AURA</div>
+      <!-- Menú de navegación -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#quienes-somos">QUIENES SOMOS</a></li>
+          <li><a href="#camisetas-peruanas">CAMISETAS PERUANAS</a></li>
+          <li><a href="#camisetas-internacionales">CAMISETAS INTERNACIONALES</a></li>
+          <li><a href="#redes-sociales">REDES SOCIALES</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Contenido principal -->
+  <main>
+    <div class="container">
+      <h2>Bienvenido a AURA</h2>
+      <p>Aquí irá la descripción de tu tienda de camisetas originales de fútbol.</p>
+    </div>
+  </main>
+  
+  <!-- Futuras secciones y funcionalidades se agregarán aquí -->
+  
 </body>
 </html>
