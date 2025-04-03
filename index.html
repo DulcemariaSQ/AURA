@@ -2,110 +2,198 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AURA - Tienda de Camisetas</title>
   <style>
-    /* Reset de estilos */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* Reset básico */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; }
+    
+    /* Banner de envío gratis */
+    #shipping-banner {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 10px;
     }
     
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
+    /* Logo */
+    #logo {
+      text-align: center;
+      padding: 20px;
+    }
+    #logo img {
+      max-width: 300px;
+      height: auto;
     }
     
-    /* Estilos para el header */
-    header {
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px 0;
-    }
-    
-    .logo {
-      font-size: 2rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-    
-    /* Estilos para el menú */
+    /* Barra de navegación fija */
     nav {
-      margin-top: 10px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #004aad; /* Azul, puedes cambiarlo si lo deseas */
+      z-index: 1000;
+      padding: 10px 0;
     }
-    
-    ul.nav-menu {
-      display: flex;
+    nav ul {
       list-style: none;
-      justify-content: flex-end;
+      display: flex;
+      justify-content: center;
     }
-    
-    ul.nav-menu li {
-      margin-left: 20px;
+    nav ul li {
+      margin: 0 15px;
     }
-    
-    ul.nav-menu li a {
+    nav ul li a {
+      color: white;
       text-decoration: none;
-      font-size: 1rem;
-      color: #333;
+      font-weight: bold;
       transition: color 0.3s ease;
     }
-    
-    ul.nav-menu li a:hover {
-      color: #007bff;
+    nav ul li a:hover {
+      color: #ffcc00;
     }
     
-    /* Diseño responsivo */
-    @media (max-width: 768px) {
-      ul.nav-menu {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      ul.nav-menu li {
-        margin: 10px 0;
-      }
+    /* Espacio para compensar el nav fijo */
+    .spacer { height: 60px; }
+    
+    /* Carrusel de banners */
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    .carousel img {
+      width: 100%;
+      display: none;
+    }
+    .carousel img.active {
+      display: block;
+    }
+    
+    /* Banner Mystery Box */
+    #mystery-box {
+      text-align: center;
+      margin: 20px 0;
+    }
+    #mystery-box img {
+      width: 90%;
+      max-width: 1200px;
+      border-radius: 8px;
+    }
+    
+    /* Banner Oferta con contador */
+    #offer-banner {
+      text-align: center;
+      margin: 20px 0;
+      position: relative;
+    }
+    #offer-banner img {
+      width: 90%;
+      max-width: 1200px;
+      border-radius: 8px;
+    }
+    #countdown {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1.2em;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <!-- Logo en mayúsculas -->
-      <div class="logo">AURA</div>
-      <!-- Menú de navegación -->
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="#quienes-somos">QUIENES SOMOS</a></li>
-          <li><a href="#camisetas-peruanas">CAMISETAS PERUANAS</a></li>
-          <li><a href="#camisetas-internacionales">CAMISETAS INTERNACIONALES</a></li>
-          <li><a href="#redes-sociales">REDES SOCIALES</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+
+  <!-- Banner de Envío Gratis -->
+  <div id="shipping-banner">
+    ENVÍO GRATIS POR PEDIDOS MAYORES A S/. 200
+  </div>
   
-  <!-- Contenido principal -->
-  <main>
-    <div class="container">
-      <h2>Bienvenido a AURA</h2>
-      <p>Aquí irá la descripción de tu tienda de camisetas originales de fútbol.</p>
-    </div>
-  </main>
+  <!-- Logo -->
+  <div id="logo">
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
+  </div>
   
-  <!-- Futuras secciones y funcionalidades se agregarán aquí -->
+  <!-- Barra de navegación fija -->
+  <nav>
+    <ul>
+      <li><a href="#internacionales">INTERNACIONALES</a></li>
+      <li><a href="#peruanas">PERUANAS</a></li>
+      <li><a href="#selecciones">SELECCIONES</a></li>
+      <li><a href="#mystery-box">MISTERY BOX</a></li>
+      <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
+      <li><a href="#redes-sociales">REDES SOCIALES</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Espaciador para compensar el nav fijo -->
+  <div class="spacer"></div>
+  
+  <!-- Carrusel de banners -->
+  <div class="carousel">
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B1.png?raw=true" alt="Banner 1" class="active">
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B2.png?raw=true" alt="Banner 2">
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B3.png?raw=true" alt="Banner 3">
+  </div>
+  
+  <!-- Banner Mystery Box -->
+  <div id="mystery-box">
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O1.png?raw=true" alt="Banner Mystery Box">
+  </div>
+  
+  <!-- Banner Oferta con contador -->
+  <div id="offer-banner">
+    <!-- Reemplaza 'URL_DEL_BANNER_OFERTA' con la URL real de tu banner de oferta -->
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O2.png?raw=true" alt="Banner Oferta del Mes">
+    <div id="countdown"></div>
+  </div>
+  
+  <!-- JavaScript para carrusel y contador -->
+  <script>
+    // Carrusel simple
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel img');
+    const totalSlides = slides.length;
+    
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+    
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    
+    // Cambia de imagen cada 5 segundos
+    setInterval(nextSlide, 5000);
+    
+    // Contador para la Oferta del Mes
+    // Fecha de finalización: 30 de abril de 2025
+    const countDownDate = new Date("Apr 30, 2025 00:00:00").getTime();
+    
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "¡Oferta Finalizada!";
+      }
+    }, 1000);
+  </script>
   
 </body>
 </html>
