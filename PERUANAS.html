@@ -3,78 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Peruanas - AURA</title>
+  <title>Peruanas - AURA Tienda de Camisetas</title>
   <style>
-    /* Reset básico */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background-color: #000000; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: Arial, sans-serif; background:#f4f4f4; }
     /* Cabecera fija */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    /* Barra de Envío Gratis */
-    #shipping-banner {
-      background-color: black;
-      color: white;
-      text-align: center;
-      padding: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-    /* Logo con enlace a index.html */
-    #logo {
-      text-align: center;
-      padding: 10px 0;
-    }
-    #logo a {
-      display: inline-block;
-    }
-    #logo img {
-      width: 250px;
-      max-width: 80%;
-      height: auto;
-    }
+    header { position: fixed; top:0; width:100%; z-index:1000; background:#fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    #shipping-banner { background:#000; color:#fff; text-align:center; padding:8px; font-size:14px; font-weight:bold; }
+    /* Logo: al hacer clic regresa a la base fuente */
+    #logo { text-align:center; padding:10px 0; }
+    #logo a { display:inline-block; }
+    #logo img { width:250px; max-width:80%; height:auto; }
     /* Navegación */
-    nav {
-      background-color: #004aad;
-      padding: 10px 0;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    nav ul li { margin: 0 10px; }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: color 0.3s ease;
-    }
-    nav ul li a:hover { color: #000000; }
-    /* Contenido */
-    main {
-      margin-top: 150px;
-      padding: 20px;
-      text-align: center;
-      color: white;
+    nav { background:#004aad; padding:10px 0; }
+    nav ul { list-style:none; display:flex; justify-content:center; flex-wrap:wrap; }
+    nav ul li { margin:0 10px; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:bold; font-size:16px; transition: color 0.3s; }
+    nav ul li a:hover { color:#ffcc00; }
+    /* Espacio para compensar la cabecera fija */
+    main { margin-top:300px; padding:20px; }
+    /* Barra secundaria para categorías de camisetas */
+    #secondary-nav { background:#ddd; padding:10px; text-align:center; margin-bottom:20px; }
+    #secondary-nav button { background:#fff; border:1px solid #ccc; padding:8px 12px; margin:0 5px; cursor:pointer; font-weight:bold; }
+    #secondary-nav button.active { background:#004aad; color:#fff; border-color:#004aad; }
+    /* Grid de productos */
+    #product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:20px; }
+    .product { background:#fff; border:1px solid #ccc; border-radius:8px; padding:10px; text-align:center; }
+    .product img { width:100%; height:180px; object-fit:cover; border-radius:4px; }
+    .product-name { font-weight:bold; margin:10px 0 5px; }
+    .product-price { color:#333; }
+    /* Responsive */
+    @media (max-width:768px) {
+      #shipping-banner { font-size:12px; padding:5px; }
+      #logo img { width:180px; }
     }
   </style>
 </head>
 <body>
-
+  <!-- Cabecera fija -->
   <header>
     <div id="shipping-banner">ENVÍOS GRATIS POR PEDIDOS MAYORES A S/. 200</div>
     <div id="logo">
-      <a href="index.html">  <!-- Enlace al index.html -->
+      <a href="https://auracamisetas.netlify.app/">
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
       </a>
     </div>
@@ -91,10 +61,121 @@
   </header>
 
   <main>
-    <h1>CAMISETAS PERUANAS</h1>
-    <p>Aquí encontrarás todas las camisetas de los equipos peruanos disponibles en nuestra tienda.</p>
-    <!-- Agrega aquí las imágenes y descripciones de las camisetas -->
+    <!-- Barra secundaria con categorías -->
+    <div id="secondary-nav">
+      <button onclick="sortProducts('CIENCIANO')" id="btn-cien">CIENCIANO</button>
+      <button onclick="sortProducts('ALIANZA LIMA')" id="btn-ali">ALIANZA LIMA</button>
+      <button onclick="sortProducts('UNIVERSITARIO')" id="btn-uni">UNIVERSITARIO</button>
+      <button onclick="sortProducts('SPORTING CRISTAL')" id="btn-spo">SPORTING CRISTAL</button>
+      <button onclick="sortProducts('MELGAR')" id="btn-mel">MELGAR</button>
+    </div>
+    
+    <!-- Grid de productos -->
+    <div id="product-grid">
+      <!-- CIENCIANO -->
+      <div class="product" data-category="CIENCIANO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/CIENCIANO%20SUDAMERICANA.jpg?raw=true" alt="CIENCIANO CAMPEÓN SUDAMERICANA 2003">
+        <div class="product-name">CIENCIANO CAMPEÓN SUDAMERICANA 2003</div>
+        <div class="product-price">S/. 119</div>
+      </div>
+      <div class="product" data-category="CIENCIANO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/CIENCIANO%20RECOPA.jpg?raw=true" alt="CIENCIANO RECOPA SUDAMERICANA 2004">
+        <div class="product-name">CIENCIANO RECOPA SUDAMERICANA 2004</div>
+        <div class="product-price">S/. 109</div>
+      </div>
+      <!-- ALIANZA LIMA -->
+      <div class="product" data-category="ALIANZA LIMA">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%201997.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 1997">
+        <div class="product-name">ALIANZA LIMA TEMPORADA 1997</div>
+        <div class="product-price">S/. 99</div>
+      </div>
+      <div class="product" data-category="ALIANZA LIMA">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%202001.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 2001">
+        <div class="product-name">ALIANZA LIMA TEMPORADA 2001</div>
+        <div class="product-price">S/. 99</div>
+      </div>
+      <div class="product" data-category="ALIANZA LIMA">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%202010.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 2010">
+        <div class="product-name">ALIANZA LIMA TEMPORADA 2010</div>
+        <div class="product-price">S/. 89</div>
+      </div>
+      <div class="product" data-category="ALIANZA LIMA">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%202012.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 2012">
+        <div class="product-name">ALIANZA LIMA TEMPORADA 2012</div>
+        <div class="product-price">S/. 109</div>
+      </div>
+      <div class="product" data-category="ALIANZA LIMA">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%201999.jpg?raw=true" alt="ALIANZA LIMA ALTERNA TEMPORADA 1999">
+        <div class="product-name">ALIANZA LIMA ALTERNA TEMPORADA 1999</div>
+        <div class="product-price">S/. 99</div>
+      </div>
+      <!-- UNIVERSITARIO -->
+      <div class="product" data-category="UNIVERSITARIO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%202000.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 2000">
+        <div class="product-name">UNIVERSITARIO TEMPORADA 2000</div>
+        <div class="product-price">S/. 119</div>
+      </div>
+      <div class="product" data-category="UNIVERSITARIO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201993.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 1993">
+        <div class="product-name">UNIVERSITARIO TEMPORADA 1993</div>
+        <div class="product-price">S/. 129</div>
+      </div>
+      <div class="product" data-category="UNIVERSITARIO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201994.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 1994">
+        <div class="product-name">UNIVERSITARIO TEMPORADA 1994</div>
+        <div class="product-price">S/. 89</div>
+      </div>
+      <div class="product" data-category="UNIVERSITARIO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201997.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 1997">
+        <div class="product-name">UNIVERSITARIO TEMPORADA 1997</div>
+        <div class="product-price">S/. 149</div>
+      </div>
+      <div class="product" data-category="UNIVERSITARIO">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%202009.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 2009">
+        <div class="product-name">UNIVERSITARIO TEMPORADA 2009</div>
+        <div class="product-price">S/. 109</div>
+      </div>
+      <!-- SPORTING CRISTAL -->
+      <div class="product" data-category="SPORTING CRISTAL">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/SPORTING%20CRISTAL%201997.jpg?raw=true" alt="SPORTING CRISTAL TEMPORADA 1997">
+        <div class="product-name">SPORTING CRISTAL TEMPORADA 1997</div>
+        <div class="product-price">S/. 79</div>
+      </div>
+      <div class="product" data-category="SPORTING CRISTAL">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/SPORTING%20CRISTAL%201996.jpg?raw=true" alt="SPORTING CRISTAL TEMPORADA 1996">
+        <div class="product-name">SPORTING CRISTAL TEMPORADA 1996</div>
+        <div class="product-price">S/. 89</div>
+      </div>
+      <div class="product" data-category="SPORTING CRISTAL">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/SPORTING%20CRISTAL%20ALTERNA%201997.jpg?raw=true" alt="SPORTING CRISTAL ALTERNA TEMPORADA 1997">
+        <div class="product-name">SPORTING CRISTAL ALTERNA TEMPORADA 1997</div>
+        <div class="product-price">S/. 99</div>
+      </div>
+      <!-- MELGAR -->
+      <div class="product" data-category="MELGAR">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/MELGAR%201991.jpg?raw=true" alt="MELGAR TEMPORADA 1991">
+        <div class="product-name">MELGAR TEMPORADA 1991</div>
+        <div class="product-price">S/. 79</div>
+      </div>
+    </div>
   </main>
-
+  <script>
+    function sortProducts(category) {
+      // Quitar clase active de todos los botones y asignar al clickeado
+      document.querySelectorAll("#secondary-nav button").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+      const grid = document.getElementById("product-grid");
+      const products = Array.from(grid.getElementsByClassName("product"));
+      products.sort((a, b) => {
+        const aCat = a.getAttribute("data-category");
+        const bCat = b.getAttribute("data-category");
+        if(aCat === category && bCat !== category) return -1;
+        if(bCat === category && aCat !== category) return 1;
+        return 0;
+      });
+      grid.innerHTML = "";
+      products.forEach(prod => grid.appendChild(prod));
+    }
+  </script>
 </body>
 </html>
