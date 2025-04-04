@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AURA - Selecciones</title>
+  <style>
+    /* Reset básico */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #000; color: #000; }
+    
+    /* Cabecera fija */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    /* Barra de Envío Gratis */
+    #shipping-banner {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    /* Logo */
+    #logo {
+      text-align: center;
+      padding: 10px 0;
+    }
+    #logo img { width: 250px; max-width: 80%; height: auto; }
+    /* Navegación */
+    nav {
+      background-color: #004aad;
+      padding: 10px 0;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav ul li { margin: 5px 10px; }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover { color: #000; }
+    /* Menú hamburguesa para móvil */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    /* Compensar cabecera fija */
+    main { margin-top: 300px; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      #shipping-banner { font-size: 12px; padding: 5px; }
+      #logo img { width: 180px; }
+      .menu-toggle { display: block; }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+      }
+      nav ul.active { display: flex; }
+    }
+    
+    /* Estilos para las secciones de camisetas */
+    section { padding: 20px; }
+    section h2 {
+      margin-bottom: 15px;
+      color: white;
+      background: #004aad;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+    section ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    section ul li {
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      width: 200px;
+    }
+    section ul li img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    section ul li p { margin: 5px 0; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div id="shipping-banner">ENVÍOS GRATIS POR PEDIDOS MAYORES A S/. 200</div>
+    <div id="logo">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
+    </div>
+    <nav>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul>
+        <li><a href="#peru">PERÚ</a></li>
+        <li><a href="#argentina">ARGENTINA</a></li>
+        <li><a href="#brasil">BRASIL</a></li>
+        <li><a href="#espana">ESPAÑA</a></li>
+        <li><a href="#italia">ITALIA</a></li>
+        <li><a href="#alemania">ALEMANÍA</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- PERÚ -->
+    <section id="peru">
+      <h2>PERÚ</h2>
+      <ul>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%20ELIMINATORIAS%20FRANCIA%201988.jpg?raw=true" alt="PERÚ ELIMINATORIAS FRANCIA 1988">
+          <p>PERÚ ELIMINATORIAS FRANCIA 1988</p>
+          <p>S/. 99</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/MUNDIAL%20RUSIA%202018.jpg?raw=true" alt="PERÚ ALBUM COMPLETO RUSIA 2018">
+          <p>PERÚ ALBUM COMPLETO RUSIA 2018</p>
+          <p>S/. 80</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/COPA%20AMERICA%202019.jpg?raw=true" alt="PERÚ ALBUM COPA AMERICA 2019">
+          <p>PERÚ ALBUM COPA AMERICA 2019</p>
+          <p>S/. 80</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ARGENTINA -->
+    <section id="argentina">
+      <h2>ARGENTINA</h2>
+      <ul>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="ARGENTINA 2002 VISITA">
+          <p>ARGENTINA 2002 VISITA</p>
+          <p>S/. 109</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202014%20LOCAL.jpg?raw=true" alt="ARGENTINA 2014 LOCAL">
+          <p>ARGENTINA 2014 LOCAL</p>
+          <p>S/. 129</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202010%20LOCAL.jpg?raw=true" alt="ARGENTINA 2010 LOCAL">
+          <p>ARGENTINA 2010 LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202014%20VISITA.jpg?raw=true" alt="ARGENTINA 2014 VISITA">
+          <p>ARGENTINA 2014 VISITA</p>
+          <p>S/. 109</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202006%20VISITA.jpg?raw=true" alt="ARGENTINA 2006 VISITA">
+          <p>ARGENTINA 2006 VISITA</p>
+          <p>S/. 89</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%201978%20LOCAL.jpg?raw=true" alt="ARGENTINA 1978 LOCAL">
+          <p>ARGENTINA 1978 LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- BRASIL -->
+    <section id="brasil">
+      <h2>BRASIL</h2>
+      <ul>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202018%20LOCAL.jpg?raw=true" alt="BRASIL 2018 LOCAL">
+          <p>BRASIL 2018 LOCAL</p>
+          <p>S/. 99</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202014%20LOCAL.jpg?raw=true" alt="BRASIL 2014 LOCAL">
+          <p>BRASIL 2014 LOCAL</p>
+          <p>S/. 129</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%201986%20VISITA.jpg?raw=true" alt="BRASIL 1996 VISITA">
+          <p>BRASIL 1996 VISITA</p>
+          <p>S/. 119</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%201957%20LOCAL.jpg?raw=true" alt="BRASIL 1957 LOCAL BRAZIL">
+          <p>BRASIL 1957 LOCAL BRAZIL</p>
+          <p>S/. 79</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202010%20VISITA.jpg?raw=true" alt="BRASIL 2010 VISITA BRAZIL">
+          <p>BRASIL 2010 VISITA BRAZIL</p>
+          <p>S/. 99</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%201988%20ARQUERO%20LOCAL.jpg?raw=true" alt="BRASIL 1998 ARQUERO LOCAL">
+          <p>BRASIL 1998 ARQUERO LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ESPAÑA -->
+    <section id="espana">
+      <h2>ESPAÑA</h2>
+      <ul>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202000%20VISITA.jpg?raw=true" alt="ESPAÑA 2000 VISITA">
+          <p>ESPAÑA 2000 VISITA</p>
+          <p>S/. 129</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202000%20LOCAL.jpg?raw=true" alt="ESPAÑA 2000 LOCAL">
+          <p>ESPAÑA 2000 LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%201988%20LOCAL.jpg?raw=true" alt="ESPAÑA 1998 LOCAL">
+          <p>ESPAÑA 1998 LOCAL</p>
+          <p>S/. 129</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%201996%20VISITA.jpg?raw=true" alt="ESPAÑA 1996 VISITA">
+          <p>ESPAÑA 1996 VISITA</p>
+          <p>S/. 99</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202002%20LOCAL.jpg?raw=true" alt="ESPAÑA 2002 LOCAL">
+          <p>ESPAÑA 2002 LOCAL</p>
+          <p>S/. 109</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ITALIA -->
+    <section id="italia">
+      <h2>ITALIA</h2>
+      <ul>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201995%20VISITA.jpg?raw=true" alt="ITALIA 1995 VISITA">
+          <p>ITALIA 1995 VISITA</p>
+          <p>S/. 129</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201995%20LOCAL.jpg?raw=true" alt="ITALIA 1995 LOCAL">
+          <p>ITALIA 1995 LOCAL</p>
+          <p>S/. 139</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201998%20VISITA.jpg?raw=true" alt="ITALIA 1998 LOCAL">
+          <p>ITALIA 1998 LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%202006%20ARQUERO.jpg?raw=true" alt="ITALIA 2006 ARQUERO">
+          <p>ITALIA 2006 ARQUERO</p>
+          <p>S/. 139</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%202000%20LOCAL.jpg?raw=true" alt="ITALIA 2000 LOCAL">
+          <p>ITALIA 2000 LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201998%20VISITA.jpg?raw=true" alt="ITALIA 1998 VISITA">
+          <p>ITALIA 1998 VISITA</p>
+          <p>S/. 89</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ALEMANÍA -->
+    <section id="alemania">
+      <h2>ALEMANÍA</h2>
+      <ul>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%202018%20LOCAL.jpg?raw=true" alt="ALEMANÍA 2018 LOCAL">
+          <p>ALEMANÍA 2018 LOCAL</p>
+          <p>S/. 129</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%201992%20VISITA.jpg?raw=true" alt="ALEMANÍA 1992 VISITA">
+          <p>ALEMANÍA 1992 VISITA</p>
+          <p>S/. 109</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%201986%20LOCAL.jpg?raw=true" alt="ALEMANÍA 1986 LOCAL">
+          <p>ALEMANÍA 1986 LOCAL</p>
+          <p>S/. 99</p>
+        </li>
+        <li>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%202006%20LOCAL.jpg?raw=true" alt="ALEMANÍA 2006 LOCAL">
+          <p>ALEMANÍA 2006 LOCAL</p>
+          <p>S/. 119</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.querySelector("nav ul").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
