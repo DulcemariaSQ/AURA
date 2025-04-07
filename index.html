@@ -6,59 +6,65 @@
   <title>AURA - Página de Camisetas Blaugranas</title>
   <style>
     /* Reset básico */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-    /* Barra superior de envío (fija) */
-    #shipping-banner {
+    /* HEADER fijo que contiene todo */
+    header {
       position: fixed;
       top: 0;
       width: 100%;
+      z-index: 999;
+    }
+
+    /* Barra de envío (dentro del header) */
+    #shipping-banner {
       background-color: #000000;
       color: #ffffff;
       text-align: center;
       padding: 8px;
       font-size: 14px;
       font-weight: bold;
-      z-index: 1000;
     }
 
-    /* Barra de logo y carrito (fija, debajo de la barra de envío) */
+    /* Sección del logo + carrito (dentro del header) */
     #logo-bar {
-      position: fixed;
-      top: 40px; /* Altura de la barra de envío */
-      width: 100%;
       background-color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 10px 20px;
-      z-index: 999;
       border-bottom: 1px solid #ccc;
+      position: relative; /* Para poder posicionar #cart */
     }
 
+    /* Logo */
     #logo-bar img {
       width: 250px;
       max-width: 80%;
       height: auto;
     }
 
-    /* Texto de MI CARRITO a la derecha */
+    /* MI CARRITO (absoluto a la derecha) */
     #cart {
       position: absolute;
       right: 20px;
       font-size: 16px;
       font-weight: bold;
       color: #000000;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    /* Barra de navegación de opciones (fija, debajo del logo) */
+    /* Barra de navegación (dentro del header) */
     nav {
-      position: fixed;
-      top: calc(40px + 80px); /* Barra de envío (40px) + barra de logo (aprox. 80px) */
-      width: 100%;
       background-color: #a90f0f;
-      z-index: 998;
     }
 
     nav ul {
@@ -66,6 +72,7 @@
       display: flex;
       justify-content: center;
       padding: 10px 0;
+      margin: 0;
     }
 
     nav ul li {
@@ -79,9 +86,10 @@
       font-size: 16px;
     }
 
-    /* Ajuste del contenido principal (para compensar las barras fijas) */
+    /* Ajuste del contenido para que no quede debajo del header */
     main {
-      margin-top: calc(40px + 80px + 50px); /* Suma de alturas: envío + logo + nav */
+      /* Ajusta el valor si notas que todavía se corta o sobra espacio */
+      margin-top: 180px;
     }
 
     /* Carrusel de banners */
@@ -114,7 +122,7 @@
       border-radius: 8px;
     }
 
-    /* Contador para el primer banner */
+    /* Contador para el banner con fecha límite */
     #countdown {
       position: absolute;
       top: 20px;
@@ -137,40 +145,51 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      #shipping-banner { font-size: 12px; padding: 5px; }
-      #logo-bar img { width: 180px; }
-      #cart { font-size: 14px; right: 10px; }
+      #shipping-banner {
+        font-size: 12px;
+        padding: 5px;
+      }
+      #logo-bar img {
+        width: 180px;
+      }
+      #cart {
+        font-size: 14px;
+        right: 10px;
+      }
       nav ul {
         flex-wrap: wrap;
         padding: 5px 0;
       }
-      nav ul li { margin: 5px; }
+      nav ul li {
+        margin: 5px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Barra de envío fijo -->
-  <div id="shipping-banner">
-    ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
-  </div>
 
-  <!-- Barra de logo y carrito fijo -->
-  <div id="logo-bar">
-    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA">
-    <div id="cart">MI CARRITO</div>
-  </div>
-
-  <!-- Barra de navegación fija -->
-  <nav>
-    <ul>
-      <li><a href="#internacionales">INTERNACIONALES</a></li>
-      <li><a href="#peruanas">PERUANAS</a></li>
-      <li><a href="#selecciones">SELECCIONES</a></li>
-      <li><a href="#mystery-box">MISTERY BOX</a></li>
-      <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
-      <li><a href="#quienes-somos">QUIENES SOMOS</a></li>
-    </ul>
-  </nav>
+  <header>
+    <!-- Barra de envío -->
+    <div id="shipping-banner">
+      ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
+    </div>
+    <!-- Barra de logo y carrito -->
+    <div id="logo-bar">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA">
+      <div id="cart">MI CARRITO</div>
+    </div>
+    <!-- Barra de navegación (categorías) -->
+    <nav>
+      <ul>
+        <li><a href="#internacionales">INTERNACIONALES</a></li>
+        <li><a href="#peruanas">PERUANAS</a></li>
+        <li><a href="#selecciones">SELECCIONES</a></li>
+        <li><a href="#mystery-box">MISTERY BOX</a></li>
+        <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
+        <li><a href="#quienes-somos">QUIENES SOMOS</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
     <!-- Carrusel de banners (cambio cada 3 segundos) -->
@@ -204,7 +223,9 @@
     const slides = document.querySelectorAll('.carousel img');
     const totalSlides = slides.length;
     function showSlide(index) {
-      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
     }
     function nextSlide() {
       currentSlide = (currentSlide + 1) % totalSlides;
@@ -212,7 +233,7 @@
     }
     setInterval(nextSlide, 3000);
 
-    // Contador para Oferta: termina el 30 de abril de 2025 a las 11:59 pm
+    // Contador para la oferta (hasta 30 de abril de 2025 a las 11:59 pm)
     const countDownDate = new Date("Apr 30, 2025 23:59:00").getTime();
     const countdownFunction = setInterval(() => {
       const now = new Date().getTime();
@@ -221,13 +242,16 @@
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
       document.getElementById("countdown").innerHTML =
         days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
       if (distance < 0) {
         clearInterval(countdownFunction);
         document.getElementById("countdown").innerHTML = "¡Oferta Finalizada!";
       }
     }, 1000);
   </script>
+
 </body>
 </html>
