@@ -3,173 +3,507 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Peruanas - AURA Tienda de Camisetas</title>
+  <title>AURA - CAMISETAS PERUANAS</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: Arial, sans-serif; background:#f4f4f4; }
-    /* Cabecera fija */
-    header { position: fixed; top:0; width:100%; z-index:1000; background:#fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-    #shipping-banner { background:#000; color:#fff; text-align:center; padding:8px; font-size:14px; font-weight:bold; }
-    #logo { text-align:center; padding:10px 0; }
-    #logo img { width:250px; max-width:80%; height:auto; }
-    nav { background:#004aad; padding:10px 0; }
-    nav ul { list-style:none; display:flex; justify-content:center; flex-wrap:wrap; }
-    nav ul li { margin:0 10px; }
-    nav ul li a { color:#fff; text-decoration:none; font-weight:bold; font-size:16px; transition: color 0.3s; }
-    nav ul li a:hover { color:#ffcc00; }
-    /* Espacio para compensar la cabecera fija */
-    main { margin-top:300px; padding:20px; }
-    /* Barra secundaria para categorías de camisetas */
-    #secondary-nav { background:#ddd; padding:10px; text-align:center; margin-bottom:20px; }
-    #secondary-nav button { background:#fff; border:1px solid #ccc; padding:8px 12px; margin:0 5px; cursor:pointer; font-weight:bold; }
-    #secondary-nav button.active { background:#004aad; color:#fff; border-color:#004aad; }
-    /* Grid de productos */
-    #product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:20px; }
-    .product { background:#fff; border:1px solid #ccc; border-radius:8px; padding:10px; text-align:center; }
-    .product img { width:100%; height:180px; object-fit:cover; border-radius:4px; }
-    .product-name { font-weight:bold; margin:10px 0 5px; }
-    .product-price { color:#333; }
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    /* HEADER fijo */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+    /* Barra de envíos */
+    #shipping-banner {
+      background-color: #000000;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    /* Logo y carrito */
+    #logo-bar {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+    #logo-bar img {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      cursor: pointer;
+    }
+    #cart {
+      position: absolute;
+      right: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000000;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    /* Menú de categorías */
+    nav {
+      background-color: #a90f0f;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    /* Contenido principal (separa para no quedar debajo del header fijo) */
+    main {
+      margin-top: 240px;
+    }
+    /* Carrusel de banners */
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    .carousel img {
+      width: 100%;
+      display: none;
+    }
+    .carousel img.active {
+      display: block;
+    }
+    /* Subcategorías */
+    .subcategories {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .subcategories button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: 1px solid #a90f0f;
+      background-color: #fff;
+      color: #a90f0f;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .subcategories button.active {
+      background-color: #a90f0f;
+      color: #fff;
+      border-color: #a90f0f;
+    }
+    /* Productos */
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    .product-card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #000;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .size-buttons {
+      margin-bottom: 10px;
+    }
+    .size-buttons button {
+      margin: 5px;
+      padding: 5px 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .size-buttons button.active-size {
+      background-color: #a90f0f;
+      color: #fff;
+      border-color: #a90f0f;
+    }
+    .add-to-cart {
+      background-color: #a90f0f;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
     /* Responsive */
-    @media (max-width:768px) {
-      #shipping-banner { font-size:12px; padding:5px; }
-      #logo img { width:180px; }
+    @media (max-width: 768px) {
+      #logo-bar img {
+        width: 180px;
+      }
+      #cart {
+        font-size: 14px;
+        right: 10px;
+      }
+      .products-container {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Cabecera fija -->
   <header>
-    <div id="shipping-banner">ENVÍOS GRATIS POR PEDIDOS MAYORES A S/. 200</div>
-    <div id="logo">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
+    <!-- Barra de envíos -->
+    <div id="shipping-banner">
+      ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
     </div>
+    <!-- Logo y carrito; el logo redirige a la página principal -->
+    <div id="logo-bar">
+      <a href="index.html"><img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA"></a>
+      <div id="cart">MI CARRITO</div>
+    </div>
+    <!-- Menú de categorías -->
     <nav>
       <ul>
         <li><a href="internacionales.html">INTERNACIONALES</a></li>
         <li><a href="peruanas.html">PERUANAS</a></li>
         <li><a href="selecciones.html">SELECCIONES</a></li>
-        <li><a href="mystery-box.html">MISTERY BOX</a></li>
+        <li><a href="mystery-box.html">MYSTERY BOX</a></li>
         <li><a href="que-talla-soy.html">QUE TALLA SOY</a></li>
-        <li><a href="redes-sociales.html">REDES SOCIALES</a></li>
+        <li><a href="quienes-somos.html">QUIENES SOMOS</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <!-- Barra secundaria con categorías -->
-    <div id="secondary-nav">
-      <button onclick="sortProducts('CIENCIANO')" id="btn-cien">CIENCIANO</button>
-      <button onclick="sortProducts('ALIANZA LIMA')" id="btn-ali">ALIANZA LIMA</button>
-      <button onclick="sortProducts('UNIVERSITARIO')" id="btn-uni">UNIVERSITARIO</button>
-      <button onclick="sortProducts('SPORTING CRISTAL')" id="btn-spo">SPORTING CRISTAL</button>
-      <button onclick="sortProducts('MELGAR')" id="btn-mel">MELGAR</button>
+    <!-- Carrusel de 5 banners -->
+    <div class="carousel">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bal.png?raw=true" alt="Banner 1" class="active">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bu.png?raw=true" alt="Banner 2">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bc.png?raw=true" alt="Banner 3">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bsc.png?raw=true" alt="Banner 4">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bmelgar.png?raw=true" alt="Banner 5">
     </div>
-    
-    <!-- Grid de productos -->
-    <div id="product-grid">
-      <!-- CIENCIANO -->
-      <div class="product" data-category="CIENCIANO">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/CIENCIANO%20SUDAMERICANA.jpg?raw=true" alt="CIENCIANO CAMPEÓN SUDAMERICANA 2003">
-        <div class="product-name">CIENCIANO CAMPEÓN SUDAMERICANA 2003</div>
-        <div class="product-price">S/. 119</div>
+
+    <!-- Subcategorías -->
+    <div class="subcategories">
+      <button onclick="filterProducts('ALL')" class="active">TODOS</button>
+      <button onclick="filterProducts('ALIANZA LIMA')">ALIANZA LIMA</button>
+      <button onclick="filterProducts('CIENCIANO')">CIENCIANO</button>
+      <button onclick="filterProducts('UNIVERSITARIO DE DEPORTES')">UNIVERSITARIO DE DEPORTES</button>
+      <button onclick="filterProducts('SPORTING CRISTAL')">SPORTING CRISTAL</button>
+      <button onclick="filterProducts('MELGAR')">MELGAR</button>
+    </div>
+
+    <!-- Productos -->
+    <div class="products-container">
+      <!-- Producto 1: CIENCIANO CAMPEON SUDAMERICANA 2003 -->
+      <div class="product-card" data-category="CIENCIANO">
+        <h3>CIENCIANO CAMPEON SUDAMERICANA 2003</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/CIENCIANO%20SUDAMERICANA.jpg?raw=true" alt="CIENCIANO CAMPEON SUDAMERICANA 2003">
+        <div class="price">PRECIO: S/. 139</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(139)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="CIENCIANO">
+
+      <!-- Producto 2: CIENCIANO RECOPA SUDAMERICANA 2004 -->
+      <div class="product-card" data-category="CIENCIANO">
+        <h3>CIENCIANO RECOPA SUDAMERICANA 2004</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/CIENCIANO%20RECOPA.jpg?raw=true" alt="CIENCIANO RECOPA SUDAMERICANA 2004">
-        <div class="product-name">CIENCIANO RECOPA SUDAMERICANA 2004</div>
-        <div class="product-price">S/. 109</div>
+        <div class="price">PRECIO: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(129)">Agregar al carrito</button>
       </div>
-      <!-- ALIANZA LIMA -->
-      <div class="product" data-category="ALIANZA LIMA">
+
+      <!-- Producto 3: ALIANZA LIMA TEMPORADA 1997 -->
+      <div class="product-card" data-category="ALIANZA LIMA">
+        <h3>ALIANZA LIMA TEMPORADA 1997</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%201997.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 1997">
-        <div class="product-name">ALIANZA LIMA TEMPORADA 1997</div>
-        <div class="product-price">S/. 99</div>
+        <div class="price">PRECIO: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="ALIANZA LIMA">
+
+      <!-- Producto 4: ALIANZA LIMA TEMPORADA 2001 -->
+      <div class="product-card" data-category="ALIANZA LIMA">
+        <h3>ALIANZA LIMA TEMPORADA 2001</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%202001.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 2001">
-        <div class="product-name">ALIANZA LIMA TEMPORADA 2001</div>
-        <div class="product-price">S/. 99</div>
+        <div class="price">PRECIO: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="ALIANZA LIMA">
+
+      <!-- Producto 5: ALIANZA LIMA TEMPORADA 2010 -->
+      <div class="product-card" data-category="ALIANZA LIMA">
+        <h3>ALIANZA LIMA TEMPORADA 2010</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%202010.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 2010">
-        <div class="product-name">ALIANZA LIMA TEMPORADA 2010</div>
-        <div class="product-price">S/. 89</div>
+        <div class="price">PRECIO: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="ALIANZA LIMA">
+
+      <!-- Producto 6: ALIANZA LIMA TEMPORADA 2012 -->
+      <div class="product-card" data-category="ALIANZA LIMA">
+        <h3>ALIANZA LIMA TEMPORADA 2012</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%202012.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 2012">
-        <div class="product-name">ALIANZA LIMA TEMPORADA 2012</div>
-        <div class="product-price">S/. 109</div>
+        <div class="price">PRECIO: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="ALIANZA LIMA">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%201999.jpg?raw=true" alt="ALIANZA LIMA ALTERNA TEMPORADA 1999">
-        <div class="product-name">ALIANZA LIMA ALTERNA TEMPORADA 1999</div>
-        <div class="product-price">S/. 99</div>
+
+      <!-- Producto 7: ALIANZA LIMA TEMPORADA 1999 -->
+      <div class="product-card" data-category="ALIANZA LIMA">
+        <h3>ALIANZA LIMA TEMPORADA 1999</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALIANZA%20LIMA%201999.jpg?raw=true" alt="ALIANZA LIMA TEMPORADA 1999">
+        <div class="price">PRECIO: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(119)">Agregar al carrito</button>
       </div>
-      <!-- UNIVERSITARIO -->
-      <div class="product" data-category="UNIVERSITARIO">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%202000.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 2000">
-        <div class="product-name">UNIVERSITARIO TEMPORADA 2000</div>
-        <div class="product-price">S/. 119</div>
+
+      <!-- Producto 8: UNIVERSITARIO DE DEPORTES TEMPORADA 2000 -->
+      <div class="product-card" data-category="UNIVERSITARIO DE DEPORTES">
+        <h3>UNIVERSITARIO DE DEPORTES TEMPORADA 2000</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%202000.jpg?raw=true" alt="UNIVERSITARIO DE DEPORTES TEMPORADA 2000">
+        <div class="price">PRECIO: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(119)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="UNIVERSITARIO">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201993.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 1993">
-        <div class="product-name">UNIVERSITARIO TEMPORADA 1993</div>
-        <div class="product-price">S/. 129</div>
+
+      <!-- Producto 9: UNIVERSITARIO DE DEPORTES TEMPORADA 1993 -->
+      <div class="product-card" data-category="UNIVERSITARIO DE DEPORTES">
+        <h3>UNIVERSITARIO DE DEPORTES TEMPORADA 1993</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201993.jpg?raw=true" alt="UNIVERSITARIO DE DEPORTES TEMPORADA 1993">
+        <div class="price">PRECIO: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="UNIVERSITARIO">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201994.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 1994">
-        <div class="product-name">UNIVERSITARIO TEMPORADA 1994</div>
-        <div class="product-price">S/. 89</div>
+
+      <!-- Producto 10: UNIVERSITARIO DE DEPORTES TEMPORADA 1994 -->
+      <div class="product-card" data-category="UNIVERSITARIO DE DEPORTES">
+        <h3>UNIVERSITARIO DE DEPORTES TEMPORADA 1994</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201994.jpg?raw=true" alt="UNIVERSITARIO DE DEPORTES TEMPORADA 1994">
+        <div class="price">PRECIO: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="UNIVERSITARIO">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201997.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 1997">
-        <div class="product-name">UNIVERSITARIO TEMPORADA 1997</div>
-        <div class="product-price">S/. 149</div>
+
+      <!-- Producto 11: UNIVERSITARIO DE DEPORTES TEMPORADA 1997 -->
+      <div class="product-card" data-category="UNIVERSITARIO DE DEPORTES">
+        <h3>UNIVERSITARIO DE DEPORTES TEMPORADA 1997</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%201997.jpg?raw=true" alt="UNIVERSITARIO DE DEPORTES TEMPORADA 1997">
+        <div class="price">PRECIO: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="UNIVERSITARIO">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%202009.jpg?raw=true" alt="UNIVERSITARIO TEMPORADA 2009">
-        <div class="product-name">UNIVERSITARIO TEMPORADA 2009</div>
-        <div class="product-price">S/. 109</div>
+
+      <!-- Producto 12: UNIVERSITARIO DE DEPORTES TEMPORADA 2009 -->
+      <div class="product-card" data-category="UNIVERSITARIO DE DEPORTES">
+        <h3>UNIVERSITARIO DE DEPORTES TEMPORADA 2009</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/UNIVERSITARIO%202009.jpg?raw=true" alt="UNIVERSITARIO DE DEPORTES TEMPORADA 2009">
+        <div class="price">PRECIO: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(119)">Agregar al carrito</button>
       </div>
-      <!-- SPORTING CRISTAL -->
-      <div class="product" data-category="SPORTING CRISTAL">
+
+      <!-- Producto 13: SPORTING CRISTAL TEMPORADA 1997 -->
+      <div class="product-card" data-category="SPORTING CRISTAL">
+        <h3>SPORTING CRISTAL TEMPORADA 1997</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/SPORTING%20CRISTAL%201997.jpg?raw=true" alt="SPORTING CRISTAL TEMPORADA 1997">
-        <div class="product-name">SPORTING CRISTAL TEMPORADA 1997</div>
-        <div class="product-price">S/. 79</div>
+        <div class="price">PRECIO: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="SPORTING CRISTAL">
+
+      <!-- Producto 14: SPORTING CRISTAL TEMPORADA 1996 -->
+      <div class="product-card" data-category="SPORTING CRISTAL">
+        <h3>SPORTING CRISTAL TEMPORADA 1996</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/SPORTING%20CRISTAL%201996.jpg?raw=true" alt="SPORTING CRISTAL TEMPORADA 1996">
-        <div class="product-name">SPORTING CRISTAL TEMPORADA 1996</div>
-        <div class="product-price">S/. 89</div>
+        <div class="price">PRECIO: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
       </div>
-      <div class="product" data-category="SPORTING CRISTAL">
+
+      <!-- Producto 15: SPORTING CRISTAL ALTERNA TEMPORADA 1997 -->
+      <div class="product-card" data-category="SPORTING CRISTAL">
+        <h3>SPORTING CRISTAL ALTERNA TEMPORADA 1997</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/SPORTING%20CRISTAL%20ALTERNA%201997.jpg?raw=true" alt="SPORTING CRISTAL ALTERNA TEMPORADA 1997">
-        <div class="product-name">SPORTING CRISTAL ALTERNA TEMPORADA 1997</div>
-        <div class="product-price">S/. 99</div>
+        <div class="price">PRECIO: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
       </div>
-      <!-- MELGAR -->
-      <div class="product" data-category="MELGAR">
+
+      <!-- Producto 16: MELGAR TEMPORADA 1991 -->
+      <div class="product-card" data-category="MELGAR">
+        <h3>MELGAR TEMPORADA 1991</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/MELGAR%201991.jpg?raw=true" alt="MELGAR TEMPORADA 1991">
-        <div class="product-name">MELGAR TEMPORADA 1991</div>
-        <div class="product-price">S/. 79</div>
+        <div class="price">PRECIO: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
       </div>
     </div>
   </main>
+
   <script>
-    function sortProducts(category) {
-      // Quitar clase active de todos los botones y asignar al clickeado
-      document.querySelectorAll("#secondary-nav button").forEach(btn => btn.classList.remove("active"));
-      event.target.classList.add("active");
-      const grid = document.getElementById("product-grid");
-      const products = Array.from(grid.getElementsByClassName("product"));
-      products.sort((a, b) => {
-        const aCat = a.getAttribute("data-category");
-        const bCat = b.getAttribute("data-category");
-        if(aCat === category && bCat !== category) return -1;
-        if(bCat === category && aCat !== category) return 1;
-        return 0;
+    // Carrusel: cambia cada 3 segundos
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel img');
+    const totalSlides = slides.length;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
       });
-      grid.innerHTML = "";
-      products.forEach(prod => grid.appendChild(prod));
+    }
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    setInterval(nextSlide, 3000);
+
+    // Función para marcar la talla seleccionada
+    function selectSize(button) {
+      const container = button.parentElement;
+      Array.from(container.children).forEach(btn => btn.classList.remove('active-size'));
+      button.classList.add('active-size');
+    }
+
+    // Simulación simple de carrito: se suma el precio de cada producto agregado
+    let cartTotal = 0;
+    function addToCart(price) {
+      cartTotal += price;
+      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+      // Aquí se puede ampliar la funcionalidad para actualizar la UI del carrito
+    }
+
+    // Función para filtrar productos por subcategoría
+    function filterProducts(category) {
+      // Activar el botón seleccionado
+      const buttons = document.querySelectorAll('.subcategories button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const products = document.querySelectorAll('.product-card');
+      products.forEach(product => {
+        // Si se selecciona "TODOS", se muestran todos los productos
+        if(category === 'ALL') {
+          product.style.display = 'block';
+        } else {
+          // Compara el atributo data-category
+          if(product.getAttribute('data-category') === category) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        }
+      });
     }
   </script>
 </body>
