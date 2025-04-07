@@ -45,7 +45,7 @@
     }
 
     /* Logo */
-    #logo-bar img {
+    #logo-bar img.logo {
       width: 250px;
       max-width: 80%;
       height: auto;
@@ -55,11 +55,14 @@
     #cart {
       position: absolute;
       right: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #000000;
       top: 50%;
       transform: translateY(-50%);
+    }
+
+    #cart img {
+      width: 40px; /* Ajusta el tamaño según necesites */
+      height: auto;
+      cursor: pointer;
     }
 
     /* Barra de navegación (categorías) */
@@ -148,12 +151,11 @@
         font-size: 12px;
         padding: 5px;
       }
-      #logo-bar img {
+      #logo-bar img.logo {
         width: 180px;
       }
-      #cart {
-        font-size: 14px;
-        right: 10px;
+      #cart img {
+        width: 30px;
       }
       nav ul {
         flex-wrap: wrap;
@@ -177,18 +179,24 @@
     </div>
     <!-- Barra de logo y carrito -->
     <div id="logo-bar">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA">
-      <div id="cart">MI CARRITO</div>
+      <a href="index.html">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" class="logo">
+      </a>
+      <div id="cart">
+        <a href="micarrito.html">
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito">
+        </a>
+      </div>
     </div>
     <!-- Barra de navegación (categorías) -->
     <nav>
       <ul>
-        <li><a href="#internacionales">INTERNACIONALES</a></li>
-        <li><a href="#peruanas">PERUANAS</a></li>
-        <li><a href="#selecciones">SELECCIONES</a></li>
-        <li><a href="#mystery-box">MYSTERY BOX</a></li>
-        <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
-        <li><a href="#quienes-somos">QUIENES SOMOS</a></li>
+        <li><a href="internacionales.html">INTERNACIONALES</a></li>
+        <li><a href="peruanas.html">PERUANAS</a></li>
+        <li><a href="selecciones.html">SELECCIONES</a></li>
+        <li><a href="mysterybox.htlm">MYSTERY BOX</a></li>
+        <li><a href="quetallasoy.html">QUE TALLA SOY</a></li>
+        <li><a href="quienessomos.html">QUIENES SOMOS</a></li>
       </ul>
     </nav>
   </header>
