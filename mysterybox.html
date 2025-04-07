@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AURA - MYSTERY BOX</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    /* HEADER fijo */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+    /* Barra de envío */
+    #shipping-banner {
+      background-color: #000000;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    /* Logo y carrito */
+    #logo-bar {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+    #logo-bar img {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      cursor: pointer;
+    }
+    #cart {
+      position: absolute;
+      right: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000000;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    /* Menú de categorías */
+    nav {
+      background-color: #a90f0f;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    /* Contenido principal (se separa para no quedar debajo del header fijo) */
+    main {
+      margin-top: 240px;
+    }
+    /* Carrusel de banners */
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    .carousel img {
+      width: 100%;
+      display: none;
+    }
+    .carousel img.active {
+      display: block;
+    }
+    /* Productos */
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    .product-card h3 {
+      margin-bottom: 10px;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #000;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .size-buttons {
+      margin-bottom: 10px;
+    }
+    .size-buttons button {
+      margin: 5px;
+      padding: 5px 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .size-buttons button.active-size {
+      background-color: #a90f0f;
+      color: #fff;
+      border-color: #a90f0f;
+    }
+    .add-to-cart {
+      background-color: #a90f0f;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      #logo-bar img {
+        width: 180px;
+      }
+      #cart {
+        font-size: 14px;
+        right: 10px;
+      }
+      .products-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Barra de envíos -->
+    <div id="shipping-banner">
+      ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
+    </div>
+    <!-- Logo y carrito; el logo es clickeable y redirige a la página principal -->
+    <div id="logo-bar">
+      <a href="index.html"><img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA"></a>
+      <div id="cart">MI CARRITO</div>
+    </div>
+    <!-- Menú de categorías -->
+    <nav>
+      <ul>
+        <li><a href="internacionales.html">INTERNACIONALES</a></li>
+        <li><a href="peruanas.html">PERUANAS</a></li>
+        <li><a href="selecciones.html">SELECCIONES</a></li>
+        <li><a href="mystery-box.html">MYSTERY BOX</a></li>
+        <li><a href="que-talla-soy.html">QUE TALLA SOY</a></li>
+        <li><a href="quienes-somos.html">QUIENES SOMOS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Carrusel de banners para MYSTERY BOX -->
+    <div class="carousel">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bm1.png?raw=true" alt="Banner Mystery Box 1" class="active">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/seis.png?raw=true" alt="Banner Mystery Box 2">
+    </div>
+
+    <!-- Sección de productos -->
+    <div class="products-container">
+      <!-- Producto 1: MYSTERY BOX INTERNACIONALES -->
+      <div class="product-card" data-price="99">
+        <h3>MYSTERY BOX INTERNACIONALES</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/m3.png?raw=true" alt="Mystery Box Internacionales">
+        <div class="price">Precio: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+      </div>
+
+      <!-- Producto 2: MYSTERY BOX PERUANAS -->
+      <div class="product-card" data-price="89">
+        <h3>MYSTERY BOX PERUANAS</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/m1.png?raw=true" alt="Mystery Box Peruanas">
+        <div class="price">Precio: S/. 89</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(89)">Agregar al carrito</button>
+      </div>
+
+      <!-- Producto 3: MYSTERY BOX SELECCIONES -->
+      <div class="product-card" data-price="109">
+        <h3>MYSTERY BOX SELECCIONES</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/m2.png?raw=true" alt="Mystery Box Selecciones">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Carrusel: cambia cada 5 segundos
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel img');
+    const totalSlides = slides.length;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    setInterval(nextSlide, 5000);
+
+    // Función para marcar la talla seleccionada
+    function selectSize(button) {
+      const container = button.parentElement;
+      Array.from(container.children).forEach(btn => btn.classList.remove('active-size'));
+      button.classList.add('active-size');
+    }
+
+    // Simulación simple de carrito: se suma el precio de cada producto agregado
+    let cartTotal = 0;
+    function addToCart(price) {
+      cartTotal += price;
+      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+      // Aquí puedes ampliar la funcionalidad para actualizar la UI del carrito
+    }
+  </script>
+</body>
+</html>
