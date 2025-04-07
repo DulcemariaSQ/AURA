@@ -41,7 +41,7 @@
       justify-content: center;
       padding: 10px 20px;
       border-bottom: 1px solid #ccc;
-      position: relative; /* Para poder posicionar #cart */
+      position: relative;
     }
 
     /* Logo */
@@ -51,7 +51,7 @@
       height: auto;
     }
 
-    /* MI CARRITO (absoluto a la derecha) */
+    /* MI CARRITO (posición a la derecha) */
     #cart {
       position: absolute;
       right: 20px;
@@ -88,7 +88,7 @@
 
     /* Ajuste del contenido para que no quede debajo del header */
     main {
-      margin-top: 240px; /* Ajusta este valor según necesites más o menos espacio */
+      margin-top: 240px; /* Se ajustó a 240px */
     }
 
     /* Carrusel de banners */
@@ -163,7 +163,7 @@
         margin: 5px;
       }
       main {
-        margin-top: 300px; /* En móviles a veces se necesita más espacio, ajústalo si fuera el caso */
+        margin-top: 300px; /* Ajusta este valor si fuera necesario en móviles */
       }
     }
   </style>
@@ -196,8 +196,9 @@
   <main>
     <!-- Carrusel de banners (cambio cada 3 segundos) -->
     <div class="carousel">
+      <!-- Se actualiza el primer banner -->
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LAS%20MEJORES%20CAMISETAS%20EN%20UN%20SOLO%20LUGAR.png?raw=true" alt="Banner 1" class="active">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/uno.png?raw=true" alt="Banner 2">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/dos.png?raw=true" alt="Banner 2">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/3.png?raw=true" alt="Banner 3">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/4.png?raw=true" alt="Banner 4">
     </div>
