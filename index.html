@@ -3,180 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AURA - Tienda de Camisetas</title>
+  <title>AURA - Página de Camisetas Blaugranas</title>
   <style>
     /* Reset básico */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background-color:#000000; }
+    body { font-family: Arial, sans-serif; }
 
-    /* Cabecera fija */
-    header {
+    /* Barra superior de envío (fija) */
+    #shipping-banner {
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 1000;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    /* Barra de Envío Gratis */
-    #shipping-banner {
-      background-color: black;
-      color: white;
+      background-color: #000000;
+      color: #ffffff;
       text-align: center;
       padding: 8px;
       font-size: 14px;
       font-weight: bold;
+      z-index: 1000;
     }
-    /* Logo */
-    #logo {
-      text-align: center;
-      padding: 10px 0;
+
+    /* Barra de logo y carrito (fija, debajo de la barra de envío) */
+    #logo-bar {
+      position: fixed;
+      top: 40px; /* Altura de la barra de envío */
+      width: 100%;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      z-index: 999;
+      border-bottom: 1px solid #ccc;
     }
-    #logo img { width: 250px; max-width: 80%; height: auto; }
-    /* Navegación */
+
+    #logo-bar img {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+    }
+
+    /* Texto de MI CARRITO a la derecha */
+    #cart {
+      position: absolute;
+      right: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    /* Barra de navegación de opciones (fija, debajo del logo) */
     nav {
-      background-color: #004aad;
-      padding: 10px 0;
+      position: fixed;
+      top: calc(40px + 80px); /* Barra de envío (40px) + barra de logo (aprox. 80px) */
+      width: 100%;
+      background-color: #a90f0f;
+      z-index: 998;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      padding: 10px 0;
     }
-    nav ul li { margin: 0 10px; }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
     nav ul li a {
-      color: white;
+      color: #ffffff;
       text-decoration: none;
       font-weight: bold;
       font-size: 16px;
-      transition: color 0.3s ease;
     }
-    nav ul li a:hover { color: #000000; }
-    /* Clase para resaltar el enlace activo */
-    nav ul li a.active { color: yellow; }
-    /* Menú hamburguesa para móvil */
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 24px;
-      padding: 10px;
-      cursor: pointer;
+
+    /* Ajuste del contenido principal (para compensar las barras fijas) */
+    main {
+      margin-top: calc(40px + 80px + 50px); /* Suma de alturas: envío + logo + nav */
     }
+
     /* Carrusel de banners */
     .carousel {
       position: relative;
       max-width: 100%;
-      margin: 20px auto;
+      margin: 0 auto;
       overflow: hidden;
     }
-    .carousel img { width: 100%; display: none; }
-    .carousel img.active { display: block; }
-    /* Banner Mystery Box */
-    #mystery-box {
-      text-align: center;
-      margin: 20px 0;
+
+    .carousel img {
+      width: 100%;
+      display: none;
     }
-    #mystery-box img {
-      width: 90%;
-      max-width: 1200px;
-      border-radius: 8px;
+
+    .carousel img.active {
+      display: block;
     }
-    /* Banner Oferta */
-    #offer-banner {
-      text-align: center;
-      margin: 20px 0;
+
+    /* Banners separados */
+    .banner {
       position: relative;
+      text-align: center;
+      margin: 20px 0;
     }
-    #offer-banner img {
+
+    .banner img {
       width: 90%;
       max-width: 1200px;
       border-radius: 8px;
     }
+
+    /* Contador para el primer banner */
     #countdown {
       position: absolute;
       top: 20px;
       right: 20px;
       background: rgba(0,0,0,0.7);
-      color: #fff;
+      color: #ffffff;
       padding: 10px;
       border-radius: 5px;
       font-size: 1.2em;
     }
-    /* Compensar cabecera fija */
-    main { margin-top: 300px; }
-    
+
+    /* Barra inferior de productos (se desplaza con la página) */
+    #products-bar {
+      background-color: #000000;
+      color: #ffffff;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 20px;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       #shipping-banner { font-size: 12px; padding: 5px; }
-      #logo img { width: 180px; }
-      .menu-toggle { display: block; }
+      #logo-bar img { width: 180px; }
+      #cart { font-size: 14px; right: 10px; }
       nav ul {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 0;
+        flex-wrap: wrap;
+        padding: 5px 0;
       }
-      nav ul.active { display: flex; }
+      nav ul li { margin: 5px; }
     }
   </style>
 </head>
 <body>
+  <!-- Barra de envío fijo -->
+  <div id="shipping-banner">
+    ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
+  </div>
 
-  <header>
-    <div id="shipping-banner">ENVÍOS GRATIS POR PEDIDOS MAYORES A S/. 200</div>
-    <div id="logo">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LOGO%20AURA%20NOMBRE.png?raw=true" alt="Logo AURA">
-    </div>
-    <nav>
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-      <ul>
-        <li><a href="internacionales.html">INTERNACIONALES</a></li>
-        <li><a href="peruanas.html">PERUANAS</a></li>
-        <li><a href="selecciones.html">SELECCIONES</a></li>
-        <li><a href="mystery-box.html">MISTERY BOX</a></li>
-        <li><a href="que-talla-soy.html">QUE TALLA SOY</a></li>
-        <li><a href="redes-sociales.html">REDES SOCIALES</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Barra de logo y carrito fijo -->
+  <div id="logo-bar">
+    <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA">
+    <div id="cart">MI CARRITO</div>
+  </div>
+
+  <!-- Barra de navegación fija -->
+  <nav>
+    <ul>
+      <li><a href="#internacionales">INTERNACIONALES</a></li>
+      <li><a href="#peruanas">PERUANAS</a></li>
+      <li><a href="#selecciones">SELECCIONES</a></li>
+      <li><a href="#mystery-box">MISTERY BOX</a></li>
+      <li><a href="#que-talla-soy">QUE TALLA SOY</a></li>
+      <li><a href="#quienes-somos">QUIENES SOMOS</a></li>
+    </ul>
+  </nav>
 
   <main>
-    <!-- Carrusel de banners -->
+    <!-- Carrusel de banners (cambio cada 3 segundos) -->
     <div class="carousel">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B1.png?raw=true" alt="Banner 1" class="active">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B2.png?raw=true" alt="Banner 2">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/B3.png?raw=true" alt="Banner 3">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/dos.png?raw=true" alt="Banner 1" class="active">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/uno.png?raw=true" alt="Banner 2">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/3.png?raw=true" alt="Banner 3">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/4.png?raw=true" alt="Banner 4">
     </div>
-    
-    <!-- Banner Mystery Box -->
-    <div id="mystery-box">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O1.png?raw=true" alt="Banner Mystery Box">
-    </div>
-    
-    <!-- Banner Oferta con contador -->
-    <div id="offer-banner">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/O2.png?raw=true" alt="Banner Oferta del Mes">
+
+    <!-- Banner con contador (no carrusel) -->
+    <div class="banner" id="offer-banner">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/2.png?raw=true" alt="Banner Oferta">
       <div id="countdown"></div>
+    </div>
+
+    <!-- Segundo banner separado -->
+    <div class="banner" id="second-banner">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/1.png?raw=true" alt="Segundo Banner">
+    </div>
+
+    <!-- Barra inferior de productos -->
+    <div id="products-bar">
+      ALGUNOS DE NUESTROS PRODUCTOS
     </div>
   </main>
 
   <script>
-    function toggleMenu() {
-      document.querySelector("nav ul").classList.toggle("active");
-    }
-    // Sincronizar enlace activo según la URL actual
-    const currentPath = window.location.pathname.split("/").pop();
-    const navLinks = document.querySelectorAll("nav ul li a");
-    navLinks.forEach(link => {
-      if(link.getAttribute("href") === currentPath){
-        link.classList.add("active");
-      }
-    });
-
-    // Carrusel simple
+    // Carrusel: cambia cada 3 segundos
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel img');
     const totalSlides = slides.length;
@@ -187,9 +210,10 @@
       currentSlide = (currentSlide + 1) % totalSlides;
       showSlide(currentSlide);
     }
-    setInterval(nextSlide, 5000);
-    // Contador para la Oferta (hasta 30 de abril de 2025)
-    const countDownDate = new Date("Apr 30, 2025 00:00:00").getTime();
+    setInterval(nextSlide, 3000);
+
+    // Contador para Oferta: termina el 30 de abril de 2025 a las 11:59 pm
+    const countDownDate = new Date("Apr 30, 2025 23:59:00").getTime();
     const countdownFunction = setInterval(() => {
       const now = new Date().getTime();
       const distance = countDownDate - now;
@@ -205,6 +229,5 @@
       }
     }, 1000);
   </script>
-  
 </body>
 </html>
