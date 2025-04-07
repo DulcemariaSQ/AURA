@@ -40,20 +40,23 @@
       border-bottom: 1px solid #ccc;
       position: relative;
     }
-    #logo-bar img {
+    #logo-bar img.logo {
       width: 250px;
       max-width: 80%;
       height: auto;
       cursor: pointer;
     }
+    /* Contenedor del carrito (icono a la derecha) */
     #cart {
       position: absolute;
       right: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #000000;
       top: 50%;
       transform: translateY(-50%);
+    }
+    #cart img {
+      width: 40px; /* Ajusta el tamaño según tus preferencias */
+      height: auto;
+      cursor: pointer;
     }
     /* Menú de categorías */
     nav {
@@ -166,12 +169,11 @@
     }
     /* Responsive */
     @media (max-width: 768px) {
-      #logo-bar img {
+      #logo-bar img.logo {
         width: 180px;
       }
-      #cart {
-        font-size: 14px;
-        right: 10px;
+      #cart img {
+        width: 30px;
       }
       .products-container {
         flex-direction: column;
@@ -186,10 +188,17 @@
     <div id="shipping-banner">
       ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
     </div>
-    <!-- Logo y carrito; el logo redirige a la página principal -->
+    <!-- Logo y carrito -->
     <div id="logo-bar">
-      <a href="index.html"><img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA"></a>
-      <div id="cart">MI CARRITO</div>
+      <a href="index.html">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true"
+             alt="Logo AURA" class="logo">
+      </a>
+      <div id="cart">
+        <a href="micarrito.html">
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito">
+        </a>
+      </div>
     </div>
     <!-- Menú de categorías -->
     <nav>
@@ -237,7 +246,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(139)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 139)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 2: CIENCIANO RECOPA SUDAMERICANA 2004 -->
@@ -251,7 +260,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(129)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 3: ALIANZA LIMA TEMPORADA 1997 -->
@@ -265,7 +274,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 4: ALIANZA LIMA TEMPORADA 2001 -->
@@ -279,7 +288,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 5: ALIANZA LIMA TEMPORADA 2010 -->
@@ -293,7 +302,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 6: ALIANZA LIMA TEMPORADA 2012 -->
@@ -307,7 +316,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 7: ALIANZA LIMA TEMPORADA 1999 -->
@@ -321,7 +330,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(119)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 8: UNIVERSITARIO DE DEPORTES TEMPORADA 2000 -->
@@ -335,7 +344,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(119)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 9: UNIVERSITARIO DE DEPORTES TEMPORADA 1993 -->
@@ -349,7 +358,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 10: UNIVERSITARIO DE DEPORTES TEMPORADA 1994 -->
@@ -363,7 +372,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 11: UNIVERSITARIO DE DEPORTES TEMPORADA 1997 -->
@@ -377,7 +386,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 12: UNIVERSITARIO DE DEPORTES TEMPORADA 2009 -->
@@ -391,7 +400,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(119)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 13: SPORTING CRISTAL TEMPORADA 1997 -->
@@ -405,7 +414,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 14: SPORTING CRISTAL TEMPORADA 1996 -->
@@ -419,7 +428,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 15: SPORTING CRISTAL ALTERNA TEMPORADA 1997 -->
@@ -433,7 +442,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 16: MELGAR TEMPORADA 1991 -->
@@ -447,7 +456,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
       </div>
     </div>
   </main>
@@ -477,10 +486,18 @@
 
     // Simulación simple de carrito: se suma el precio de cada producto agregado
     let cartTotal = 0;
-    function addToCart(price) {
+    function addToCart(btn, price) {
+      // Obtener el contenedor del producto
+      const productCard = btn.closest('.product-card');
+      // Revisar si se seleccionó alguna talla en este producto
+      const sizeButtons = productCard.querySelectorAll('.size-buttons button');
+      const sizeSelected = Array.from(sizeButtons).some(button => button.classList.contains('active-size'));
+      if (!sizeSelected) {
+        alert("SELECCIONE LA TALLA POR FAVOR");
+        return;
+      }
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
-      // Aquí se puede ampliar la funcionalidad para actualizar la UI del carrito
     }
 
     // Función para filtrar productos por subcategoría
