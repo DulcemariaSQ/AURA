@@ -46,14 +46,17 @@
       height: auto;
       cursor: pointer;
     }
+    /* Contenedor del carrito (icono a la derecha) */
     #cart {
       position: absolute;
       right: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #000000;
       top: 50%;
       transform: translateY(-50%);
+    }
+    #cart img {
+      width: 40px; /* Ajusta el tamaño según tus preferencias */
+      height: auto;
+      cursor: pointer;
     }
     /* Menú de categorías */
     nav {
@@ -166,10 +169,16 @@
     <div id="shipping-banner">
       ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
     </div>
-    <!-- Logo y carrito; el logo es clickeable y redirige a la página principal -->
+    <!-- Logo y carrito; el logo redirige a index.html -->
     <div id="logo-bar">
-      <a href="index.html"><img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA"></a>
-      <div id="cart">MI CARRITO</div>
+      <a href="index.html">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA">
+      </a>
+      <div id="cart">
+        <a href="micarrito.html">
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito">
+        </a>
+      </div>
     </div>
     <!-- Menú de categorías -->
     <nav>
@@ -204,7 +213,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(99)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 2: MYSTERY BOX PERUANAS -->
@@ -218,7 +227,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(89)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 89)">Agregar al carrito</button>
       </div>
 
       <!-- Producto 3: MYSTERY BOX SELECCIONES -->
@@ -232,7 +241,7 @@
           <button onclick="selectSize(this)">L</button>
           <button onclick="selectSize(this)">XL</button>
         </div>
-        <button class="add-to-cart" onclick="addToCart(109)">Agregar al carrito</button>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
     </div>
   </main>
@@ -262,10 +271,18 @@
 
     // Simulación simple de carrito: se suma el precio de cada producto agregado
     let cartTotal = 0;
-    function addToCart(price) {
+    function addToCart(btn, price) {
+      // Obtener el contenedor del producto
+      const productCard = btn.closest('.product-card');
+      // Revisar si se seleccionó alguna talla en este producto
+      const sizeButtons = productCard.querySelectorAll('.size-buttons button');
+      const sizeSelected = Array.from(sizeButtons).some(button => button.classList.contains('active-size'));
+      if (!sizeSelected) {
+        alert("SELECCIONE LA TALLA POR FAVOR");
+        return;
+      }
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
-      // Aquí puedes ampliar la funcionalidad para actualizar la UI del carrito
     }
   </script>
 </body>
