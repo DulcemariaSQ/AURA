@@ -274,15 +274,34 @@
     function addToCart(btn, price) {
       // Obtener el contenedor del producto
       const productCard = btn.closest('.product-card');
-      // Revisar si se seleccionó alguna talla en este producto
+      // Revisar que se haya seleccionado una talla
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      const sizeSelected = Array.from(sizeButtons).some(button => button.classList.contains('active-size'));
-      if (!sizeSelected) {
+      const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+      if (!selectedSizeBtn) {
         alert("SELECCIONE LA TALLA POR FAVOR");
         return;
       }
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+      
+      // Extraer datos del producto
+      const productName = productCard.querySelector("h3").textContent;
+      const productImg = productCard.querySelector("img").src;
+      const productSize = selectedSizeBtn.textContent;
+
+      const productData = {
+        name: productName,
+        price: price,
+        size: productSize,
+        img: productImg
+      };
+
+      // Leer o inicializar el carrito en localStorage
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      // Agregar el producto al carrito
+      cart.push(productData);
+      // Guardar el carrito actualizado
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
   </script>
 </body>
