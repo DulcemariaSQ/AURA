@@ -121,4 +121,571 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      padding: 20
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    .product-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #000;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .size-buttons {
+      margin-bottom: 10px;
+    }
+    .size-buttons button {
+      margin: 5px;
+      padding: 5px 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .size-buttons button.active-size {
+      background-color: #a90f0f;
+      color: #fff;
+      border-color: #a90f0f;
+    }
+    .add-to-cart {
+      background-color: #a90f0f;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      #logo-bar img.logo {
+        width: 180px;
+      }
+      #cart img {
+        width: 30px;
+      }
+      .products-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Barra de envío -->
+    <div id="shipping-banner">
+      ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
+    </div>
+    <!-- Logo y carrito -->
+    <div id="logo-bar">
+      <a href="index.html">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" class="logo">
+      </a>
+      <div id="cart">
+        <a href="micarrito.html">
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito">
+        </a>
+      </div>
+    </div>
+    <!-- Menú de categorías -->
+    <nav>
+      <ul>
+        <li><a href="internacionales.html">INTERNACIONALES</a></li>
+        <li><a href="peruanas.html">PERUANAS</a></li>
+        <li><a href="selecciones.html">SELECCIONES</a></li>
+        <li><a href="mystery-box.html">MYSTERY BOX</a></li>
+        <li><a href="que-talla-soy.html">QUE TALLA SOY</a></li>
+        <li><a href="quienes-somos.html">QUIENES SOMOS</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <!-- Carrusel de banners (imágenes 17.png a 21.png) -->
+    <div class="carousel">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/17.png?raw=true" alt="Banner 1" class="active">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/18.png?raw=true" alt="Banner 2">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/19.png?raw=true" alt="Banner 3">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/20.png?raw=true" alt="Banner 4">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/21.png?raw=true" alt="Banner 5">
+    </div>
+    
+    <!-- Subcategorías -->
+    <div class="subcategories">
+      <button onclick="filterProducts('ALL')" class="active">TODOS</button>
+      <button onclick="filterProducts('PERÚ')">PERÚ</button>
+      <button onclick="filterProducts('ARGENTINA')">ARGENTINA</button>
+      <button onclick="filterProducts('BRASIL')">BRASIL</button>
+      <button onclick="filterProducts('ESPAÑA')">ESPAÑA</button>
+      <button onclick="filterProducts('ITALIA')">ITALIA</button>
+      <button onclick="filterProducts('ALEMANIA')">ALEMANIA</button>
+    </div>
+    
+    <!-- Productos -->
+    <div class="products-container">
+      <!-- PERÚ -->
+      <div class="product-card" data-category="PERÚ">
+        <h3>PERU ELIMINATORIAS FRANCIA 1988</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%20ELIMINATORIAS%20FRANCIA%201988.jpg?raw=true" alt="PERU ELIMINATORIAS FRANCIA 1988">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <!-- ARGENTINA -->
+      <div class="product-card" data-category="ARGENTINA">
+        <h3>ARGENTINA 2002 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="ARGENTINA 2002 VISITA">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ARGENTINA">
+        <h3>ARGENTINA 2014 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202014%20LOCAL.jpg?raw=true" alt="ARGENTINA 2014 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ARGENTINA">
+        <h3>ARGENTINA 2010 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202010%20LOCAL.jpg?raw=true" alt="ARGENTINA 2010 LOCAL">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ARGENTINA">
+        <h3>ARGENTINA 2014 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202014%20VISITA.jpg?raw=true" alt="ARGENTINA 2014 VISITA">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ARGENTINA">
+        <h3>ARGENTINA 2006 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202006%20VISITA.jpg?raw=true" alt="ARGENTINA 2006 VISITA">
+        <div class="price">Precio: S/. 139</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 139)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ARGENTINA">
+        <h3>ARGENTINA 1978 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%201978%20LOCAL.jpg?raw=true" alt="ARGENTINA 1978 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <!-- BRASIL -->
+      <div class="product-card" data-category="BRASIL">
+        <h3>BRASIL 2018 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202018%20LOCAL.jpg?raw=true" alt="BRASIL 2018 LOCAL">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="BRASIL">
+        <h3>BRASIL 2014 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202014%20LOCAL.jpg?raw=true" alt="BRASIL 2014 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="BRASIL">
+        <h3>BRASIL 1996 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%201986%20VISITA.jpg?raw=true" alt="BRASIL 1996 VISITA">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="BRASIL">
+        <h3>BRASIL 1957 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%201957%20LOCAL.jpg?raw=true" alt="BRASIL 1957 LOCAL">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="BRASIL">
+        <h3>BRASIL 2010 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202010%20VISITA.jpg?raw=true" alt="BRASIL 2010 VISITA">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="BRASIL">
+        <h3>BRASIL 1998 ARQUERO LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%201988%20ARQUERO%20LOCAL.jpg?raw=true" alt="BRASIL 1998 ARQUERO LOCAL">
+        <div class="price">Precio: S/. 189</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 189)">Agregar al carrito</button>
+      </div>
+      
+      <!-- ESPAÑA -->
+      <div class="product-card" data-category="ESPAÑA">
+        <h3>ESPAÑA 2000 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202000%20VISITA.jpg?raw=true" alt="ESPAÑA 2000 VISITA">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ESPAÑA">
+        <h3>ESPAÑA 2000 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202000%20LOCAL.jpg?raw=true" alt="ESPAÑA 2000 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ESPAÑA">
+        <h3>ESPAÑA 1998 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%201988%20LOCAL.jpg?raw=true" alt="ESPAÑA 1998 LOCAL">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ESPAÑA">
+        <h3>ESPAÑA 1996 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%201996%20VISITA.jpg?raw=true" alt="ESPAÑA 1996 VISITA">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ESPAÑA">
+        <h3>ESPAÑA 2002 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202002%20LOCAL.jpg?raw=true" alt="ESPAÑA 2002 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <!-- ITALIA -->
+      <div class="product-card" data-category="ITALIA">
+        <h3>ITALIA 1995 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201995%20VISITA.jpg?raw=true" alt="ITALIA 1995 VISITA">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ITALIA">
+        <h3>ITALIA 1995 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201995%20LOCAL.jpg?raw=true" alt="ITALIA 1995 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ITALIA">
+        <h3>ITALIA 1998 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201998%20VISITA.jpg?raw=true" alt="ITALIA 1998 LOCAL">
+        <div class="price">Precio: S/. 139</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 139)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ITALIA">
+        <h3>ITALIA 2006 ARQUERO</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%202006%20ARQUERO.jpg?raw=true" alt="ITALIA 2006 ARQUERO">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ITALIA">
+        <h3>ITALIA 2000 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%202000%20LOCAL.jpg?raw=true" alt="ITALIA 2000 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ITALIA">
+        <h3>ITALIA 1998 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ITALIA%201998%20VISITA.jpg?raw=true" alt="ITALIA 1998 VISITA">
+        <div class="price">Precio: S/. 119</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+      </div>
+      
+      <!-- ALEMANIA -->
+      <div class="product-card" data-category="ALEMANIA">
+        <h3>ALEMANIA 2018 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%202018%20LOCAL.jpg?raw=true" alt="ALEMANIA 2018 LOCAL">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ALEMANIA">
+        <h3>ALEMANIA 1992 VISITA</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%201992%20VISITA.jpg?raw=true" alt="ALEMANIA 1992 VISITA">
+        <div class="price">Precio: S/. 139</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 139)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ALEMANIA">
+        <h3>ALEMANIA 1986 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%201986%20LOCAL.jpg?raw=true" alt="ALEMANIA 1986 LOCAL">
+        <div class="price">Precio: S/. 149</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 149)">Agregar al carrito</button>
+      </div>
+      
+      <div class="product-card" data-category="ALEMANIA">
+        <h3>ALEMANIA 2006 LOCAL</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ALEMANIA%202006%20LOCAL.jpg?raw=true" alt="ALEMANIA 2006 LOCAL">
+        <div class="price">Precio: S/. 129</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Carrusel: cambia cada 5 segundos
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel img');
+    const totalSlides = slides.length;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    setInterval(nextSlide, 5000);
+    
+    // Función para seleccionar talla
+    function selectSize(button) {
+      const container = button.parentElement;
+      Array.from(container.children).forEach(btn => btn.classList.remove('active-size'));
+      button.classList.add('active-size');
+    }
+    
+    // Función para agregar al carrito (verifica que se haya seleccionado talla)
+    let cartTotal = 0;
+    function addToCart(btn, price) {
+      const productCard = btn.closest('.product-card');
+      const sizeButtons = productCard.querySelectorAll('.size-buttons button');
+      const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+      if (!selectedSizeBtn) {
+        alert("SELECCIONE LA TALLA POR FAVOR");
+        return;
+      }
+      
+      // Actualizar el total (opcional si se desea mantener esta funcionalidad)
+      cartTotal += price;
+      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+      
+      // Obtener datos del producto
+      const productName = productCard.querySelector("h3").textContent;
+      const productImg = productCard.querySelector("img").src;
+      const productSize = selectedSizeBtn.textContent;
+      
+      const productData = {
+        name: productName,
+        price: price,
+        size: productSize,
+        img: productImg
+      };
+      
+      // Leer el carrito actual desde el localStorage o inicializar un arreglo nuevo
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      
+      // Agregar el nuevo producto al carrito
+      cart.push(productData);
+      
+      // Guardar el carrito actualizado en el localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+    
+    // Función para filtrar productos según subcategoría
+    function filterProducts(category) {
+      const buttons = document.querySelectorAll('.subcategories button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const products = document.querySelectorAll('.product-card');
+      products.forEach(product => {
+        if (category === 'ALL') {
+          product.style.display = 'block';
+        } else {
+          if (product.getAttribute('data-category') === category) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
