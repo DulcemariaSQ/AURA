@@ -5,177 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AURA - Mi Carrito</title>
   <style>
-    /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #333;
-      padding-bottom: 40px; /* para espacio final */
-    }
-    /* HEADER fijo */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 999;
-      background: #fff;
-    }
-    /* Barra de envíos */
-    #shipping-banner {
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      padding: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-    /* Logo y carrito */
-    #logo-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 20px;
-      border-bottom: 1px solid #ccc;
-      position: relative;
-    }
-    #logo-bar img.logo {
-      width: 250px;
-      max-width: 80%;
-      height: auto;
-      cursor: pointer;
-    }
-    /* Ícono del carrito en header */
-    #cart {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    #cart img {
-      width: 40px;
-      height: auto;
-      cursor: pointer;
-    }
-    /* Menú de categorías */
-    nav {
-      background-color: #a90f0f;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      padding: 10px 0;
-      margin: 0;
-    }
-    nav ul li {
-      margin: 0 10px;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    /* Contenido principal */
-    main {
-      margin-top: 240px; /* espacio para header fijo */
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    /* Tabla de productos */
-    .cart-table {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto 20px auto;
-      border-collapse: collapse;
-      background: #fff;
-    }
-    .cart-table th,
-    .cart-table td {
-      padding: 12px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-    .cart-table th {
-      background-color: #f2f2f2;
-    }
-    .cart-table img {
-      max-width: 80px;
-      height: auto;
-    }
+    /* --- Estilos similares a los de la tienda --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f7f7f7; color: #333; padding-bottom: 40px; }
+    header { position: fixed; top: 0; width: 100%; z-index: 999; background: #fff; }
+    #shipping-banner { background-color: #000; color: #fff; text-align: center; padding: 8px; font-size: 14px; font-weight: bold; }
+    #logo-bar { display: flex; align-items: center; justify-content: center; padding: 10px 20px; border-bottom: 1px solid #ccc; position: relative; }
+    #logo-bar img.logo { width: 250px; max-width: 80%; height: auto; cursor: pointer; }
+    #cart { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+    #cart img { width: 40px; height: auto; cursor: pointer; }
+    nav { background-color: #a90f0f; }
+    nav ul { list-style: none; display: flex; justify-content: center; padding: 10px 0; margin: 0; }
+    nav ul li { margin: 0 10px; }
+    nav ul li a { color: #fff; text-decoration: none; font-weight: bold; font-size: 16px; }
+    main { margin-top: 240px; padding: 20px; }
+    h1 { text-align: center; margin-bottom: 20px; }
+    /* Tabla del carrito */
+    .cart-table { width: 100%; max-width: 1000px; margin: 0 auto 20px; border-collapse: collapse; background: #fff; }
+    .cart-table th, .cart-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+    .cart-table th { background-color: #f2f2f2; }
+    .cart-table img { max-width: 80px; height: auto; }
     /* Resumen de compra */
-    .summary {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border: 1px solid #ddd;
-    }
-    .summary h2 {
-      margin-bottom: 20px;
-    }
-    .summary p {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-    .summary .buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .summary .buttons button {
-      background-color: #a90f0f;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
-      flex: 1;
-    }
-    .summary .buttons button.secondary {
-      background-color: #666;
-    }
-    /* Mensaje de carrito vacío */
-    .empty-cart {
-      text-align: center;
-      font-size: 20px;
-      margin: 40px 0;
-    }
-    /* Responsive */
+    .summary { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px; border: 1px solid #ddd; }
+    .summary h2 { margin-bottom: 20px; }
+    .summary p { font-size: 18px; margin-bottom: 10px; }
+    .summary .buttons { margin-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .summary .buttons button { background-color: #a90f0f; color: #fff; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; flex: 1; }
+    .summary .buttons button.secondary { background-color: #666; }
+    .empty-cart { text-align: center; font-size: 20px; margin: 40px 0; }
     @media (max-width: 768px) {
-      #logo-bar img.logo {
-        width: 180px;
-      }
-      #cart img {
-        width: 30px;
-      }
-      .cart-table th, .cart-table td {
-        font-size: 14px;
-        padding: 8px;
-      }
-      .summary p {
-        font-size: 16px;
-      }
-      .summary .buttons button {
-        font-size: 14px;
-        padding: 10px;
-      }
+      #logo-bar img.logo { width: 180px; }
+      #cart img { width: 30px; }
+      .cart-table th, .cart-table td { font-size: 14px; padding: 8px; }
+      .summary p { font-size: 16px; }
+      .summary .buttons button { font-size: 14px; padding: 10px; }
     }
   </style>
 </head>
 <body>
-  <!-- Cabecera -->
+  <!-- Cabecera (igual que en todas las páginas) -->
   <header>
     <div id="shipping-banner">
       ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
@@ -202,113 +70,117 @@
     </nav>
   </header>
 
-  <!-- Contenido principal -->
+  <!-- Contenido principal del carrito -->
   <main>
     <h1>🛒 Mi Carrito</h1>
-    <!-- Aquí se listan los productos del carrito -->
-    <!-- Si el carrito está vacío, se mostrará un mensaje (en este ejemplo se muestran dos productos de ejemplo) -->
-    <table class="cart-table">
-      <thead>
-        <tr>
-          <th>Imagen</th>
-          <th>Nombre</th>
-          <th>Talla</th>
-          <th>Precio Unitario</th>
-          <th>Cantidad</th>
-          <th>Subtotal</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody id="cart-items">
-        <!-- Producto 1 (ejemplo) -->
-        <tr>
-          <td><img src="https://github.com/DulcemariaSQ/AURA/blob/main/BARCA%202009-2010%20LOCAL.jpg?raw=true" alt="Producto 1"></td>
-          <td>BARCELONA 2009-2010 LOCAL PLAYER VERSION ML</td>
-          <td id="talla-prod1">M</td>
-          <td data-price="109">S/. 109</td>
-          <td>
-            <input type="number" min="1" value="1" style="width: 50px;" onchange="updateSubtotal(this)">
-          </td>
-          <td class="subtotal">S/. 109</td>
-          <td>
-            <button onclick="removeProduct(this)">🗑️</button>
-          </td>
-        </tr>
-        <!-- Producto 2 (ejemplo) -->
-        <tr>
-          <td><img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="Producto 2"></td>
-          <td>ARGENTINA 2002 VISITA</td>
-          <td id="talla-prod2">L</td>
-          <td data-price="109">S/. 109</td>
-          <td>
-            <input type="number" min="1" value="2" style="width: 50px;" onchange="updateSubtotal(this)">
-          </td>
-          <td class="subtotal">S/. 218</td>
-          <td>
-            <button onclick="removeProduct(this)">🗑️</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="cart-content">
+      <!-- Aquí se generarán dinámicamente los productos del carrito -->
+    </div>
 
-    <!-- Resumen de la compra -->
-    <div class="summary">
-      <h2>Resumen de Compra</h2>
-      <p id="total-products">Total de productos: 3</p>
-      <p id="total-amount">Total a pagar: S/. 327</p>
-      <div class="buttons">
-        <button onclick="finalizarCompra()">Finalizar compra</button>
-        <button class="secondary" onclick="location.href='index.html'">Seguir comprando</button>
-      </div>
+    <!-- Resumen de compra -->
+    <div class="summary" id="cart-summary">
+      <!-- Se actualizará dinámicamente -->
     </div>
   </main>
 
   <script>
-    // Función para actualizar subtotal cuando cambia la cantidad
-    function updateSubtotal(input) {
-      const tr = input.closest('tr');
-      const price = parseFloat(tr.querySelector('td[data-price]').getAttribute('data-price'));
-      const quantity = parseInt(input.value);
-      const subtotalCell = tr.querySelector('.subtotal');
-      subtotalCell.textContent = "S/. " + (price * quantity);
+    // Al cargar la página, leemos el carrito del localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      const cartContent = document.getElementById('cart-content');
+      const cartSummary = document.getElementById('cart-summary');
+      cartContent.innerHTML = ""; // Limpiar contenido
+
+      if (cart.length === 0) {
+        cartContent.innerHTML = '<p class="empty-cart">Tu carrito está vacío. <button onclick="location.href=\'index.html\'">Ir a la tienda</button></p>';
+        cartSummary.innerHTML = "";
+        return;
+      }
+
+      // Crear tabla de productos
+      let table = document.createElement('table');
+      table.classList.add('cart-table');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Talla</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      `;
+      cartContent.appendChild(table);
+
+      const tbody = document.getElementById('cart-items');
+
+      cart.forEach((item, index) => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><img src="${item.image}" alt="${item.name}"></td>
+          <td>${item.name}</td>
+          <td>${item.talla}</td>
+          <td data-price="${item.price}">S/. ${item.price}</td>
+          <td>
+            <input type="number" min="1" value="${item.quantity}" style="width: 50px;" onchange="updateQuantity(${index}, this)">
+          </td>
+          <td class="subtotal">S/. ${item.price * item.quantity}</td>
+          <td><button onclick="removeItem(${index})">🗑️</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
       updateSummary();
     }
 
-    // Función para remover un producto de la tabla (elemento tr)
-    function removeProduct(button) {
-      const tr = button.closest('tr');
-      tr.remove();
-      updateSummary();
+    function updateQuantity(index, input) {
+      const newQty = parseInt(input.value);
+      if(newQty < 1) return;
+      cart[index].quantity = newQty;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
     }
 
-    // Actualiza el resumen total de productos y monto
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
     function updateSummary() {
       let totalProducts = 0;
       let totalAmount = 0;
-      const rows = document.querySelectorAll('#cart-items tr');
-      rows.forEach(row => {
-        const qty = parseInt(row.querySelector('input[type="number"]').value);
-        const price = parseFloat(row.querySelector('td[data-price]').getAttribute('data-price'));
-        totalProducts += qty;
-        totalAmount += qty * price;
+      cart.forEach(item => {
+        totalProducts += item.quantity;
+        totalAmount += item.quantity * item.price;
       });
-      document.getElementById('total-products').textContent = "Total de productos: " + totalProducts;
-      document.getElementById('total-amount').textContent = "Total a pagar: S/. " + totalAmount;
-      
-      // Si el carrito queda vacío, se muestra un mensaje
-      if (rows.length === 0) {
-        document.getElementById('cart-items').innerHTML = 
-          '<tr><td colspan="7" class="empty-cart">Tu carrito está vacío. <button onclick="location.href=\'index.html\'">Ir a la tienda</button></td></tr>';
-      }
+
+      const cartSummary = document.getElementById('cart-summary');
+      cartSummary.innerHTML = `
+        <h2>Resumen de Compra</h2>
+        <p>Total de productos: ${totalProducts}</p>
+        <p>Total a pagar: S/. ${totalAmount}</p>
+        <div class="buttons">
+          <button onclick="finalizarCompra()">Finalizar compra</button>
+          <button class="secondary" onclick="location.href='index.html'">Seguir comprando</button>
+        </div>
+      `;
     }
 
     function finalizarCompra() {
-      // Aquí colocarías la lógica para finalizar la compra o redirigir a la pasarela de pago.
+      // Aquí iría la lógica para procesar la compra o redirigir a la pasarela de pago
       alert("¡Gracias por tu compra!");
+      localStorage.removeItem('cart');
+      renderCart();
     }
-    
-    // Inicializamos resumen al cargar la página
-    updateSummary();
+
+    // Inicializamos el render del carrito cuando se carga la página
+    renderCart();
   </script>
 </body>
 </html>
