@@ -14,7 +14,6 @@
     body {
       font-family: Arial, sans-serif;
     }
-
     /* HEADER fijo que contiene todo */
     header {
       position: fixed;
@@ -22,7 +21,6 @@
       width: 100%;
       z-index: 999;
     }
-
     /* Barra de envío (dentro del header) */
     #shipping-banner {
       background-color: #000000;
@@ -32,7 +30,6 @@
       font-size: 14px;
       font-weight: bold;
     }
-
     /* Sección del logo + carrito (dentro del header) */
     #logo-bar {
       background-color: #ffffff;
@@ -43,14 +40,12 @@
       border-bottom: 1px solid #ccc;
       position: relative;
     }
-
     /* Logo */
     #logo-bar img.logo {
       width: 250px;
       max-width: 80%;
       height: auto;
     }
-
     /* MI CARRITO (posición a la derecha) */
     #cart {
       position: absolute;
@@ -58,18 +53,15 @@
       top: 50%;
       transform: translateY(-50%);
     }
-
     #cart img {
-      width: 40px; /* Ajusta el tamaño según necesites */
+      width: 40px;
       height: auto;
       cursor: pointer;
     }
-
     /* Barra de navegación (categorías) */
     nav {
       background-color: #a90f0f;
     }
-
     nav ul {
       list-style: none;
       display: flex;
@@ -77,23 +69,19 @@
       padding: 10px 0;
       margin: 0;
     }
-
     nav ul li {
       margin: 0 10px;
     }
-
     nav ul li a {
       color: #ffffff;
       text-decoration: none;
       font-weight: bold;
       font-size: 16px;
     }
-
     /* Ajuste del contenido para que no quede debajo del header */
     main {
-      margin-top: 240px; /* Se ajustó a 240px */
+      margin-top: 240px;
     }
-
     /* Carrusel de banners */
     .carousel {
       position: relative;
@@ -101,29 +89,24 @@
       margin: 0 auto;
       overflow: hidden;
     }
-
     .carousel img {
       width: 100%;
       display: none;
     }
-
     .carousel img.active {
       display: block;
     }
-
     /* Banners separados */
     .banner {
       position: relative;
       text-align: center;
       margin: 20px 0;
     }
-
     .banner img {
       width: 90%;
       max-width: 1200px;
       border-radius: 8px;
     }
-
     /* Contador para el banner con fecha límite */
     #countdown {
       position: absolute;
@@ -135,7 +118,6 @@
       border-radius: 5px;
       font-size: 1.2em;
     }
-
     /* Barra inferior de productos (se desplaza con la página) */
     #products-bar {
       background-color: #000000;
@@ -144,7 +126,58 @@
       padding: 15px 0;
       margin-top: 20px;
     }
-
+    /* Estilos para las tarjetas de producto */
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    .product-card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #000;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .size-buttons {
+      margin-bottom: 10px;
+    }
+    .size-buttons button {
+      margin: 5px;
+      padding: 5px 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .size-buttons button.active-size {
+      background-color: #a90f0f;
+      color: #fff;
+      border-color: #a90f0f;
+    }
+    .add-to-cart {
+      background-color: #a90f0f;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
     /* Responsive */
     @media (max-width: 768px) {
       #shipping-banner {
@@ -165,7 +198,7 @@
         margin: 5px;
       }
       main {
-        margin-top: 300px; /* Ajusta este valor si fuera necesario en móviles */
+        margin-top: 300px;
       }
     }
   </style>
@@ -204,7 +237,6 @@
   <main>
     <!-- Carrusel de banners (cambio cada 3 segundos) -->
     <div class="carousel">
-      <!-- Se actualiza el primer banner -->
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LAS%20MEJORES%20CAMISETAS%20EN%20UN%20SOLO%20LUGAR.png?raw=true" alt="Banner 1" class="active">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/dos.png?raw=true" alt="Banner 2">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/3.png?raw=true" alt="Banner 3">
@@ -226,43 +258,96 @@
     <div id="products-bar">
       ALGUNOS DE NUESTROS PRODUCTOS
     </div>
-  </main>
 
-  <script>
-    // Carrusel: cambia cada 3 segundos
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.carousel img');
-    const totalSlides = slides.length;
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-      });
-    }
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      showSlide(currentSlide);
-    }
-    setInterval(nextSlide, 3000);
+    <!-- Sección de productos de Mystery Box -->
+    <div class="products-container">
+      <!-- Producto 1: MYSTERY BOX INTERNACIONALES -->
+      <div class="product-card" data-price="99">
+        <h3>MYSTERY BOX INTERNACIONALES</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/m3.png?raw=true" alt="Mystery Box Internacionales">
+        <div class="price">Precio: S/. 99</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 99)">Agregar al carrito</button>
+      </div>
 
-    // Contador para la oferta (hasta 30 de abril de 2025 a las 11:59 pm)
-    const countDownDate = new Date("Apr 30, 2025 23:59:00").getTime();
-    const countdownFunction = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      <!-- Producto 2: MYSTERY BOX PERUANAS -->
+      <div class="product-card" data-price="89">
+        <h3>MYSTERY BOX PERUANAS</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/m1.png?raw=true" alt="Mystery Box Peruanas">
+        <div class="price">Precio: S/. 89</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 89)">Agregar al carrito</button>
+      </div>
 
-      document.getElementById("countdown").innerHTML =
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      <!-- Producto 3: MYSTERY BOX SELECCIONES -->
+      <div class="product-card" data-price="109">
+        <h3>MYSTERY BOX SELECCIONES</h3>
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/m2.png?raw=true" alt="Mystery Box Selecciones">
+        <div class="price">Precio: S/. 109</div>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+      </div>
+    </div>
 
-      if (distance < 0) {
-        clearInterval(countdownFunction);
-        document.getElementById("countdown").innerHTML = "¡Oferta Finalizada!";
-      }
-    }, 1000);
-  </script>
+    <!-- Sección extra: Otras Camisetas (3 Internaciones, 3 Selecciones, 3 Peruanas) -->
+    <div id="extra-products">
+      <h2 style="text-align:center; margin:20px 0;">Otras Camisetas</h2>
+      <div class="products-container">
+        <!-- INTERNACIONALES -->
+        <div class="product-card" data-category="INTERNACIONALES">
+          <h3>BARCELONA 2009-2010 LOCAL PLAYER VERSION ML</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BARCA%202009-2010%20LOCAL.jpg?raw=true" alt="Barcelona 2009-2010 Local">
+          <div class="price">Precio: S/. 109</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+        </div>
+        <div class="product-card" data-category="INTERNACIONALES">
+          <h3>MILAN 2006-2007 VISITA PLAYER VERSION</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/MILAN%202006-2007%20VISITA.jpg?raw=true" alt="Milan 2006-2007 Visita">
+          <div class="price">Precio: S/. 119</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+        </div>
+        <div class="product-card" data-category="INTERNACIONALES">
+          <h3>REAL MADRID 2009-2010 LOCAL PLAYER VERSION</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/REAL%20MADRID%202009-2010%20LOCAL.jpg?raw=true" alt="Real Madrid 2009-2010 Local">
+          <div class="price">Precio: S/. 129</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+        </div>
 
-</body>
-</html>
+        <!-- SELECCIONES -->
+        <div class="product-card" data-category="SELECCIONES">
+          <h3>ARGENTINA 2002 VISITA</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="Argentina 2002 Visita">
+          <
