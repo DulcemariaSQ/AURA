@@ -350,4 +350,152 @@
         <div class="product-card" data-category="SELECCIONES">
           <h3>ARGENTINA 2002 VISITA</h3>
           <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="Argentina 2002 Visita">
-          <
+          <div class="price">Precio: S/. 109</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+        </div>
+        <div class="product-card" data-category="SELECCIONES">
+          <h3>BRASIL 2010 VISITA</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202010%20VISITA.jpg?raw=true" alt="Brasil 2010 Visita">
+          <div class="price">Precio: S/. 119</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+        </div>
+        <div class="product-card" data-category="SELECCIONES">
+          <h3>ESPAÑA 2000 LOCAL</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202000%20LOCAL.jpg?raw=true" alt="España 2000 Local">
+          <div class="price">Precio: S/. 129</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+        </div>
+
+        <!-- PERUANAS -->
+        <div class="product-card" data-category="PERUANAS">
+          <h3>PERÚ ELIMINATORIAS FRANCIA 1988</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%20ELIMINATORIAS%20FRANCIA%201988.jpg?raw=true" alt="Perú Eliminatorias 1988">
+          <div class="price">Precio: S/. 129</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
+        </div>
+        <div class="product-card" data-category="PERUANAS">
+          <h3>PERÚ 2010 LOCAL</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%202010%20LOCAL.jpg?raw=true" alt="Perú 2010 Local">
+          <div class="price">Precio: S/. 119</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
+        </div>
+        <div class="product-card" data-category="PERUANAS">
+          <h3>PERÚ 2008 VISITA</h3>
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%202008%20VISITA.jpg?raw=true" alt="Perú 2008 Visita">
+          <div class="price">Precio: S/. 109</div>
+          <div class="size-buttons">
+            <button onclick="selectSize(this)">S</button>
+            <button onclick="selectSize(this)">M</button>
+            <button onclick="selectSize(this)">L</button>
+            <button onclick="selectSize(this)">XL</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Carrusel: cambia cada 3 segundos
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel img');
+    const totalSlides = slides.length;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    setInterval(nextSlide, 3000);
+
+    // Contador para la oferta (hasta 30 de abril de 2025, 23:59)
+    const countDownDate = new Date("Apr 30, 2025 23:59:00").getTime();
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "¡Oferta Finalizada!";
+      }
+    }, 1000);
+
+    // Función para marcar la talla seleccionada
+    function selectSize(button) {
+      const container = button.parentElement;
+      Array.from(container.children).forEach(btn => btn.classList.remove('active-size'));
+      button.classList.add('active-size');
+    }
+
+    // Función para agregar al carrito (simula sumar el precio y guarda producto en localStorage)
+    let cartTotal = 0;
+    function addToCart(btn, price) {
+      const productCard = btn.closest('.product-card');
+      const sizeButtons = productCard.querySelectorAll('.size-buttons button');
+      const selectedSize = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+      if (!selectedSize) {
+        alert("SELECCIONE LA TALLA POR FAVOR");
+        return;
+      }
+      cartTotal += price;
+      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+
+      const productName = productCard.querySelector("h3").textContent;
+      const productImg = productCard.querySelector("img").src;
+      const productSize = selectedSize.textContent;
+
+      const productData = {
+        name: productName,
+        price: price,
+        size: productSize,
+        img: productImg
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(productData);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  </script>
+
+</body>
+</html>
