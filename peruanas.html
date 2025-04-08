@@ -491,13 +491,34 @@
       const productCard = btn.closest('.product-card');
       // Revisar si se seleccionó alguna talla en este producto
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      const sizeSelected = Array.from(sizeButtons).some(button => button.classList.contains('active-size'));
-      if (!sizeSelected) {
+      const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+      if (!selectedSizeBtn) {
         alert("SELECCIONE LA TALLA POR FAVOR");
         return;
       }
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+      
+      // Obtener datos del producto: nombre, imagen y talla seleccionada
+      const productName = productCard.querySelector("h3").textContent;
+      const productImg = productCard.querySelector("img").src;
+      const productSize = selectedSizeBtn.textContent;
+      
+      const productData = {
+        name: productName,
+        price: price,
+        size: productSize,
+        img: productImg
+      };
+
+      // Leer el carrito actual del localStorage o inicializar un arreglo nuevo
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      
+      // Agregar el nuevo producto al carrito
+      cart.push(productData);
+      
+      // Guardar el carrito actualizado en el localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     // Función para filtrar productos por subcategoría
@@ -513,7 +534,7 @@
         if(category === 'ALL') {
           product.style.display = 'block';
         } else {
-          // Compara el atributo data-category
+          // Se compara con el atributo data-category
           if(product.getAttribute('data-category') === category) {
             product.style.display = 'block';
           } else {
