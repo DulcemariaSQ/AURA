@@ -9,56 +9,198 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <style>
     /* --- Estilos generales --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f7f7f7; color: #333; padding-bottom: 40px; }
-    header { position: fixed; top: 0; width: 100%; z-index: 999; background: #fff; }
-    #shipping-banner { background-color: #000; color: #fff; text-align: center; padding: 8px; font-size: 14px; font-weight: bold; }
-    #logo-bar { display: flex; align-items: center; justify-content: center; padding: 10px 20px; border-bottom: 1px solid #ccc; position: relative; }
-    #logo-bar img.logo { width: 250px; max-width: 80%; height: auto; cursor: pointer; }
-    #cart { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
-    #cart img { width: 40px; height: auto; cursor: pointer; }
-    nav { background-color: #a90f0f; }
-    nav ul { list-style: none; display: flex; justify-content: center; padding: 10px 0; margin: 0; }
-    nav ul li { margin: 0 10px; }
-    nav ul li a { color: #fff; text-decoration: none; font-weight: bold; font-size: 16px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      padding-bottom: 40px;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      background: #fff;
+    }
+    #shipping-banner {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    #logo-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+    #logo-bar img.logo {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      cursor: pointer;
+    }
+    #cart {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #cart img {
+      width: 40px;
+      height: auto;
+      cursor: pointer;
+    }
+    nav {
+      background-color: #a90f0f;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-    main { margin-top: 240px; padding: 20px; }
-    h1 { text-align: center; margin-bottom: 20px; }
+    main {
+      margin-top: 240px;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Contenedor para PDF */
+    #pdf-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    /* Logo grande dentro del PDF */
+    /* CAMBIO: Logo grande al inicio del contenedor pdf-content */
+    .large-logo {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 300px; /* Ajusta el tamaño según quieras */
+    }
 
     /* Tabla del carrito */
-    .cart-table { width: 100%; max-width: 1000px; margin: 0 auto 20px; border-collapse: collapse; background: #fff; }
-    .cart-table th, .cart-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
-    .cart-table th { background-color: #f2f2f2; }
-    .cart-table img { width: 80px; height: 80px; object-fit: cover; }
+    .cart-table {
+      width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    .cart-table th, .cart-table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    .cart-table th {
+      background-color: #f2f2f2;
+    }
+    .cart-table img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
 
-    /* Resumen de compra */
-    .summary { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px; border: 1px solid #ddd; }
-    .summary h2 { margin-bottom: 20px; }
-    .summary p { font-size: 18px; margin-bottom: 10px; }
-    .summary .buttons { margin-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-    .summary .buttons button { background-color: #a90f0f; color: #fff; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; flex: 1; }
-    .summary .buttons button.secondary { background-color: #666; }
+    /* Resumen de compra (dentro de #pdf-content, sin botones) */
+    .summary {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+    .summary h2 {
+      margin-bottom: 20px;
+    }
+    .summary p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
 
     /* Envío y Datos de usuario */
-    .shipping { margin-top: 20px; }
-    .shipping label { display: block; font-weight: bold; margin-top: 10px; }
-    .shipping select, .shipping input { width: 100%; padding: 8px; margin-top: 5px; }
-    .shipping .cost { margin-top: 10px; font-weight: bold; }
-    .contact { margin-top: 20px; }
-    .contact label { font-weight: bold; display: block; margin-top: 10px; }
-    .contact input { width: 100%; padding: 8px; margin-top: 5px; }
-    #province-field { display: none; } /* Campo extra para Provincia */
+    .shipping {
+      margin-top: 20px;
+    }
+    .shipping label {
+      display: block;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .shipping select, .shipping input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .shipping .cost {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .contact {
+      margin-top: 20px;
+    }
+    .contact label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    .contact input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    #province-field {
+      display: none;
+    }
 
-    .empty-cart { text-align: center; font-size: 20px; margin: 40px 0; }
+    .empty-cart {
+      text-align: center;
+      font-size: 20px;
+      margin: 40px 0;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
-      #logo-bar img.logo { width: 180px; }
-      #cart img { width: 30px; }
-      .cart-table th, .cart-table td { font-size: 14px; padding: 8px; }
-      .summary p { font-size: 16px; }
-      .summary .buttons button { font-size: 14px; padding: 10px; }
-      .cart-table img { width: 60px; height: 60px; }
+      #logo-bar img.logo {
+        width: 180px;
+      }
+      #cart img {
+        width: 30px;
+      }
+      .cart-table th, .cart-table td {
+        font-size: 14px;
+        padding: 8px;
+      }
+      .cart-table img {
+        width: 60px;
+        height: 60px;
+      }
+      .summary p {
+        font-size: 16px;
+      }
     }
 
     /* Modal de Pago */
@@ -88,9 +230,20 @@
       margin: 0 auto 10px;
       max-width: 150px;
     }
-    .modal-content h3 { margin-bottom: 10px; text-align: center; }
-    .modal-content label { display: block; margin: 10px 0 5px; font-weight: bold; }
-    .modal-content input { width: 100%; padding: 10px; margin-bottom: 10px; }
+    .modal-content h3 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .modal-content label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
     .modal-content button {
       background-color: #a90f0f;
       color: #fff;
@@ -103,18 +256,42 @@
       width: 100%;
     }
 
-    /* CAMBIO: Ajustamos la “X” para que sea más pequeña y quede en la esquina */
+    /* CAMBIO: Botón de cierre más pequeño y en la esquina superior derecha */
     .close-btn {
       position: absolute;
-      right: 10px;  /* Separación un poco mayor */
-      top: 10px;    /* Bájala un poco */
+      top: 8px;
+      right: 8px;
       background: transparent;
       border: none;
-      font-size: 18px; /* Tamaño más moderado */
+      font-size: 20px;  /* Ajusta si quieres aún más pequeño (ej. 18px, 16px) */
       cursor: pointer;
+      line-height: 1;
     }
 
-    /* Banner de Método de Pagos */
+    /* Botones de acciones (fuera del PDF) */
+    .action-buttons {
+      max-width: 1000px;
+      margin: 20px auto;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .action-buttons button {
+      background-color: #a90f0f;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      flex: 1;
+      max-width: 200px;
+    }
+    .action-buttons button.secondary {
+      background-color: #666;
+    }
+
+    /* Banner de método de Pagos (fuera del PDF) */
     .payment-banner {
       background-color: #000;
       color: #fff;
@@ -137,7 +314,9 @@
       gap: 10px;
       cursor: pointer;
     }
-    .payment-method-item img { width: 100px; }
+    .payment-method-item img {
+      width: 100px;
+    }
     .payment-method-item button {
       background-color: #a90f0f;
       color: #fff;
@@ -147,6 +326,7 @@
       cursor: pointer;
       border-radius: 4px;
     }
+
   </style>
 </head>
 <body>
@@ -172,7 +352,7 @@
         <li><a href="selecciones.html">SELECCIONES</a></li>
         <li><a href="mystery-box.html">MYSTERY BOX</a></li>
         <li><a href="que-talla-soy.html">QUE TALLA SOY</a></li>
-        <li><a href="quienes-somos.html">QUIENes SOMOS</a></li>
+        <li><a href="quienes-somos.html">QUIENES SOMOS</a></li>
       </ul>
     </nav>
   </header>
@@ -181,14 +361,28 @@
   <main>
     <h1>🛒 Mi Carrito</h1>
 
-    <!-- CAMBIO: Agregamos un contenedor que envuelva la tabla y el resumen -->
+    <!-- CAMBIO: Contenedor para el PDF -->
     <div id="pdf-content">
-      <!-- Aquí va la tabla del carrito -->
+      <!-- Logo grande (que sí aparecerá en el PDF) -->
+      <img
+        src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true"
+        alt="Logo AURA grande"
+        class="large-logo"
+      >
+
+      <!-- Tabla del carrito -->
       <div id="cart-content"></div>
-      <!-- Y el resumen de compra -->
+
+      <!-- Resumen de compra (sin botones) -->
       <div class="summary" id="cart-summary"></div>
     </div>
-    <!-- Fin contenedor pdf-content -->
+
+    <!-- Fuera de #pdf-content para que no salga en el PDF -->
+    <div class="action-buttons">
+      <button onclick="finalizarCompra()">Finalizar compra</button>
+      <button class="secondary" onclick="location.href='index.html'">Seguir comprando</button>
+      <button onclick="descargarCotizacion()">Descargar Cotización (PDF)</button>
+    </div>
   </main>
 
   <!-- Modal de Pago -->
@@ -206,6 +400,19 @@
       <label for="cvv">CVV</label>
       <input type="text" id="cvv" placeholder="XXX">
       <button id="modal-finalizar" onclick="finalizarPago()" disabled>FINALIZAR</button>
+    </div>
+  </div>
+
+  <!-- Fuera de #pdf-content: Banner y métodos de pago -->
+  <div class="payment-banner">MÉTODO DE PAGOS:</div>
+  <div class="payment-methods">
+    <div class="payment-method-item">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true" alt="Visa">
+      <button onclick="abrirModalPago('Visa')">Pagar con VISA</button>
+    </div>
+    <div class="payment-method-item">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/Mastercard-logo.svg.png?raw=true" alt="Mastercard">
+      <button onclick="abrirModalPago('Mastercard')">Pagar con MASTERCARD</button>
     </div>
   </div>
 
@@ -258,7 +465,7 @@
       `;
       cartContent.appendChild(table);
 
-      const tbody = document.getElementById('cart-items');
+      const tbody = table.querySelector('#cart-items');
       cart.forEach((item, index) => {
         let subtotal = item.price * item.quantity;
         let tr = document.createElement('tr');
@@ -293,7 +500,7 @@
       renderCart();
     }
 
-    /* Resumen de compra, envío y datos de contacto */
+    /* Resumen de compra, envío y datos de contacto (sin los botones) */
     function updateSummary() {
       let totalProducts = 0;
       let totalAmount = 0;
@@ -303,16 +510,17 @@
       });
 
       const cartSummary = document.getElementById('cart-summary');
-      // Mantener los valores de envío al re-renderizar:
       const shippingMethodSelect = document.getElementById('shipping-method');
       const shippingMethod = shippingMethodSelect ? shippingMethodSelect.value : "";
       let shippingCost = 0;
       const addressInput = document.getElementById('address');
       const postalCodeInput = document.getElementById('postal-code');
       const provinceField = document.getElementById('province-field');
+
       let address = addressInput ? addressInput.value.trim() : "";
       let postalCode = postalCodeInput ? postalCodeInput.value.trim() : "";
       let province = "";
+
       if (shippingMethod === "Provincia") {
         provinceField.style.display = "block";
         const provinceInput = document.getElementById('province');
@@ -322,10 +530,10 @@
       }
 
       if (
-        shippingMethod && 
-        address !== "" && 
-        postalCode !== "" && 
-        (shippingMethod !== "Provincia" || (shippingMethod==="Provincia" && province !== ""))
+        shippingMethod &&
+        address !== "" &&
+        postalCode !== "" &&
+        (shippingMethod !== "Provincia" || (shippingMethod === "Provincia" && province !== ""))
       ) {
         if (totalAmount >= 200) {
           shippingCost = 0;
@@ -338,7 +546,7 @@
 
       const totalAPagar = totalAmount + shippingCost;
 
-      // CAMBIO: para que el PDF termine en el teléfono, TODO lo que queramos en PDF debe estar aquí
+      // HTML del Resumen (aquí NO van los botones)
       cartSummary.innerHTML = `
         <h2>Resumen de Compra</h2>
         <p>Total de productos: ${totalProducts}</p>
@@ -364,7 +572,7 @@
             <p class="cost" id="shipping-cost">${
               shippingCost === 0 && shippingMethod && address !== "" && postalCode !== ""
                 ? "Costo de envío: GRATIS"
-                : (address !== "" && postalCode !== "" 
+                : (address !== "" && postalCode !== ""
                   ? "Costo de envío: S/. " + shippingCost
                   : "")
             }</p>
@@ -378,15 +586,7 @@
           <label for="phone">Número para comunicarnos (9 dígitos):</label>
           <input type="text" id="phone" placeholder="Ej. 987654321" maxlength="9">
         </div>
-        <div class="buttons">
-          <button onclick="finalizarCompra()">Finalizar compra</button>
-          <button class="secondary" onclick="location.href='index.html'">Seguir comprando</button>
-          <button onclick="descargarCotizacion()">Descargar Cotización (PDF)</button>
-        </div>
       `;
-
-      /* NOTA: Dejamos fuera de este bloque (y por ende fuera del PDF) 
-               la sección de método de pago, así el PDF termina en el teléfono. */
     }
 
     function finalizarCompra() {
@@ -396,16 +596,16 @@
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "";
+      const province = (shippingMethod === "Provincia") ? document.getElementById('province').value.trim() : "";
 
       if (
-        !shippingMethod || 
-        address === "" || 
-        postalCode === "" || 
-        (shippingMethod==="Provincia" && province==="") || 
-        fullName === "" || 
-        userEmail === "" || 
-        phone.length !== 9 || 
+        !shippingMethod ||
+        address === "" ||
+        postalCode === "" ||
+        (shippingMethod === "Provincia" && province === "") ||
+        fullName === "" ||
+        userEmail === "" ||
+        phone.length !== 9 ||
         isNaN(phone)
       ) {
         alert("Por favor, completa todos los datos obligatorios de envío y contacto.");
@@ -424,23 +624,23 @@
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "";
+      const province = (shippingMethod === "Provincia") ? document.getElementById('province').value.trim() : "";
 
       if (
-        !shippingMethod || 
-        address === "" || 
-        postalCode === "" || 
-        (shippingMethod==="Provincia" && province==="") || 
-        fullName === "" || 
-        userEmail === "" || 
-        phone.length !== 9 || 
+        !shippingMethod ||
+        address === "" ||
+        postalCode === "" ||
+        (shippingMethod === "Provincia" && province === "") ||
+        fullName === "" ||
+        userEmail === "" ||
+        phone.length !== 9 ||
         isNaN(phone)
       ) {
         alert("Por favor, completa todos los datos obligatorios de envío y contacto antes de descargar la cotización.");
         return;
       }
 
-      // CAMBIO: Usamos el contenedor #pdf-content para tomar captura (incluye tabla + resumen)
+      /* Generamos PDF de #pdf-content (incluye logo grande, tabla, y resumen hasta teléfono) */
       const pdfSection = document.getElementById("pdf-content");
       const canvas = await html2canvas(pdfSection, { scale: 2 });
       const imgData = canvas.toDataURL("image/png");
@@ -459,20 +659,19 @@
     const modal = document.getElementById('payment-modal');
 
     function abrirModalPago(method) {
-      // Validamos datos para abrir la ventana de pago
       const shippingMethod = document.getElementById('shipping-method').value;
       const address = document.getElementById('address').value.trim();
       const postalCode = document.getElementById('postal-code').value.trim();
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "";
+      const province = (shippingMethod === "Provincia") ? document.getElementById('province').value.trim() : "";
 
       if (
         !shippingMethod ||
         address === "" ||
         postalCode === "" ||
-        (shippingMethod==="Provincia" && province==="") ||
+        (shippingMethod === "Provincia" && province==="") ||
         fullName === "" ||
         userEmail === "" ||
         phone.length !== 9 ||
@@ -481,6 +680,7 @@
         alert("Completa todos los datos obligatorios de envío y contacto para proceder al pago.");
         return;
       }
+
       modal.style.display = "block";
       console.log("Método de pago seleccionado:", method);
     }
@@ -521,20 +721,6 @@
     // Renderizar el carrito al cargar la página
     renderCart();
 
-    // Sección de métodos de pago fuera del #pdf-content, para que no aparezca en el PDF
   </script>
-
-  <!-- Fuera de #pdf-content: Métodos de pago (Visa, MasterCard) -->
-  <div class="payment-banner">MÉTODO DE PAGOS:</div>
-  <div class="payment-methods">
-    <div class="payment-method-item">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true" alt="Visa">
-      <button onclick="abrirModalPago('Visa')">Pagar con VISA</button>
-    </div>
-    <div class="payment-method-item">
-      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/Mastercard-logo.svg.png?raw=true" alt="Mastercard">
-      <button onclick="abrirModalPago('Mastercard')">Pagar con MASTERCARD</button>
-    </div>
-  </div>
 </body>
 </html>
