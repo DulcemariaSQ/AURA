@@ -46,7 +46,6 @@
     .contact { margin-top: 20px; }
     .contact label { font-weight: bold; display: block; margin-top: 10px; }
     .contact input { width: 100%; padding: 8px; margin-top: 5px; }
-    
     /* Campo extra para Provincia */
     #province-field { display: none; }
     
@@ -139,11 +138,11 @@
     }
     .close-btn {
       position: absolute;
-      right: 10px;
-      top: 10px;
+      right: 5px; /* Tamaño reducido */
+      top: 5px;
       background: transparent;
       border: none;
-      font-size: 18px;
+      font-size: 12px;
       cursor: pointer;
     }
   </style>
@@ -180,25 +179,12 @@
   <main>
     <h1>🛒 Mi Carrito</h1>
     <div id="cart-content">
-      <!-- La tabla del carrito se generará aquí -->
+      <!-- Se generará la tabla del carrito aquí -->
     </div>
 
     <!-- Resumen de compra (envuelto para PDF) -->
     <div class="summary" id="cart-summary">
       <!-- Se actualizará dinámicamente -->
-    </div>
-    
-    <!-- Banner de Método de Pagos (Sólo una instancia) -->
-    <div class="payment-banner">MÉTODO DE PAGOS</div>
-    <div class="payment-methods">
-      <div class="payment-method-item">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true" alt="Visa">
-        <button onclick="abrirModalPago('Visa')">Pagar con VISA</button>
-      </div>
-      <div class="payment-method-item">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/Mastercard-logo.svg.png?raw=true" alt="Mastercard">
-        <button onclick="abrirModalPago('Mastercard')">Pagar con MASTERCARD</button>
-      </div>
     </div>
   </main>
 
@@ -313,33 +299,25 @@
         totalAmount += item.price * item.quantity;
       });
 
-      // Obtener el select de envío y sus campos
+      // Obtener el método de envío y campos correspondientes
       const shippingMethodSelect = document.getElementById('shipping-method');
       const shippingMethod = shippingMethodSelect ? shippingMethodSelect.value : "";
       let shippingCost = 0;
-      
-      // Si ya se ingresaron dirección y código postal, entonces se calcula el costo
       const addressInput = document.getElementById('address');
       const postalCodeInput = document.getElementById('postal-code');
       const provinceField = document.getElementById('province-field');
       let address = addressInput ? addressInput.value.trim() : "";
       let postalCode = postalCodeInput ? postalCodeInput.value.trim() : "";
       let province = "";
-      
-      // Mostrar el campo extra de provincia si se selecciona "Provincia"
       if (shippingMethod === "Provincia") {
         provinceField.style.display = "block";
         const provinceInput = document.getElementById('province');
         province = provinceInput ? provinceInput.value.trim() : "";
       } else {
-        if (document.getElementById('province-field')) {
-          document.getElementById('province-field').style.display = "none";
-        }
+        if (provinceField) provinceField.style.display = "none";
       }
       
-      // Solo se calcula el costo si se llenaron dirección y código postal, y (para provincia) el campo extra
-      if (shippingMethod && address !== "" && postalCode !== "" && (shippingMethod !== "Provincia" || (shippingMethod === "Provincia" && province !== ""))) {
-        // Si total de productos es mayor o igual a 200, envío es gratis
+      if (shippingMethod && address !== "" && postalCode !== "" && (shippingMethod !== "Provincia" || (shippingMethod==="Provincia" && province !== ""))) {
         if (totalAmount >= 200) {
           shippingCost = 0;
         } else {
@@ -348,8 +326,8 @@
           else if (shippingMethod === "Provincia") shippingCost = 15;
         }
       }
-
       const totalAPagar = totalAmount + shippingCost;
+
       const cartSummary = document.getElementById('cart-summary');
       cartSummary.innerHTML = `
         <h2>Resumen de Compra</h2>
@@ -404,15 +382,13 @@
     }
 
     function finalizarCompra() {
-      // Validar datos obligatorios de envío y contacto
       const shippingMethod = document.getElementById('shipping-method').value;
       const address = document.getElementById('address').value.trim();
       const postalCode = document.getElementById('postal-code').value.trim();
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      // Si shipping es Provincia, validar el campo extra
-      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "N/A";
+      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "";
       if (!shippingMethod || address === "" || postalCode === "" || (shippingMethod==="Provincia" && province==="") || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
         alert("Por favor, completa todos los datos obligatorios de envío y contacto.");
         return;
@@ -422,9 +398,7 @@
       renderCart();
     }
 
-    /* Función para generar y descargar el PDF del resumen de compra */
     async function descargarCotizacion() {
-      // Validar datos de envío y contacto
       const shippingMethod = document.getElementById('shipping-method').value;
       const address = document.getElementById('address').value.trim();
       const postalCode = document.getElementById('postal-code').value.trim();
@@ -450,9 +424,7 @@
 
     /* Modal de Pago */
     const modal = document.getElementById('payment-modal');
-
     function abrirModalPago(method) {
-      // Solo se permite abrir el modal si los datos de envío y contacto están completos
       const shippingMethod = document.getElementById('shipping-method').value;
       const address = document.getElementById('address').value.trim();
       const postalCode = document.getElementById('postal-code').value.trim();
@@ -476,7 +448,6 @@
       document.getElementById("modal-finalizar").disabled = true;
     }
 
-    // Validar campos del modal y habilitar botón FINALIZAR
     const modalInputs = document.querySelectorAll("#card-number, #expiry, #cvv");
     modalInputs.forEach(input => {
       input.addEventListener('input', () => {
