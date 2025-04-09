@@ -20,11 +20,13 @@
     nav ul li a { color: #fff; text-decoration: none; font-weight: bold; font-size: 16px; }
     main { margin-top: 240px; padding: 20px; }
     h1 { text-align: center; margin-bottom: 20px; }
+    
     /* Tabla del carrito */
     .cart-table { width: 100%; max-width: 1000px; margin: 0 auto 20px; border-collapse: collapse; background: #fff; }
     .cart-table th, .cart-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
     .cart-table th { background-color: #f2f2f2; }
-    .cart-table img { max-width: 80px; height: auto; }
+    .cart-table img { width: 80px; height: 80px; object-fit: cover; }
+    
     /* Resumen de compra */
     .summary { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px; border: 1px solid #ddd; }
     .summary h2 { margin-bottom: 20px; }
@@ -32,6 +34,37 @@
     .summary .buttons { margin-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
     .summary .buttons button { background-color: #a90f0f; color: #fff; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; flex: 1; }
     .summary .buttons button.secondary { background-color: #666; }
+    
+    /* Envío y Datos de usuario */
+    .shipping { margin-top: 20px; }
+    .shipping label { display: block; font-weight: bold; margin-top: 10px; }
+    .shipping select,
+    .shipping input { width: 100%; padding: 8px; margin-top: 5px; }
+    .shipping .cost { margin-top: 10px; font-weight: bold; }
+    .contact { margin-top: 20px; }
+    .contact label { font-weight: bold; display: block; margin-top: 10px; }
+    .contact input { width: 100%; padding: 8px; margin-top: 5px; }
+
+    /* Banner de Método de Pagos */
+    .payment-banner {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .payment-methods {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .payment-methods img {
+      width: 100px;
+      margin: 0 10px;
+      vertical-align: middle;
+    }
+    
     .empty-cart { text-align: center; font-size: 20px; margin: 40px 0; }
     @media (max-width: 768px) {
       #logo-bar img.logo { width: 180px; }
@@ -39,11 +72,12 @@
       .cart-table th, .cart-table td { font-size: 14px; padding: 8px; }
       .summary p { font-size: 16px; }
       .summary .buttons button { font-size: 14px; padding: 10px; }
+      .cart-table img { width: 60px; height: 60px; }
     }
   </style>
 </head>
 <body>
-  <!-- Cabecera (igual que en todas las páginas) -->
+  <!-- Cabecera -->
   <header>
     <div id="shipping-banner">
       ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
@@ -74,26 +108,42 @@
   <main>
     <h1>🛒 Mi Carrito</h1>
     <div id="cart-content">
-      <!-- Aquí se generarán dinámicamente los productos del carrito -->
+      <!-- Aquí se generará la tabla del carrito -->
     </div>
 
-    <!-- Resumen de compra -->
+    <!-- Resumen de compra con sección de envíos y datos de contacto -->
     <div class="summary" id="cart-summary">
-      <!-- Se actualizará dinámicamente -->
+      <!-- El resumen se actualizará dinámicamente -->
     </div>
   </main>
 
   <script>
-    // Al cargar la página, leemos el carrito del localStorage
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    /* Usamos sessionStorage para que los datos se borren al cerrar el navegador */
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+    // Si el carrito está vacío, se agrega un producto base
+    if (cart.length === 0) {
+      cart.push({
+        image: "https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%201978%20LOCAL.jpg?raw=true",
+        name: "ARGENTINA 1978 LOCAL (BASE)",
+        talla: "M",
+        price: 129,
+        quantity: 1
+      });
+      sessionStorage.setItem('cart', JSON.stringify(cart));
+    }
 
     function renderCart() {
       const cartContent = document.getElementById('cart-content');
       const cartSummary = document.getElementById('cart-summary');
-      cartContent.innerHTML = ""; // Limpiar contenido
+      cartContent.innerHTML = "";
 
       if (cart.length === 0) {
-        cartContent.innerHTML = '<p class="empty-cart">Tu carrito está vacío. <button onclick="location.href=\'index.html\'">Ir a la tienda</button></p>';
+        cartContent.innerHTML = `
+          <p class="empty-cart">
+            Tu carrito está vacío.
+            <button onclick="location.href='index.html'">Ir a la tienda</button>
+          </p>`;
         cartSummary.innerHTML = "";
         return;
       }
@@ -118,18 +168,19 @@
       cartContent.appendChild(table);
 
       const tbody = document.getElementById('cart-items');
-
       cart.forEach((item, index) => {
+        let subtotal = item.price * item.quantity;
         let tr = document.createElement('tr');
         tr.innerHTML = `
           <td><img src="${item.image}" alt="${item.name}"></td>
           <td>${item.name}</td>
           <td>${item.talla}</td>
-          <td data-price="${item.price}">S/. ${item.price}</td>
+          <td>S/. ${item.price}</td>
           <td>
-            <input type="number" min="1" value="${item.quantity}" style="width: 50px;" onchange="updateQuantity(${index}, this)">
+            <input type="number" min="1" value="${item.quantity}" style="width: 50px;"
+                   onchange="updateQuantity(${index}, this)">
           </td>
-          <td class="subtotal">S/. ${item.price * item.quantity}</td>
+          <td class="subtotal">S/. ${subtotal}</td>
           <td><button onclick="removeItem(${index})">🗑️</button></td>
         `;
         tbody.appendChild(tr);
@@ -142,45 +193,132 @@
       const newQty = parseInt(input.value);
       if(newQty < 1) return;
       cart[index].quantity = newQty;
-      localStorage.setItem('cart', JSON.stringify(cart));
+      sessionStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
     }
 
     function removeItem(index) {
       cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
+      sessionStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
     }
 
+    // Actualizar el resumen de compra, incluir envío y datos de contacto
     function updateSummary() {
       let totalProducts = 0;
       let totalAmount = 0;
       cart.forEach(item => {
         totalProducts += item.quantity;
-        totalAmount += item.quantity * item.price;
+        totalAmount += item.price * item.quantity;
       });
 
       const cartSummary = document.getElementById('cart-summary');
       cartSummary.innerHTML = `
         <h2>Resumen de Compra</h2>
         <p>Total de productos: ${totalProducts}</p>
-        <p>Total a pagar: S/. ${totalAmount}</p>
+        <p>Subtotal de productos: S/. ${totalAmount}</p>
+        <div class="shipping">
+          <label for="shipping-method">Elige tu envío:</label>
+          <select id="shipping-method" onchange="updateShipping()">
+            <option value="">-- Selecciona una opción --</option>
+            <option value="Arequipa">AREQUIPA</option>
+            <option value="Lima">LIMA</option>
+            <option value="Provincia">PROVINCIA</option>
+          </select>
+          <div id="shipping-fields" style="display:none;">
+            <label for="address">Dirección:</label>
+            <input type="text" id="address" placeholder="Ingresa tu dirección">
+            <label for="postal-code">Código Postal:</label>
+            <input type="text" id="postal-code" placeholder="Ingresa tu código postal">
+            <p class="cost" id="shipping-cost"></p>
+          </div>
+        </div>
+        <div class="contact">
+          <label for="email">Escribe tu correo para envío de resumen de compra:</label>
+          <input type="email" id="email" placeholder="tu@correo.com">
+        </div>
         <div class="buttons">
           <button onclick="finalizarCompra()">Finalizar compra</button>
           <button class="secondary" onclick="location.href='index.html'">Seguir comprando</button>
+          <button onclick="enviarCotizacion()">Enviar Cotización por Gmail</button>
+          <button onclick="enviarResumen()">Enviar Resumen (PDF)</button>
+        </div>
+        <div class="payment-banner">
+          MÉTODO DE PAGOS:
+        </div>
+        <div class="payment-methods">
+          <img src="https://via.placeholder.com/100x50?text=Visa" alt="Visa">
+          <img src="https://via.placeholder.com/100x50?text=Mastercard" alt="Mastercard">
         </div>
       `;
     }
 
+    // Actualiza los campos y el costo de envío en función de la selección
+    function updateShipping() {
+      const method = document.getElementById('shipping-method').value;
+      const shippingFields = document.getElementById('shipping-fields');
+      const shippingCostP = document.getElementById('shipping-cost');
+      if(method) {
+        shippingFields.style.display = "block";
+        let cost = 0;
+        if(method === "Arequipa") { cost = 9; }
+        else if(method === "Lima") { cost = 17; }
+        else if(method === "Provincia") { cost = 15; }
+        shippingCostP.textContent = "Costo de envío: S/. " + cost;
+      } else {
+        shippingFields.style.display = "none";
+        shippingCostP.textContent = "";
+      }
+    }
+
     function finalizarCompra() {
-      // Aquí iría la lógica para procesar la compra o redirigir a la pasarela de pago
       alert("¡Gracias por tu compra!");
-      localStorage.removeItem('cart');
+      sessionStorage.removeItem('cart');
       renderCart();
     }
 
-    // Inicializamos el render del carrito cuando se carga la página
+    // Botón para enviar cotización vía mailto (método sencillo)
+    function enviarCotizacion() {
+      let mensaje = "Estimados,\nMe interesa la siguiente cotización:\n\n";
+      cart.forEach(item => {
+        mensaje += `- ${item.name} (Talla: ${item.talla}), Cant: ${item.quantity}, Subtotal: S/. ${item.price * item.quantity}\n`;
+      });
+      let total = cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
+      mensaje += `\nSubtotal de productos: S/. ${total}\n`;
+      
+      // Agregar costo de envío si se eligió
+      const method = document.getElementById('shipping-method').value;
+      if(method) {
+        let shippingCost = 0;
+        if(method === "Arequipa") { shippingCost = 9; }
+        else if(method === "Lima") { shippingCost = 17; }
+        else if(method === "Provincia") { shippingCost = 15; }
+        mensaje += `Costo de envío (${method}): S/. ${shippingCost}\n`;
+        total += shippingCost;
+      }
+      mensaje += `\nTotal a pagar: S/. ${total}\n\n¡Gracias!`;
+      
+      let asunto = encodeURIComponent("Cotización AURA Camisetas");
+      let cuerpo = encodeURIComponent(mensaje);
+      window.location.href = `mailto:tucorreo@gmail.com?subject=${asunto}&body=${cuerpo}`;
+    }
+
+    /* Nota: Para generar un PDF o capturar una imagen (como un "screenshot" en A4) 
+       se pueden utilizar librerías externas como html2canvas y jsPDF.
+       Aquí se incluye un botón de "Enviar Resumen (PDF)" sin funcionalidad real, 
+       pero sirve de base para que integres la lógica necesaria o llames a un servicio backend. */
+    function enviarResumen() {
+      alert("Funcionalidad de envío de resumen en PDF pendiente de implementación.");
+    }
+
+    // Renderizar el carrito al cargar la página
     renderCart();
+
+    // Opcional: Borrar carrito si se cierra la página
+    window.onbeforeunload = () => {
+      // Si se desea borrar el carrito al cerrar o refrescar la página, descomenta la siguiente línea:
+      // sessionStorage.removeItem('cart');
+    };
   </script>
 </body>
 </html>
