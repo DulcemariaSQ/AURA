@@ -38,7 +38,7 @@
     .summary .buttons button { background-color: #a90f0f; color: #fff; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; flex: 1; }
     .summary .buttons button.secondary { background-color: #666; }
     
-    /* Envío y Datos de usuario (Contacto) */
+    /* Envío y Datos de usuario */
     .shipping { margin-top: 20px; }
     .shipping label { display: block; font-weight: bold; margin-top: 10px; }
     .shipping select, .shipping input { width: 100%; padding: 8px; margin-top: 5px; }
@@ -46,6 +46,9 @@
     .contact { margin-top: 20px; }
     .contact label { font-weight: bold; display: block; margin-top: 10px; }
     .contact input { width: 100%; padding: 8px; margin-top: 5px; }
+    
+    /* Campo extra para Provincia */
+    #province-field { display: none; }
     
     /* Banner de Método de Pagos */
     .payment-banner {
@@ -177,16 +180,15 @@
   <main>
     <h1>🛒 Mi Carrito</h1>
     <div id="cart-content">
-      <!-- Se generará la tabla del carrito aquí -->
+      <!-- La tabla del carrito se generará aquí -->
     </div>
 
-    <!-- Resumen de compra con envío y datos de contacto -->
-    <!-- El div con id="cart-summary" se usará también para generar el PDF -->
+    <!-- Resumen de compra (envuelto para PDF) -->
     <div class="summary" id="cart-summary">
       <!-- Se actualizará dinámicamente -->
     </div>
     
-    <!-- Banner de Método de Pagos -->
+    <!-- Banner de Método de Pagos (Sólo una instancia) -->
     <div class="payment-banner">MÉTODO DE PAGOS</div>
     <div class="payment-methods">
       <div class="payment-method-item">
@@ -290,7 +292,7 @@
 
     function updateQuantity(index, input) {
       const newQty = parseInt(input.value);
-      if (newQty < 1) return;
+      if(newQty < 1) return;
       cart[index].quantity = newQty;
       sessionStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
@@ -311,24 +313,40 @@
         totalAmount += item.price * item.quantity;
       });
 
-      // Obtener el método de envío seleccionado
-      const shippingMethod = document.getElementById('shipping-method') ? document.getElementById('shipping-method').value : "";
+      // Obtener el select de envío y sus campos
+      const shippingMethodSelect = document.getElementById('shipping-method');
+      const shippingMethod = shippingMethodSelect ? shippingMethodSelect.value : "";
       let shippingCost = 0;
-      if (shippingMethod) {
-        // Sólo si dirección y código postal están llenos se calcula el costo
-        const address = document.getElementById('address').value.trim();
-        const postalCode = document.getElementById('postal-code').value.trim();
-        if (address !== "" && postalCode !== "") {
-          if (totalAmount >= 200) { 
-            shippingCost = 0;
-          } else {
-            if(shippingMethod === "Arequipa") shippingCost = 9;
-            else if(shippingMethod === "Lima") shippingCost = 17;
-            else if(shippingMethod === "Provincia") shippingCost = 15;
-          }
+      
+      // Si ya se ingresaron dirección y código postal, entonces se calcula el costo
+      const addressInput = document.getElementById('address');
+      const postalCodeInput = document.getElementById('postal-code');
+      const provinceField = document.getElementById('province-field');
+      let address = addressInput ? addressInput.value.trim() : "";
+      let postalCode = postalCodeInput ? postalCodeInput.value.trim() : "";
+      let province = "";
+      
+      // Mostrar el campo extra de provincia si se selecciona "Provincia"
+      if (shippingMethod === "Provincia") {
+        provinceField.style.display = "block";
+        const provinceInput = document.getElementById('province');
+        province = provinceInput ? provinceInput.value.trim() : "";
+      } else {
+        if (document.getElementById('province-field')) {
+          document.getElementById('province-field').style.display = "none";
         }
-        const shippingCostP = document.getElementById('shipping-cost');
-        shippingCostP.textContent = (shippingCost === 0 && address !== "" && postalCode !== "") ? "Costo de envío: GRATIS" : (address !== "" && postalCode !== "" ? "Costo de envío: S/. " + shippingCost : "");
+      }
+      
+      // Solo se calcula el costo si se llenaron dirección y código postal, y (para provincia) el campo extra
+      if (shippingMethod && address !== "" && postalCode !== "" && (shippingMethod !== "Provincia" || (shippingMethod === "Provincia" && province !== ""))) {
+        // Si total de productos es mayor o igual a 200, envío es gratis
+        if (totalAmount >= 200) {
+          shippingCost = 0;
+        } else {
+          if (shippingMethod === "Arequipa") shippingCost = 10;
+          else if (shippingMethod === "Lima") shippingCost = 17;
+          else if (shippingMethod === "Provincia") shippingCost = 15;
+        }
       }
 
       const totalAPagar = totalAmount + shippingCost;
@@ -342,16 +360,20 @@
           <label for="shipping-method">Elige tu envío:</label>
           <select id="shipping-method" onchange="updateSummary()">
             <option value="">-- Selecciona una opción --</option>
-            <option value="Arequipa">AREQUIPA</option>
-            <option value="Lima">LIMA</option>
-            <option value="Provincia">PROVINCIA</option>
+            <option value="Arequipa" ${shippingMethod==="Arequipa" ? "selected" : ""}>AREQUIPA</option>
+            <option value="Lima" ${shippingMethod==="Lima" ? "selected" : ""}>LIMA</option>
+            <option value="Provincia" ${shippingMethod==="Provincia" ? "selected" : ""}>PROVINCIA</option>
           </select>
-          <div id="shipping-fields" style="display: none;">
+          <div id="shipping-fields" style="display: ${shippingMethod ? "block" : "none"};">
             <label for="address">Dirección:</label>
-            <input type="text" id="address" placeholder="Ingresa tu dirección" onchange="updateSummary()">
+            <input type="text" id="address" placeholder="Ingresa tu dirección" value="${address}" onchange="updateSummary()">
             <label for="postal-code">Código Postal:</label>
-            <input type="text" id="postal-code" placeholder="Ingresa tu código postal" onchange="updateSummary()">
-            <p class="cost" id="shipping-cost"></p>
+            <input type="text" id="postal-code" placeholder="Ingresa tu código postal" value="${postalCode}" onchange="updateSummary()">
+            <div id="province-field" style="display: ${shippingMethod==="Provincia" ? "block" : "none"};">
+              <label for="province">Especifique (Provincia):</label>
+              <input type="text" id="province" placeholder="Ingresa tu provincia" value="${province}" onchange="updateSummary()">
+            </div>
+            <p class="cost" id="shipping-cost">${shippingCost === 0 && shippingMethod && address !== "" && postalCode !== "" ? "Costo de envío: GRATIS" : (address !== "" && postalCode !== "" ? "Costo de envío: S/. " + shippingCost : "")}</p>
           </div>
         </div>
         <div class="contact">
@@ -367,9 +389,7 @@
           <button class="secondary" onclick="location.href='index.html'">Seguir comprando</button>
           <button onclick="descargarCotizacion()">Descargar Cotización (PDF)</button>
         </div>
-        <div class="payment-banner">
-          MÉTODO DE PAGOS:
-        </div>
+        <div class="payment-banner">MÉTODO DE PAGOS:</div>
         <div class="payment-methods">
           <div class="payment-method-item">
             <img src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true" alt="Visa">
@@ -384,14 +404,16 @@
     }
 
     function finalizarCompra() {
-      // Validar que en sección de envío y contacto estén llenos todos los campos obligatorios
+      // Validar datos obligatorios de envío y contacto
       const shippingMethod = document.getElementById('shipping-method').value;
       const address = document.getElementById('address').value.trim();
       const postalCode = document.getElementById('postal-code').value.trim();
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      if (!shippingMethod || address === "" || postalCode === "" || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
+      // Si shipping es Provincia, validar el campo extra
+      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "N/A";
+      if (!shippingMethod || address === "" || postalCode === "" || (shippingMethod==="Provincia" && province==="") || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
         alert("Por favor, completa todos los datos obligatorios de envío y contacto.");
         return;
       }
@@ -409,7 +431,8 @@
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      if (!shippingMethod || address === "" || postalCode === "" || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
+      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "";
+      if (!shippingMethod || address === "" || postalCode === "" || (shippingMethod==="Provincia" && province==="") || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
         alert("Por favor, completa todos los datos obligatorios de envío y contacto antes de descargar la cotización.");
         return;
       }
@@ -436,7 +459,8 @@
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      if (!shippingMethod || address === "" || postalCode === "" || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
+      const province = shippingMethod === "Provincia" ? document.getElementById('province').value.trim() : "";
+      if (!shippingMethod || address === "" || postalCode === "" || (shippingMethod==="Provincia" && province==="") || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
         alert("Completa todos los datos obligatorios de envío y contacto para proceder al pago.");
         return;
       }
