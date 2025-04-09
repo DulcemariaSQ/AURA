@@ -38,13 +38,12 @@
     .summary .buttons button { background-color: #a90f0f; color: #fff; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; flex: 1; }
     .summary .buttons button.secondary { background-color: #666; }
     
-    /* Envío y Datos de usuario */
+    /* Envío y Datos de usuario (Contacto) */
     .shipping { margin-top: 20px; }
     .shipping label { display: block; font-weight: bold; margin-top: 10px; }
     .shipping select, .shipping input { width: 100%; padding: 8px; margin-top: 5px; }
     .shipping .cost { margin-top: 10px; font-weight: bold; }
     .contact { margin-top: 20px; }
-    /* Ahora datos de contacto: Nombres y Apellidos, Correo, Teléfono (9 dígitos) */
     .contact label { font-weight: bold; display: block; margin-top: 10px; }
     .contact input { width: 100%; padding: 8px; margin-top: 5px; }
     
@@ -71,9 +70,7 @@
       gap: 10px;
       cursor: pointer;
     }
-    .payment-method-item img {
-      width: 100px;
-    }
+    .payment-method-item img { width: 100px; }
     .payment-method-item button {
       background-color: #a90f0f;
       color: #fff;
@@ -184,7 +181,7 @@
     </div>
 
     <!-- Resumen de compra con envío y datos de contacto -->
-    <!-- Envuelve el resumen en un div con id="cart-summary" para PDF -->
+    <!-- El div con id="cart-summary" se usará también para generar el PDF -->
     <div class="summary" id="cart-summary">
       <!-- Se actualizará dinámicamente -->
     </div>
@@ -194,11 +191,11 @@
     <div class="payment-methods">
       <div class="payment-method-item">
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true" alt="Visa">
-        <button onclick="openPaymentModal('Visa')">Pagar con VISA</button>
+        <button onclick="abrirModalPago('Visa')">Pagar con VISA</button>
       </div>
       <div class="payment-method-item">
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/Mastercard-logo.svg.png?raw=true" alt="Mastercard">
-        <button onclick="openPaymentModal('Mastercard')">Pagar con MASTERCARD</button>
+        <button onclick="abrirModalPago('Mastercard')">Pagar con MASTERCARD</button>
       </div>
     </div>
   </main>
@@ -207,7 +204,6 @@
   <div id="payment-modal" class="modal">
     <div class="modal-content">
       <button class="close-btn" onclick="closePaymentModal()">&times;</button>
-      <!-- Agregamos el logo en la parte superior del modal -->
       <div class="modal-header">
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA">
       </div>
@@ -226,7 +222,7 @@
     /* Usamos sessionStorage para que se borre al cerrar el navegador */
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
 
-    // Producto base si el carrito está vacío
+    // Si el carrito está vacío, se agrega un producto base
     if (cart.length === 0) {
       cart.push({
         image: "https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%201978%20LOCAL.jpg?raw=true",
@@ -240,7 +236,6 @@
 
     function renderCart() {
       const cartContent = document.getElementById('cart-content');
-      const cartSummary = document.getElementById('cart-summary');
       cartContent.innerHTML = "";
 
       if (cart.length === 0) {
@@ -249,7 +244,7 @@
             Tu carrito está vacío.
             <button onclick="location.href='index.html'">Ir a la tienda</button>
           </p>`;
-        cartSummary.innerHTML = "";
+        updateSummary();
         return;
       }
 
@@ -295,7 +290,7 @@
 
     function updateQuantity(index, input) {
       const newQty = parseInt(input.value);
-      if(newQty < 1) return;
+      if (newQty < 1) return;
       cart[index].quantity = newQty;
       sessionStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
@@ -316,24 +311,46 @@
         totalAmount += item.price * item.quantity;
       });
 
+      // Obtener el método de envío seleccionado
+      const shippingMethod = document.getElementById('shipping-method') ? document.getElementById('shipping-method').value : "";
+      let shippingCost = 0;
+      if (shippingMethod) {
+        // Sólo si dirección y código postal están llenos se calcula el costo
+        const address = document.getElementById('address').value.trim();
+        const postalCode = document.getElementById('postal-code').value.trim();
+        if (address !== "" && postalCode !== "") {
+          if (totalAmount >= 200) { 
+            shippingCost = 0;
+          } else {
+            if(shippingMethod === "Arequipa") shippingCost = 9;
+            else if(shippingMethod === "Lima") shippingCost = 17;
+            else if(shippingMethod === "Provincia") shippingCost = 15;
+          }
+        }
+        const shippingCostP = document.getElementById('shipping-cost');
+        shippingCostP.textContent = (shippingCost === 0 && address !== "" && postalCode !== "") ? "Costo de envío: GRATIS" : (address !== "" && postalCode !== "" ? "Costo de envío: S/. " + shippingCost : "");
+      }
+
+      const totalAPagar = totalAmount + shippingCost;
       const cartSummary = document.getElementById('cart-summary');
       cartSummary.innerHTML = `
         <h2>Resumen de Compra</h2>
         <p>Total de productos: ${totalProducts}</p>
         <p>Subtotal de productos: S/. ${totalAmount}</p>
+        <p>Total a pagar: S/. ${totalAPagar}</p>
         <div class="shipping">
           <label for="shipping-method">Elige tu envío:</label>
-          <select id="shipping-method" onchange="updateShipping()">
+          <select id="shipping-method" onchange="updateSummary()">
             <option value="">-- Selecciona una opción --</option>
             <option value="Arequipa">AREQUIPA</option>
             <option value="Lima">LIMA</option>
             <option value="Provincia">PROVINCIA</option>
           </select>
-          <div id="shipping-fields" style="display:none;">
+          <div id="shipping-fields" style="display: none;">
             <label for="address">Dirección:</label>
-            <input type="text" id="address" placeholder="Ingresa tu dirección">
+            <input type="text" id="address" placeholder="Ingresa tu dirección" onchange="updateSummary()">
             <label for="postal-code">Código Postal:</label>
-            <input type="text" id="postal-code" placeholder="Ingresa tu código postal">
+            <input type="text" id="postal-code" placeholder="Ingresa tu código postal" onchange="updateSummary()">
             <p class="cost" id="shipping-cost"></p>
           </div>
         </div>
@@ -342,7 +359,7 @@
           <input type="text" id="fullName" placeholder="Tus nombres y apellidos">
           <label for="user-email">Correo electrónico:</label>
           <input type="email" id="user-email" placeholder="tu@correo.com">
-          <label for="phone">Número de contacto (9 dígitos):</label>
+          <label for="phone">Número para comunicarnos (9 dígitos):</label>
           <input type="text" id="phone" placeholder="Ej. 987654321" maxlength="9">
         </div>
         <div class="buttons">
@@ -366,24 +383,18 @@
       `;
     }
 
-    /* Validación de datos obligatorios del resumen */
-    function validarResumen() {
+    function finalizarCompra() {
+      // Validar que en sección de envío y contacto estén llenos todos los campos obligatorios
       const shippingMethod = document.getElementById('shipping-method').value;
       const address = document.getElementById('address').value.trim();
       const postalCode = document.getElementById('postal-code').value.trim();
       const fullName = document.getElementById('fullName').value.trim();
       const userEmail = document.getElementById('user-email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-
-      if (!shippingMethod || !address || !postalCode || !fullName || !userEmail || phone.length !== 9 || isNaN(phone)) {
-        alert("Por favor, completa todos los datos obligatorios (envío y contacto).");
-        return false;
+      if (!shippingMethod || address === "" || postalCode === "" || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
+        alert("Por favor, completa todos los datos obligatorios de envío y contacto.");
+        return;
       }
-      return true;
-    }
-
-    function finalizarCompra() {
-      if (!validarResumen()) return;
       alert("¡Gracias por tu compra!");
       sessionStorage.removeItem('cart');
       renderCart();
@@ -391,7 +402,17 @@
 
     /* Función para generar y descargar el PDF del resumen de compra */
     async function descargarCotizacion() {
-      if (!validarResumen()) return;
+      // Validar datos de envío y contacto
+      const shippingMethod = document.getElementById('shipping-method').value;
+      const address = document.getElementById('address').value.trim();
+      const postalCode = document.getElementById('postal-code').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+      const userEmail = document.getElementById('user-email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!shippingMethod || address === "" || postalCode === "" || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
+        alert("Por favor, completa todos los datos obligatorios de envío y contacto antes de descargar la cotización.");
+        return;
+      }
       const resumen = document.getElementById("cart-summary");
       const canvas = await html2canvas(resumen, { scale: 2 });
       const imgData = canvas.toDataURL("image/png");
@@ -404,13 +425,42 @@
       pdf.save("cotizacion.pdf");
     }
 
-    // Renderizar el carrito al cargar la página
-    renderCart();
-
     /* Modal de Pago */
     const modal = document.getElementById('payment-modal');
 
-    // Validación del modal de pago: se deben llenar todos los campos
+    function abrirModalPago(method) {
+      // Solo se permite abrir el modal si los datos de envío y contacto están completos
+      const shippingMethod = document.getElementById('shipping-method').value;
+      const address = document.getElementById('address').value.trim();
+      const postalCode = document.getElementById('postal-code').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+      const userEmail = document.getElementById('user-email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!shippingMethod || address === "" || postalCode === "" || fullName === "" || userEmail === "" || phone.length !== 9 || isNaN(phone)) {
+        alert("Completa todos los datos obligatorios de envío y contacto para proceder al pago.");
+        return;
+      }
+      modal.style.display = "block";
+      console.log("Método de pago seleccionado:", method);
+    }
+
+    function closePaymentModal() {
+      modal.style.display = "none";
+      document.getElementById('card-number').value = "";
+      document.getElementById('expiry').value = "";
+      document.getElementById('cvv').value = "";
+      document.getElementById("modal-finalizar").disabled = true;
+    }
+
+    // Validar campos del modal y habilitar botón FINALIZAR
+    const modalInputs = document.querySelectorAll("#card-number, #expiry, #cvv");
+    modalInputs.forEach(input => {
+      input.addEventListener('input', () => {
+        const allFilled = Array.from(modalInputs).every(inp => inp.value.trim() !== "");
+        document.getElementById("modal-finalizar").disabled = !allFilled;
+      });
+    });
+
     function validarModalPago() {
       const cardNumber = document.getElementById('card-number').value.trim();
       const expiry = document.getElementById('expiry').value.trim();
@@ -422,35 +472,17 @@
       return true;
     }
 
-    function abrirModalPago(method) {
-      if (!validarResumen()) return; // Solo permite abrir el modal si se completaron los datos de envío y contacto
-      modal.style.display = "block";
-      console.log("Método de pago seleccionado:", method);
-    }
-
-    function closePaymentModal() {
-      modal.style.display = "none";
-      // Reiniciar los campos del modal
-      document.getElementById('card-number').value = "";
-      document.getElementById('expiry').value = "";
-      document.getElementById('cvv').value = "";
-      document.getElementById("modal-finalizar").disabled = true;
-    }
-
-    // Habilitar botón FINALIZAR solo si se completan los campos
-    const modalInputs = document.querySelectorAll("#card-number, #expiry, #cvv");
-    modalInputs.forEach(input => {
-      input.addEventListener('input', () => {
-        const isValid = Array.from(modalInputs).every(inp => inp.value.trim() !== "");
-        document.getElementById("modal-finalizar").disabled = !isValid;
-      });
-    });
-
     function finalizarPago() {
       if (!validarModalPago()) return;
       alert("¡Gracias por tu compra!");
       closePaymentModal();
     }
+
+    // Renderizar el carrito al cargar la página
+    renderCart();
+
+    // Opcional: Borrar carrito al cerrar o refrescar la página
+    // window.onbeforeunload = () => { sessionStorage.removeItem('cart'); };
   </script>
 </body>
 </html>
