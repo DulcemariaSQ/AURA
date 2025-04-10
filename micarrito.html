@@ -81,7 +81,6 @@
       font-weight: bold;
       font-size: 16px;
     }
-
     main {
       margin-top: 240px;
       padding: 20px;
@@ -90,13 +89,11 @@
       text-align: center;
       margin-bottom: 20px;
     }
-
     .empty-cart {
       text-align: center;
       font-size: 20px;
       margin: 40px 0;
     }
-
     /* --- Tabla que se ve en la página (con imágenes) --- */
     .cart-table {
       width: 100%;
@@ -119,7 +116,6 @@
       height: 80px;
       object-fit: cover;
     }
-
     /* Resumen de compra (en la página) */
     .summary {
       max-width: 1000px;
@@ -135,7 +131,6 @@
       font-size: 18px;
       margin-bottom: 10px;
     }
-
     /* Campos de envío y contacto */
     .shipping {
       margin-top: 20px;
@@ -171,7 +166,6 @@
     #province-field {
       display: none;
     }
-
     /* Botones de acción (fuera del PDF) */
     .action-buttons {
       max-width: 1000px;
@@ -194,7 +188,6 @@
     .action-buttons button.secondary {
       background-color: #666;
     }
-
     /* Modal de Pago */
     .modal {
       display: none;
@@ -252,7 +245,6 @@
       margin-top: 10px;
       width: 100%;
     }
-
     /* Botón de cierre más pequeño */
     .close-btn {
       background: transparent;
@@ -263,7 +255,6 @@
       color: #000;
       margin-right: 5px;
     }
-
     /* Banner de método de Pagos */
     .payment-banner {
       background-color: #000;
@@ -299,7 +290,6 @@
       cursor: pointer;
       border-radius: 4px;
     }
-
     /* --- Contenido para PDF (sin imágenes) --- */
     #pdf-content {
       display: none;
@@ -336,7 +326,6 @@
       margin-bottom: 10px;
       font-size: 16px;
     }
-
     /* Cuadros para la parte de abajo (dirección, etc.) */
     .pdf-info-table {
       width: 100%;
@@ -457,25 +446,26 @@
       sessionStorage.setItem("cart", JSON.stringify(cart));
     }
 
-    // Función para agregar al carrito y guardar producto en sessionStorage
+    // Función para agregar al carrito y guardar producto en sessionStorage  
+    // Si el producto tiene botones de talla, se utiliza el valor seleccionado; de lo contrario, se asigna "Única"
     function addToCart(btn, price) {
       const productCard = btn.closest('.product-card');
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      const selectedSizeBtn = Array.from(sizeButtons).find(button =>
-        button.classList.contains('active-size')
-      );
-      if (!selectedSizeBtn) {
-        alert("SELECCIONE LA TALLA POR FAVOR");
-        return;
+      let productSize = "Única"; // Valor por defecto
+      if (sizeButtons && sizeButtons.length > 0) {
+        const selectedSizeBtn = Array.from(sizeButtons).find(button =>
+          button.classList.contains('active-size')
+        );
+        if (selectedSizeBtn) {
+          productSize = selectedSizeBtn.textContent;
+        }
       }
-      cartTotal += price;
-      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
-
+      // Siempre se agrega con cantidad = 1
       const productName = productCard.querySelector("h3").textContent;
       const productImg = productCard.querySelector("img").src;
-      const productSize = selectedSizeBtn.textContent;
 
-      // Creamos el objeto usando las claves que se usan en renderCart: "talla" e "image"
+      // Se crea el objeto con las claves que se usan al renderizar el carrito:
+      // "talla" para la talla, "image" para la imagen y quantity=1
       const productData = {
         name: productName,
         price: price,
@@ -559,7 +549,7 @@
       renderCart();
     }
 
-    // Función para eliminar item
+    // Función para eliminar un ítem del carrito
     function removeItem(index) {
       cart.splice(index, 1);
       sessionStorage.setItem("cart", JSON.stringify(cart));
@@ -631,9 +621,7 @@
               shippingMethod === "Provincia" ? "selected" : ""
             }>PROVINCIA</option>
           </select>
-          <div id="shipping-fields" style="display: ${
-            shippingMethod ? "block" : "none"
-          };">
+          <div id="shipping-fields" style="display: ${shippingMethod ? "block" : "none"};">
             <label for="address">Dirección:</label>
             <input
               type="text"
@@ -650,9 +638,7 @@
               value="${postalCode}"
               onchange="updateSummary()"
             />
-            <div id="province-field" style="display: ${
-              shippingMethod === "Provincia" ? "block" : "none"
-            };">
+            <div id="province-field" style="display: ${shippingMethod === "Provincia" ? "block" : "none"};">
               <label for="province">Especifique (Provincia):</label>
               <input
                 type="text"
@@ -708,9 +694,7 @@
         phone.length !== 9 ||
         isNaN(phone)
       ) {
-        alert(
-          "Por favor, completa todos los datos obligatorios de envío y contacto."
-        );
+        alert("Por favor, completa todos los datos obligatorios de envío y contacto.");
         return;
       }
       alert("¡Gracias por tu compra!");
@@ -741,9 +725,7 @@
         phone.length !== 9 ||
         isNaN(phone)
       ) {
-        alert(
-          "Por favor, completa todos los datos obligatorios de envío y contacto antes de descargar la cotización."
-        );
+        alert("Por favor, completa todos los datos obligatorios de envío y contacto antes de descargar la cotización.");
         return;
       }
 
@@ -919,4 +901,3 @@
   </script>
 </body>
 </html>
-
