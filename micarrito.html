@@ -257,7 +257,7 @@
     .close-btn {
       background: transparent;
       border: none;
-      font-size: 14px; /* Ajustado a 14px para que sea aún más pequeño */
+      font-size: 14px;
       cursor: pointer;
       line-height: 1;
       color: #000;
@@ -302,14 +302,14 @@
 
     /* --- Contenido para PDF (sin imágenes) --- */
     #pdf-content {
-      display: none; /* Oculto en la página, se usa solo para generar el PDF */
-      padding: 20px; /* Espacio interior */
+      display: none;
+      padding: 20px;
     }
     #pdf-content h1 {
       text-align: center;
       font-size: 24px;
       margin-bottom: 20px;
-      margin-top: 30px; /* Deja espacio entre el inicio de la hoja y “AURA” */
+      margin-top: 30px;
     }
     .pdf-table {
       width: 100%;
@@ -351,7 +351,7 @@
     }
     .pdf-info-table th {
       background-color: #f2f2f2;
-      width: 200px; /* Ajusta para que la primer columna sea más ancha */
+      width: 200px;
     }
   </style>
 </head>
@@ -363,18 +363,11 @@
     </div>
     <div id="logo-bar">
       <a href="index.html">
-        <img
-          src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true"
-          alt="Logo AURA"
-          class="logo"
-        />
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" class="logo" />
       </a>
       <div id="cart">
         <a href="micarrito.html">
-          <img
-            src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true"
-            alt="Carrito"
-          />
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito" />
         </a>
       </div>
     </div>
@@ -411,10 +404,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button class="close-btn" onclick="closePaymentModal()">&times;</button>
-        <img
-          src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true"
-          alt="Logo AURA"
-        />
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" />
       </div>
       <h3>Pago con Tarjeta</h3>
       <label for="card-number">Número de Tarjeta</label>
@@ -431,17 +421,11 @@
   <div class="payment-banner">MÉTODO DE PAGOS:</div>
   <div class="payment-methods">
     <div class="payment-method-item">
-      <img
-        src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true"
-        alt="Visa"
-      />
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/visa.png?raw=true" alt="Visa" />
       <button onclick="abrirModalPago('Visa')">Pagar con VISA</button>
     </div>
     <div class="payment-method-item">
-      <img
-        src="https://github.com/DulcemariaSQ/AURA/blob/main/Mastercard-logo.svg.png?raw=true"
-        alt="Mastercard"
-      />
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/Mastercard-logo.svg.png?raw=true" alt="Mastercard" />
       <button onclick="abrirModalPago('Mastercard')">Pagar con MASTERCARD</button>
     </div>
   </div>
@@ -456,6 +440,9 @@
   </div>
 
   <script>
+    /* Variable global para acumulado (opcional) */
+    let cartTotal = 0;
+
     /* Carrito en sessionStorage */
     let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
     if (cart.length === 0) {
@@ -470,8 +457,45 @@
       sessionStorage.setItem("cart", JSON.stringify(cart));
     }
 
-    // Render Carrito con imágenes (en la página)
+    // Función para agregar al carrito y guardar producto en sessionStorage
+    function addToCart(btn, price) {
+      const productCard = btn.closest('.product-card');
+      const sizeButtons = productCard.querySelectorAll('.size-buttons button');
+      const selectedSizeBtn = Array.from(sizeButtons).find(button =>
+        button.classList.contains('active-size')
+      );
+      if (!selectedSizeBtn) {
+        alert("SELECCIONE LA TALLA POR FAVOR");
+        return;
+      }
+      cartTotal += price;
+      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
+
+      const productName = productCard.querySelector("h3").textContent;
+      const productImg = productCard.querySelector("img").src;
+      const productSize = selectedSizeBtn.textContent;
+
+      // Creamos el objeto usando las claves que se usan en renderCart: "talla" e "image"
+      const productData = {
+        name: productName,
+        price: price,
+        talla: productSize,
+        image: productImg,
+        quantity: 1
+      };
+
+      // Leer el carrito actual desde sessionStorage y actualizarlo
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+      cart.push(productData);
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+
+      // Actualizar el renderizado
+      renderCart();
+    }
+
+    // Función para renderizar el carrito; se lee directamente desde sessionStorage para obtener datos actualizados
     function renderCart() {
+      cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       const cartContent = document.getElementById("cart-content");
       cartContent.innerHTML = "";
 
@@ -526,7 +550,7 @@
       updateSummary();
     }
 
-    // Actualizar cantidad
+    // Función para actualizar cantidad
     function updateQuantity(index, input) {
       const newQty = parseInt(input.value);
       if (newQty < 1) return;
@@ -535,7 +559,7 @@
       renderCart();
     }
 
-    // Eliminar item
+    // Función para eliminar item
     function removeItem(index) {
       cart.splice(index, 1);
       sessionStorage.setItem("cart", JSON.stringify(cart));
@@ -694,9 +718,8 @@
       renderCart();
     }
 
-    // Descargar Cotización (PDF sin imágenes), con espacio y “cuadros” para dirección, etc.
+    // Descargar Cotización (PDF sin imágenes)
     async function descargarCotizacion() {
-      // Validamos datos antes de descargar PDF
       const shippingMethod = document.getElementById("shipping-method").value;
       const address = document.getElementById("address").value.trim();
       const postalCode = document.getElementById("postal-code").value.trim();
@@ -724,7 +747,6 @@
         return;
       }
 
-      // Creamos la tabla simplificada (sin imágenes) para el PDF
       const pdfCartTable = document.getElementById("pdf-cart");
       pdfCartTable.innerHTML = `
         <thead>
@@ -759,7 +781,6 @@
         tbody.appendChild(tr);
       });
 
-      // Calculamos el costo de envío
       let shippingCost = 0;
       if (totalAmount >= 200) {
         shippingCost = 0;
@@ -770,7 +791,6 @@
       }
       const totalAPagar = totalAmount + shippingCost;
 
-      // Llenamos el resumen en el PDF
       const pdfSummaryDiv = document.getElementById("pdf-summary");
       pdfSummaryDiv.innerHTML = `
         <h2>Resumen de Compra</h2>
@@ -778,8 +798,6 @@
         <p>Subtotal de productos: S/. ${totalAmount}</p>
         <p>Total a pagar: S/. ${totalAPagar}</p>
         <p>Envío a: ${shippingMethod}</p>
-
-        <!-- Creamos la tabla con “cuadros” para Dirección, Código Postal, etc. -->
         <table class="pdf-info-table">
           <tr>
             <th>Dirección</th>
@@ -791,12 +809,10 @@
           </tr>
           ${
             shippingMethod === "Provincia"
-              ? `
-                <tr>
+              ? `<tr>
                   <th>Provincia</th>
                   <td>${province}</td>
-                </tr>
-              `
+                </tr>`
               : ""
           }
           <tr>
@@ -814,43 +830,31 @@
         </table>
       `;
 
-      // Mostramos #pdf-content (temporalmente) para que html2canvas lo lea
       const pdfContent = document.getElementById("pdf-content");
       pdfContent.style.display = "block";
 
-      // Generar PDF con un pequeño margen en jsPDF
       const canvas = await html2canvas(pdfContent, {
-        scale: 2,      // Para mejor calidad
-        useCORS: true, // Por si acaso
+        scale: 2,
+        useCORS: true,
       });
       const imgData = canvas.toDataURL("image/png");
 
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF("p", "mm", "a4");
 
-      // Calcular posición con margen (10mm)
       const marginLeft = 10;
       const marginTop = 10;
       const pdfWidth = pdf.internal.pageSize.getWidth() - marginLeft * 2;
-      // Ajustar la altura acorde al ancho
       const imgProps = pdf.getImageProperties(imgData);
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      pdf.addImage(
-        imgData,
-        "PNG",
-        marginLeft,
-        marginTop,
-        pdfWidth,
-        pdfHeight
-      );
+      pdf.addImage(imgData, "PNG", marginLeft, marginTop, pdfWidth, pdfHeight);
       pdf.save("cotizacion.pdf");
 
-      // Ocultamos #pdf-content otra vez
       pdfContent.style.display = "none";
     }
 
-    // Modal
+    // Modal de pago
     const modal = document.getElementById("payment-modal");
     function abrirModalPago(method) {
       const shippingMethod = document.getElementById("shipping-method").value;
@@ -874,9 +878,7 @@
         phone.length !== 9 ||
         isNaN(phone)
       ) {
-        alert(
-          "Completa todos los datos obligatorios de envío y contacto para proceder al pago."
-        );
+        alert("Completa todos los datos obligatorios de envío y contacto para proceder al pago.");
         return;
       }
       modal.style.display = "block";
@@ -892,9 +894,7 @@
     const modalInputs = document.querySelectorAll("#card-number, #expiry, #cvv");
     modalInputs.forEach((input) => {
       input.addEventListener("input", () => {
-        const allFilled = Array.from(modalInputs).every(
-          (inp) => inp.value.trim() !== ""
-        );
+        const allFilled = Array.from(modalInputs).every(inp => inp.value.trim() !== "");
         document.getElementById("modal-finalizar").disabled = !allFilled;
       });
     });
@@ -919,3 +919,4 @@
   </script>
 </body>
 </html>
+
