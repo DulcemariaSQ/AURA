@@ -167,6 +167,26 @@
       cursor: pointer;
       font-weight: bold;
     }
+    /* Sección de reseñas */
+    #reviews {
+      background-color: #f5f5f5;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    #reviews h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+    .review {
+      margin-bottom: 15px;
+    }
+    .review p {
+      margin-top: 5px;
+      font-style: italic;
+      color: #555;
+    }
     /* Responsive */
     @media (max-width: 768px) {
       #logo-bar img.logo {
@@ -607,6 +627,27 @@
     </div>
   </main>
   
+  <!-- Sección de Reseñas -->
+  <div id="reviews">
+    <h2>RESEÑAS</h2>
+    <div class="review">
+      <strong>FelipeClassic</strong>
+      <p><em>"Muy buena calidad, los detalles son impresionantes. Estoy contentísimo."</em></p>
+    </div>
+    <div class="review">
+      <strong>CarlaFans</strong>
+      <p><em>"Producto impecable, llegó en perfectas condiciones. Gracias por la experiencia."</em></p>
+    </div>
+    <div class="review">
+      <strong>DanielCondori</strong>
+      <p><em>"Gran diseño y acabado. Sin duda, una gran compra."</em></p>
+    </div>
+    <div class="review">
+      <strong>LuisVivaArgenina</strong>
+      <p><em>"Súper feliz con el producto. La calidad es excelente."</em></p>
+    </div>
+  </div>
+  
   <script>
     // Carrusel: cambia cada 5 segundos
     let currentSlide = 0;
@@ -630,7 +671,7 @@
       button.classList.add('active-size');
     }
     
-    // Función para agregar al carrito (verifica que se haya seleccionado talla)
+    // Función para agregar al carrito y guardar producto en sessionStorage
     let cartTotal = 0;
     function addToCart(btn, price) {
       const productCard = btn.closest('.product-card');
@@ -641,11 +682,9 @@
         return;
       }
       
-      // Actualizar el total (opcional si se desea mantener esta funcionalidad)
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
       
-      // Obtener datos del producto
       const productName = productCard.querySelector("h3").textContent;
       const productImg = productCard.querySelector("img").src;
       const productSize = selectedSizeBtn.textContent;
@@ -657,14 +696,10 @@
         img: productImg
       };
       
-      // Leer el carrito actual desde el localStorage o inicializar un arreglo nuevo
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      
-      // Agregar el nuevo producto al carrito
+      // Leer el carrito actual desde sessionStorage o inicializar un arreglo nuevo
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       cart.push(productData);
-      
-      // Guardar el carrito actualizado en el localStorage
-      localStorage.setItem("cart", JSON.stringify(cart));
+      sessionStorage.setItem("cart", JSON.stringify(cart));
     }
     
     // Función para filtrar productos según subcategoría
