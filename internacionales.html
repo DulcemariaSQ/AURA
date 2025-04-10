@@ -167,6 +167,26 @@
       cursor: pointer;
       font-weight: bold;
     }
+    /* Estilos para la sección de reseñas */
+    #reviews {
+      background-color: #f5f5f5;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    #reviews h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+    .review {
+      margin-bottom: 15px;
+    }
+    .review p {
+      margin-top: 5px;
+      font-style: italic;
+      color: #555;
+    }
     /* Responsive */
     @media (max-width: 768px) {
       #logo-bar img.logo {
@@ -353,9 +373,33 @@
         </div>
         <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
       </div>
-      <!-- Aquí se ha modificado la función addToCart para que guarde en localStorage la información del producto -->
     </div>
   </main>
+
+  <!-- Sección de Reseñas -->
+  <div id="reviews">
+    <h2>RESEÑAS</h2>
+    <div class="review">
+      <strong>JuanCule</strong>
+      <p><em>Muy buena calidad, estoy feliz con mi compra. Definitivamente volveré por más.</em></p>
+    </div>
+    <div class="review">
+      <strong>AnaMilan</strong>
+      <p><em>Excelente servicio y producto. La calidad superó mis expectativas.</em></p>
+    </div>
+    <div class="review">
+      <strong>CarlosPerez</strong>
+      <p><em>Entrega rápida y el diseño está increíble. Recomiendo esta tienda.</em></p>
+    </div>
+    <div class="review">
+      <strong>SofiaGol</strong>
+      <p><em>Un artículo increíble, me encantó desde el primer momento. ¡Gracias!</em></p>
+    </div>
+    <div class="review">
+      <strong>PedroBenito</strong>
+      <p><em>Todo perfecto. Gran atención al cliente y un producto de primera calidad.</em></p>
+    </div>
+  </div>
 
   <script>
     // Carrusel: cambia cada 5 segundos
@@ -380,14 +424,14 @@
       button.classList.add('active-size');
     }
 
-    // Función para agregar al carrito y guardar producto en localStorage
+    // Función para agregar al carrito y guardar producto en sessionStorage
     let cartTotal = 0;
     function addToCart(btn, price) {
       // Obtener la tarjeta del producto
       const productCard = btn.closest('.product-card');
       // Seleccionar los botones de talla
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      // Buscar el botón seleccionado (que tenga la clase active-size)
+      // Buscar el botón seleccionado
       const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
       if (!selectedSizeBtn) {
         alert("SELECCIONE LA TALLA POR FAVOR");
@@ -408,12 +452,12 @@
         img: productImg
       };
 
-      // Leer el carrito actual desde localStorage o inicializar un arreglo nuevo
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      // Leer el carrito actual desde sessionStorage o inicializar un arreglo nuevo
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       // Agregar el producto al carrito
       cart.push(productData);
-      // Guardar el carrito actualizado en localStorage
-      localStorage.setItem("cart", JSON.stringify(cart));
+      // Guardar el carrito actualizado en sessionStorage
+      sessionStorage.setItem("cart", JSON.stringify(cart));
     }
 
     // Función para filtrar productos por subcategoría
