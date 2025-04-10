@@ -302,12 +302,14 @@
 
     /* --- Contenido para PDF (sin imágenes) --- */
     #pdf-content {
-      display: none; /* oculto en la página, sólo se usa para la generación del PDF */
+      display: none; /* Oculto en la página, se usa solo para generar el PDF */
+      padding: 20px; /* Espacio interior */
     }
     #pdf-content h1 {
       text-align: center;
       font-size: 24px;
       margin-bottom: 20px;
+      margin-top: 30px; /* Deja espacio entre el inicio de la hoja y “AURA” */
     }
     .pdf-table {
       width: 100%;
@@ -333,6 +335,23 @@
     .pdf-summary p {
       margin-bottom: 10px;
       font-size: 16px;
+    }
+
+    /* Cuadros para la parte de abajo (dirección, etc.) */
+    .pdf-info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .pdf-info-table th,
+    .pdf-info-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    .pdf-info-table th {
+      background-color: #f2f2f2;
+      width: 200px; /* Ajusta para que la primer columna sea más ancha */
     }
   </style>
 </head>
@@ -376,7 +395,7 @@
     <!-- Carrito normal con imágenes -->
     <div id="cart-content"></div>
 
-    <!-- Resumen normal (sin PDF) -->
+    <!-- Resumen normal (en la página) -->
     <div class="summary" id="cart-summary"></div>
 
     <!-- Botones de acción (fuera del PDF) -->
@@ -430,9 +449,9 @@
   <!-- Contenedor oculto que generará el PDF (sin imágenes) -->
   <div id="pdf-content">
     <h1>AURA</h1>
-    <!-- Aquí mostraremos una tabla simple sin imágenes -->
+    <!-- La tabla simplificada sin imágenes -->
     <table class="pdf-table" id="pdf-cart"></table>
-    <!-- Y un resumen debajo -->
+    <!-- Resumen -->
     <div class="pdf-summary" id="pdf-summary"></div>
   </div>
 
@@ -523,7 +542,7 @@
       renderCart();
     }
 
-    // Actualiza el resumen (página)
+    // Actualiza el resumen (en la página)
     function updateSummary() {
       let totalProducts = 0;
       let totalAmount = 0;
@@ -675,7 +694,7 @@
       renderCart();
     }
 
-    // Descargar Cotización (PDF sin imágenes)
+    // Descargar Cotización (PDF sin imágenes), con espacio y “cuadros” para dirección, etc.
     async function descargarCotizacion() {
       // Validamos datos antes de descargar PDF
       const shippingMethod = document.getElementById("shipping-method").value;
@@ -740,7 +759,7 @@
         tbody.appendChild(tr);
       });
 
-      // Calculamos el costo de envío otra vez
+      // Calculamos el costo de envío
       let shippingCost = 0;
       if (totalAmount >= 200) {
         shippingCost = 0;
@@ -759,36 +778,72 @@
         <p>Subtotal de productos: S/. ${totalAmount}</p>
         <p>Total a pagar: S/. ${totalAPagar}</p>
         <p>Envío a: ${shippingMethod}</p>
-        <p>Dirección: ${address}</p>
-        <p>Código Postal: ${postalCode}</p>
-        ${
-          shippingMethod === "Provincia"
-            ? `<p>Provincia: ${province}</p>`
-            : ""
-        }
-        <p>Nombres y Apellidos: ${fullName}</p>
-        <p>Correo electrónico: ${userEmail}</p>
-        <p>Número para comunicarnos (9 dígitos): ${phone}</p>
+
+        <!-- Creamos la tabla con “cuadros” para Dirección, Código Postal, etc. -->
+        <table class="pdf-info-table">
+          <tr>
+            <th>Dirección</th>
+            <td>${address}</td>
+          </tr>
+          <tr>
+            <th>Código Postal</th>
+            <td>${postalCode}</td>
+          </tr>
+          ${
+            shippingMethod === "Provincia"
+              ? `
+                <tr>
+                  <th>Provincia</th>
+                  <td>${province}</td>
+                </tr>
+              `
+              : ""
+          }
+          <tr>
+            <th>Nombres y Apellidos</th>
+            <td>${fullName}</td>
+          </tr>
+          <tr>
+            <th>Correo electrónico</th>
+            <td>${userEmail}</td>
+          </tr>
+          <tr>
+            <th>Número (9 dígitos)</th>
+            <td>${phone}</td>
+          </tr>
+        </table>
       `;
 
       // Mostramos #pdf-content (temporalmente) para que html2canvas lo lea
       const pdfContent = document.getElementById("pdf-content");
       pdfContent.style.display = "block";
 
-      // Generar PDF
+      // Generar PDF con un pequeño margen en jsPDF
       const canvas = await html2canvas(pdfContent, {
-        scale: 2,
-        useCORS: true,
+        scale: 2,      // Para mejor calidad
+        useCORS: true, // Por si acaso
       });
       const imgData = canvas.toDataURL("image/png");
 
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
+
+      // Calcular posición con margen (10mm)
+      const marginLeft = 10;
+      const marginTop = 10;
+      const pdfWidth = pdf.internal.pageSize.getWidth() - marginLeft * 2;
+      // Ajustar la altura acorde al ancho
       const imgProps = pdf.getImageProperties(imgData);
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.addImage(
+        imgData,
+        "PNG",
+        marginLeft,
+        marginTop,
+        pdfWidth,
+        pdfHeight
+      );
       pdf.save("cotizacion.pdf");
 
       // Ocultamos #pdf-content otra vez
@@ -859,7 +914,7 @@
       closePaymentModal();
     }
 
-    // Inicial
+    // Inicial: Renderizamos el carrito
     renderCart();
   </script>
 </body>
