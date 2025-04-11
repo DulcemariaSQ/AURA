@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AURA - QUE TALLA SOY</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    /* HEADER fijo */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+    /* Barra de envíos */
+    #shipping-banner {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    /* Logo y carrito */
+    #logo-bar {
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+    #logo-bar img.logo {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      cursor: pointer;
+    }
+    #cart {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #cart img {
+      width: 40px;
+      height: auto;
+      cursor: pointer;
+    }
+    /* Menú de navegación */
+    nav {
+      background-color: #a90f0f;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    /* Ajuste del contenido para que no quede debajo del header */
+    main {
+      margin-top: 240px;
+      padding: 20px;
+    }
+    /* Imagen tipo banner angosto */
+    .narrow-banner {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .narrow-banner img {
+      width: 80%;
+      max-width: 1000px;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+    /* Tabla de tallas */
+    .size-table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+    .size-table th, .size-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    .size-table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+    .size-table td {
+      font-size: 14px;
+    }
+    /* Mensaje de advertencia */
+    .warning-message {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      color: #a90f0f;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      #logo-bar img.logo {
+        width: 180px;
+      }
+      #cart img {
+        width: 30px;
+      }
+      main {
+        margin-top: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabecera: envío, logo, carrito y menú -->
+  <header>
+    <div id="shipping-banner">
+      ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
+    </div>
+    <div id="logo-bar">
+      <a href="index.html">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" class="logo">
+      </a>
+      <div id="cart">
+        <a href="micarrito.html">
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito">
+        </a>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="internacionales.html">INTERNACIONALES</a></li>
+        <li><a href="peruanas.html">PERUANAS</a></li>
+        <li><a href="selecciones.html">SELECCIONES</a></li>
+        <li><a href="mystery-box.html">MYSTERY BOX</a></li>
+        <li><a href="quetallasoy.html">QUE TALLA SOY</a></li>
+        <li><a href="quienessomos.html">QUIENES SOMOS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Imagen tipo banner angosto -->
+    <div class="narrow-banner">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/Square%20Organic%20Beauty%20Cleanser%20Logo.png?raw=true" alt="Imagen de Talla">
+    </div>
+
+    <!-- Tabla de tallas -->
+    <table class="size-table">
+      <thead>
+        <tr>
+          <th>TALLA</th>
+          <th>LARGO</th>
+          <th>ANCHO</th>
+          <th>ALTURA</th>
+          <th>PESO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>S</td>
+          <td>70-72 cm</td>
+          <td>45-47 cm</td>
+          <td>165-170 cm</td>
+          <td>60-65 kg</td>
+        </tr>
+        <tr>
+          <td>M</td>
+          <td>72-74 cm</td>
+          <td>47-49 cm</td>
+          <td>170-175 cm</td>
+          <td>65-70 kg</td>
+        </tr>
+        <tr>
+          <td>L</td>
+          <td>74-76 cm</td>
+          <td>49-51 cm</td>
+          <td>175-180 cm</td>
+          <td>70-75 kg</td>
+        </tr>
+        <tr>
+          <td>XL</td>
+          <td>76-78 cm</td>
+          <td>51-53 cm</td>
+          <td>180-185 cm</td>
+          <td>75-80 kg</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Mensaje de advertencia -->
+    <div class="warning-message">
+      ESTAS MEDIDAS SON REFERENCIALES PARA QUE QUEDEN SUELTAS (COMO LAS FOTOS DE FUTBOLISTAS).  
+      EVALÚA ESTO ANTES DE HACER TU PEDIDO.
+    </div>
+  </main>
+</body>
+</html>
