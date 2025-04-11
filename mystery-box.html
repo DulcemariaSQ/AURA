@@ -54,7 +54,7 @@
       transform: translateY(-50%);
     }
     #cart img {
-      width: 40px; /* Ajusta el tamaño según tus preferencias */
+      width: 40px;
       height: auto;
       cursor: pointer;
     }
@@ -127,6 +127,7 @@
     .size-buttons {
       margin-bottom: 10px;
     }
+    /* Los botones de talla deben tener onclick="selectSize(this)" */
     .size-buttons button {
       margin: 5px;
       padding: 5px 10px;
@@ -147,7 +148,7 @@
       cursor: pointer;
       font-weight: bold;
     }
-    /* Estilos para la sección de reseñas */
+    /* Sección de reseñas */
     #reviews {
       background-color: #f5f5f5;
       padding: 20px;
@@ -271,15 +272,15 @@
     <h2>RESEÑAS</h2>
     <div class="review">
       <strong>LauraCornejo</strong>
-      <p><em>Me encantó la experiencia de abrir la caja. Fue emocionante y todo perfecto.</em></p>
+      <p><em>"Me encantó la experiencia de abrir la caja. Fue emocionante y todo perfecto."</em></p>
     </div>
     <div class="review">
       <strong>MarioRM</strong>
-      <p><em>Gran calidad en cada detalle. Lo recomiendo a quienes buscan algo especial.</em></p>
+      <p><em>"Gran calidad en cada detalle. Lo recomiendo a quienes buscan algo especial."</em></p>
     </div>
     <div class="review">
       <strong>ComandoSvr</strong>
-      <p><em>Una sorpresa fantástica, estoy muy satisfecho con lo que recibí.</em></p>
+      <p><em>"Una sorpresa fantástica, estoy muy satisfecho con lo que recibí."</em></p>
     </div>
   </div>
 
@@ -299,46 +300,67 @@
     }
     setInterval(nextSlide, 5000);
 
-    // Función para marcar la talla seleccionada
+    // Función para seleccionar la talla
     function selectSize(button) {
       const container = button.parentElement;
       Array.from(container.children).forEach(btn => btn.classList.remove('active-size'));
       button.classList.add('active-size');
     }
 
-    // Simulación simple de carrito: se suma el precio de cada producto agregado
+    /* Función para agregar al carrito usando sessionStorage:
+       - Verifica si hay botones de talla; si existen, se exige que uno esté seleccionado y se usa su valor para "talla".
+       - Si no hay botones (o ninguno seleccionado), se asigna "Única".
+       - La cantidad se fija en 1.
+       - Se guardan en sessionStorage con las claves: "name", "price", "talla", "image" y "quantity".
+    */
     let cartTotal = 0;
     function addToCart(btn, price) {
-      // Obtener el contenedor del producto
       const productCard = btn.closest('.product-card');
-      // Revisar que se haya seleccionado una talla
+      let productSize = "Única"; // Valor por defecto en caso de no haber botones de talla
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
-      if (!selectedSizeBtn) {
-        alert("SELECCIONE LA TALLA POR FAVOR");
-        return;
+      if (sizeButtons && sizeButtons.length > 0) {
+        const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+        if (selectedSizeBtn) {
+          productSize = selectedSizeBtn.textContent;
+        } else {
+          alert("SELECCIONE LA TALLA POR FAVOR");
+          return;
+        }
       }
+      
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
       
-      // Extraer datos del producto
       const productName = productCard.querySelector("h3").textContent;
       const productImg = productCard.querySelector("img").src;
-      const productSize = selectedSizeBtn.textContent;
-
+      
       const productData = {
         name: productName,
         price: price,
-        size: productSize,
-        img: productImg
+        talla: productSize,
+        image: productImg,
+        quantity: 1
       };
 
-      // Leer o inicializar el carrito en sessionStorage
       let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-      // Agregar el producto al carrito
       cart.push(productData);
-      // Guardar el carrito actualizado en sessionStorage
       sessionStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    // Función para filtrar productos por subcategoría
+    function filterProducts(category) {
+      const buttons = document.querySelectorAll('.subcategories button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const products = document.querySelectorAll('.product-card');
+      products.forEach(product => {
+        if (category === 'ALL') {
+          product.style.display = 'block';
+        } else {
+          product.style.display = (product.getAttribute('data-category') === category) ? 'block' : 'none';
+        }
+      });
     }
   </script>
 </body>
