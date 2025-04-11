@@ -147,6 +147,7 @@
     .size-buttons {
       margin-bottom: 10px;
     }
+    /* Cada botón de talla tiene onclick="selectSize(this)" para activar la talla */
     .size-buttons button {
       margin: 5px;
       padding: 5px 10px;
@@ -204,14 +205,15 @@
 </head>
 <body>
   <header>
-    <!-- Barra de envío -->
+    <!-- Barra de envíos -->
     <div id="shipping-banner">
       ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
     </div>
     <!-- Logo y carrito -->
     <div id="logo-bar">
       <a href="index.html">
-        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" class="logo">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true"
+             alt="Logo AURA" class="logo">
       </a>
       <div id="cart">
         <a href="micarrito.html">
@@ -253,9 +255,9 @@
       <button onclick="filterProducts('ALEMANIA')">ALEMANIA</button>
     </div>
     
-    <!-- Productos -->
+    <!-- Sección de productos -->
     <div class="products-container">
-      <!-- PERÚ -->
+      <!-- Producto 1: PERÚ ELIMINATORIAS FRANCIA 1988 -->
       <div class="product-card" data-category="PERÚ">
         <h3>PERU ELIMINATORIAS FRANCIA 1988</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%20ELIMINATORIAS%20FRANCIA%201988.jpg?raw=true" alt="PERU ELIMINATORIAS FRANCIA 1988">
@@ -269,7 +271,7 @@
         <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
       </div>
       
-      <!-- ARGENTINA -->
+      <!-- Producto 2: ARGENTINA 2002 VISITA -->
       <div class="product-card" data-category="ARGENTINA">
         <h3>ARGENTINA 2002 VISITA</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="ARGENTINA 2002 VISITA">
@@ -283,6 +285,7 @@
         <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
       
+      <!-- Producto 3: ARGENTINA 2014 LOCAL -->
       <div class="product-card" data-category="ARGENTINA">
         <h3>ARGENTINA 2014 LOCAL</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202014%20LOCAL.jpg?raw=true" alt="ARGENTINA 2014 LOCAL">
@@ -296,6 +299,7 @@
         <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
       </div>
       
+      <!-- Producto 4: ARGENTINA 2010 LOCAL -->
       <div class="product-card" data-category="ARGENTINA">
         <h3>ARGENTINA 2010 LOCAL</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202010%20LOCAL.jpg?raw=true" alt="ARGENTINA 2010 LOCAL">
@@ -309,6 +313,7 @@
         <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
       </div>
       
+      <!-- Producto 5: ARGENTINA 2014 VISITA -->
       <div class="product-card" data-category="ARGENTINA">
         <h3>ARGENTINA 2014 VISITA</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202014%20VISITA.jpg?raw=true" alt="ARGENTINA 2014 VISITA">
@@ -322,6 +327,7 @@
         <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
       </div>
       
+      <!-- Producto 6: ARGENTINA 2006 VISITA -->
       <div class="product-card" data-category="ARGENTINA">
         <h3>ARGENTINA 2006 VISITA</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202006%20VISITA.jpg?raw=true" alt="ARGENTINA 2006 VISITA">
@@ -335,6 +341,7 @@
         <button class="add-to-cart" onclick="addToCart(this, 139)">Agregar al carrito</button>
       </div>
       
+      <!-- Producto 7: ARGENTINA 1978 LOCAL -->
       <div class="product-card" data-category="ARGENTINA">
         <h3>ARGENTINA 1978 LOCAL</h3>
         <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%201978%20LOCAL.jpg?raw=true" alt="ARGENTINA 1978 LOCAL">
@@ -627,27 +634,6 @@
     </div>
   </main>
   
-  <!-- Sección de Reseñas -->
-  <div id="reviews">
-    <h2>RESEÑAS</h2>
-    <div class="review">
-      <strong>FelipeClassic</strong>
-      <p><em>"Muy buena calidad, los detalles son impresionantes. Estoy contentísimo."</em></p>
-    </div>
-    <div class="review">
-      <strong>CarlaFans</strong>
-      <p><em>"Producto impecable, llegó en perfectas condiciones. Gracias por la experiencia."</em></p>
-    </div>
-    <div class="review">
-      <strong>DanielCondori</strong>
-      <p><em>"Gran diseño y acabado. Sin duda, una gran compra."</em></p>
-    </div>
-    <div class="review">
-      <strong>LuisVivaArgenina</strong>
-      <p><em>"Súper feliz con el producto. La calidad es excelente."</em></p>
-    </div>
-  </div>
-  
   <script>
     // Carrusel: cambia cada 5 segundos
     let currentSlide = 0;
@@ -664,22 +650,32 @@
     }
     setInterval(nextSlide, 5000);
     
-    // Función para seleccionar talla
+    // Función para seleccionar la talla
     function selectSize(button) {
       const container = button.parentElement;
       Array.from(container.children).forEach(btn => btn.classList.remove('active-size'));
       button.classList.add('active-size');
     }
     
-    // Función para agregar al carrito y guardar producto en sessionStorage
+    /* Función para agregar al carrito usando sessionStorage:
+       - Se verifica si existen botones de talla. Si existen, se exige seleccionar uno y se almacena su valor en la clave "talla".
+       - En caso de no haber botones, se asigna "Única".
+       - La cantidad se fija en 1.
+       - Se guardan los datos con las claves: "name", "price", "talla", "image" y "quantity".
+    */
     let cartTotal = 0;
     function addToCart(btn, price) {
       const productCard = btn.closest('.product-card');
+      let productSize = "Única";
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
-      if (!selectedSizeBtn) {
-        alert("SELECCIONE LA TALLA POR FAVOR");
-        return;
+      if (sizeButtons && sizeButtons.length > 0) {
+        const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+        if (selectedSizeBtn) {
+          productSize = selectedSizeBtn.textContent;
+        } else {
+          alert("SELECCIONE LA TALLA POR FAVOR");
+          return;
+        }
       }
       
       cartTotal += price;
@@ -687,22 +683,21 @@
       
       const productName = productCard.querySelector("h3").textContent;
       const productImg = productCard.querySelector("img").src;
-      const productSize = selectedSizeBtn.textContent;
       
       const productData = {
         name: productName,
         price: price,
-        size: productSize,
-        img: productImg
+        talla: productSize,
+        image: productImg,
+        quantity: 1
       };
-      
-      // Leer el carrito actual desde sessionStorage o inicializar un arreglo nuevo
+
       let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       cart.push(productData);
       sessionStorage.setItem("cart", JSON.stringify(cart));
     }
     
-    // Función para filtrar productos según subcategoría
+    // Función para filtrar productos por subcategoría
     function filterProducts(category) {
       const buttons = document.querySelectorAll('.subcategories button');
       buttons.forEach(btn => btn.classList.remove('active'));
@@ -713,11 +708,7 @@
         if (category === 'ALL') {
           product.style.display = 'block';
         } else {
-          if (product.getAttribute('data-category') === category) {
-            product.style.display = 'block';
-          } else {
-            product.style.display = 'none';
-          }
+          product.style.display = (product.getAttribute('data-category') === category) ? 'block' : 'none';
         }
       });
     }
