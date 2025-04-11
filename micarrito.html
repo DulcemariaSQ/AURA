@@ -434,17 +434,19 @@
 
     /* Carrito en sessionStorage */
     let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-    if (cart.length === 0) {
-      cart.push({
-        image:
-          "https://raw.githubusercontent.com/DulcemariaSQ/AURA/main/ARGENTINA%201978%20LOCAL.jpg",
-        name: "ARGENTINA 1978 LOCAL (BASE)",
-        talla: "M",
-        price: 129,
-        quantity: 1,
-      });
-      sessionStorage.setItem("cart", JSON.stringify(cart));
-    }
+    // Se elimina la inserción automática del producto de prueba,
+    // de modo que cuando se cierre la sesión o recargue la página, el carrito inicie vacío.
+    // if (cart.length === 0) {
+    //   cart.push({
+    //     image:
+    //       "https://raw.githubusercontent.com/DulcemariaSQ/AURA/main/ARGENTINA%201978%20LOCAL.jpg",
+    //     name: "ARGENTINA 1978 LOCAL (BASE)",
+    //     talla: "M",
+    //     price: 129,
+    //     quantity: 1,
+    //   });
+    //   sessionStorage.setItem("cart", JSON.stringify(cart));
+    // }
 
     // Función para agregar al carrito y guardar producto en sessionStorage  
     // Si el producto tiene botones de talla, se utiliza el valor seleccionado; de lo contrario, se asigna "Única"
