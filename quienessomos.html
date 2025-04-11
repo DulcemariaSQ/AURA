@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AURA - QUIENES SOMOS</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    /* HEADER fijo */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+    /* Barra de envíos */
+    #shipping-banner {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    /* Logo y carrito */
+    #logo-bar {
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+    #logo-bar img.logo {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      cursor: pointer;
+    }
+    #cart {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #cart img {
+      width: 40px;
+      height: auto;
+      cursor: pointer;
+    }
+    /* Menú de navegación */
+    nav {
+      background-color: #a90f0f;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    /* Ajuste del contenido para que no quede debajo del header */
+    main {
+      margin-top: 240px;
+      padding: 20px;
+    }
+    /* Banner único para Quiénes Somos */
+    .single-banner {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .single-banner img {
+      width: 90%;
+      max-width: 1200px;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+    /* Texto descriptivo centrado */
+    .about-text {
+      max-width: 800px;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #333;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      #logo-bar img.logo {
+        width: 180px;
+      }
+      #cart img {
+        width: 30px;
+      }
+      main {
+        margin-top: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabecera: envío, logo, carrito y menú -->
+  <header>
+    <div id="shipping-banner">
+      ENVÍOS GRATIS A PARTIR DE COMPRAS MAYORES A S/. 200
+    </div>
+    <div id="logo-bar">
+      <a href="index.html">
+        <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ChatGPT%20Image%207%20abr%202025,%2010_15_13%20a.m..png?raw=true" alt="Logo AURA" class="logo">
+      </a>
+      <div id="cart">
+        <a href="micarrito.html">
+          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/anadir-al-carrito.png?raw=true" alt="Carrito">
+        </a>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="internacionales.html">INTERNACIONALES</a></li>
+        <li><a href="peruanas.html">PERUANAS</a></li>
+        <li><a href="selecciones.html">SELECCIONES</a></li>
+        <li><a href="mystery-box.html">MYSTERY BOX</a></li>
+        <li><a href="quetallasoy.html">QUE TALLA SOY</a></li>
+        <li><a href="quienessomos.html">QUIENES SOMOS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Banner único para Quiénes Somos -->
+    <div class="single-banner">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/LAS%20MEJORES%20CAMISETAS%20EN%20UN%20SOLO%20LUGAR%20(1).png?raw=true" alt="Banner Quiénes Somos">
+    </div>
+
+    <!-- Texto descriptivo -->
+    <div class="about-text">
+      <p>Somos seis amigos que compartimos una pasión inquebrantable: el fútbol. Cada uno de nosotros representa a un club que llevamos en el corazón: Álvaro de Universitario de Deportes, Luis David de Alianza Lima, Jeffer del Melgar, Fabián del Cienciano, Jeanpierre de Boca Juniors y Dulcemaría del Barcelona. Lo que nos une no son solo las rivalidades de nuestras camisetas, sino el amor por el deporte que trasciende fronteras y crea lazos inquebrantables.</p>
+      <br>
+      <p>De esa pasión nació Aura, un proyecto dedicado a la venta de camisetas retro. Sabemos lo que significa portar una camiseta que no solo representa colores, sino historia, alegría y el espíritu único de cada equipo. Es por eso que queremos compartir ese sentimiento con más personas, ofreciendo piezas que transmiten la esencia y el orgullo de los clubes que tanto amamos.</p>
+      <br>
+      <p>Nuestro sueño es construir una comunidad donde el fútbol sea el eje que conecte a los fanáticos, mientras seguimos expandiendo nuestras redes sociales para hablar más sobre este deporte que nos mueve a todos. Con Aura, buscamos que cada camiseta no solo sea un recuerdo, sino una experiencia que une a los amantes del fútbol, como nos unió a nosotros. ¡Bienvenidos a nuestra pasión hecha tienda!</p>
+    </div>
+  </main>
+</body>
+</html>
