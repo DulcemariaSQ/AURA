@@ -118,6 +118,22 @@
       border-radius: 5px;
       font-size: 1.2em;
     }
+    /* Sección especial de oferta en el banner */
+    .offer-product {
+      border: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .offer-product h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    .offer-product .size-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
     /* Barra inferior de productos */
     #products-bar {
       background-color: #000000;
@@ -244,13 +260,24 @@
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/4.png?raw=true" alt="Banner 4">
     </div>
 
-    <!-- Banner con contador -->
+    <!-- Banner con contador y botones de talla + agregar al carrito -->
     <div class="banner" id="offer-banner">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/2.png?raw=true" alt="Banner Oferta">
       <div id="countdown"></div>
+      <!-- Sección de producto en oferta -->
+      <div class="product-card offer-product" data-price="79">
+        <h3>Oferta Especial</h3>
+        <div class="size-buttons">
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+          <button onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(this, 79)">Agregar al carrito</button>
+      </div>
     </div>
 
-    <!-- Segundo banner separado -->
+    <!-- Segundo banner (banner separado sin contador) -->
     <div class="banner" id="second-banner">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/1.png?raw=true" alt="Segundo Banner">
     </div>
@@ -260,9 +287,8 @@
       ALGUNOS DE NUESTROS PRODUCTOS
     </div>
 
-    <!-- Sección de productos (incluyendo las camisetas que aparecen al final) -->
+    <!-- Sección de productos (solo las Mystery Box) -->
     <div class="products-container">
-      <!-- Sección de Mystery Box -->
       <!-- Producto 1: MYSTERY BOX INTERNACIONALES -->
       <div class="product-card" data-price="99">
         <h3>MYSTERY BOX INTERNACIONALES</h3>
@@ -303,100 +329,6 @@
           <button onclick="selectSize(this)">XL</button>
         </div>
         <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
-      </div>
-
-      <!-- Sección Extra: Otras Camisetas -->
-      <h2 style="text-align:center; margin:20px 0;">Otras Camisetas</h2>
-      <div class="products-container">
-        <!-- INTERNACIONALES -->
-        <div class="product-card" data-category="INTERNACIONALES">
-          <h3>BARCELONA 2009-2010 LOCAL PLAYER VERSION ML</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BARCA%202009-2010%20LOCAL.jpg?raw=true" alt="Barcelona 2009-2010 Local">
-          <div class="price">Precio: S/. 109</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
-        </div>
-        <div class="product-card" data-category="INTERNACIONALES">
-          <h3>MILAN 2006-2007 VISITA PLAYER VERSION</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/MILAN%202006-2007%20VISITA.jpg?raw=true" alt="Milan 2006-2007 Visita">
-          <div class="price">Precio: S/. 119</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
-        </div>
-        <div class="product-card" data-category="INTERNACIONALES">
-          <h3>REAL MADRID 2009-2010 LOCAL PLAYER VERSION</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/REAL%20MADRID%202009-2010%20LOCAL.jpg?raw=true" alt="Real Madrid 2009-2010 Local">
-          <div class="price">Precio: S/. 129</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
-        </div>
-
-        <!-- SELECCIONES -->
-        <div class="product-card" data-category="SELECCIONES">
-          <h3>ARGENTINA 2002 VISITA</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ARGENTINA%202002%20VISITA.jpg?raw=true" alt="Argentina 2002 Visita">
-          <div class="price">Precio: S/. 109</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 109)">Agregar al carrito</button>
-        </div>
-        <div class="product-card" data-category="SELECCIONES">
-          <h3>BRASIL 2010 VISITA</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/BRASIL%202010%20VISITA.jpg?raw=true" alt="Brasil 2010 Visita">
-          <div class="price">Precio: S/. 119</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 119)">Agregar al carrito</button>
-        </div>
-        <div class="product-card" data-category="SELECCIONES">
-          <h3>ESPAÑA 2000 LOCAL</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/ESPA%C3%91A%202000%20LOCAL.jpg?raw=true" alt="España 2000 Local">
-          <div class="price">Precio: S/. 129</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
-        </div>
-
-        <!-- PERUANAS -->
-        <div class="product-card" data-category="PERUANAS">
-          <h3>PERÚ ELIMINATORIAS FRANCIA 1988</h3>
-          <img src="https://github.com/DulcemariaSQ/AURA/blob/main/PERU%20ELIMINATORIAS%20FRANCIA%201988.jpg?raw=true" alt="Perú Eliminatorias 1988">
-          <div class="price">Precio: S/. 129</div>
-          <div class="size-buttons">
-            <button onclick="selectSize(this)">S</button>
-            <button onclick="selectSize(this)">M</button>
-            <button onclick="selectSize(this)">L</button>
-            <button onclick="selectSize(this)">XL</button>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 129)">Agregar al carrito</button>
-        </div>
       </div>
     </div>
   </main>
@@ -466,7 +398,8 @@
       cartTotal += price;
       alert("Producto agregado. Total en carrito: S/. " + cartTotal);
       
-      const productName = productCard.querySelector("h3").textContent;
+      const productNameElement = productCard.querySelector("h3");
+      const productName = productNameElement ? productNameElement.textContent : "Producto sin nombre";
       const productImg = productCard.querySelector("img").src;
       
       const productData = {
