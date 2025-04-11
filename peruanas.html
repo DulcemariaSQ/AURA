@@ -147,6 +147,7 @@
     .size-buttons {
       margin-bottom: 10px;
     }
+    /* Cada botón de talla tiene onclick="selectSize(this)" para activar la talla */
     .size-buttons button {
       margin: 5px;
       padding: 5px 10px;
@@ -214,7 +215,7 @@
   </header>
 
   <main>
-    <!-- Carrusel de 5 banners -->
+    <!-- Carrusel de banners -->
     <div class="carousel">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bal.png?raw=true" alt="Banner 1" class="active">
       <img src="https://github.com/DulcemariaSQ/AURA/blob/main/bu.png?raw=true" alt="Banner 2">
@@ -233,7 +234,7 @@
       <button onclick="filterProducts('MELGAR')">MELGAR</button>
     </div>
 
-    <!-- Productos -->
+    <!-- Sección de productos -->
     <div class="products-container">
       <!-- Producto 1: CIENCIANO CAMPEON SUDAMERICANA 2003 -->
       <div class="product-card" data-category="CIENCIANO">
@@ -462,7 +463,7 @@
   </main>
 
   <script>
-    // Carrusel: cambia cada 3 segundos
+    // Función para carrusel: cambia cada 3 segundos
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel img');
     const totalSlides = slides.length;
@@ -484,63 +485,52 @@
       button.classList.add('active-size');
     }
 
-    // Simulación simple de carrito: se suma el precio de cada producto agregado
-    let cartTotal = 0;
+    /* Función para agregar al carrito usando sessionStorage:
+       - Verifica si existen botones de talla; si los hay, exige que se seleccione uno y asigna el valor a la propiedad "talla".
+       - En caso de no haber botones de talla, se asigna "Única".
+       - Se asigna quantity=1 por defecto.
+       - Se guardan las claves: "name", "price", "talla", "image" y "quantity".
+    */
     function addToCart(btn, price) {
-      // Obtener el contenedor del producto
       const productCard = btn.closest('.product-card');
-      // Revisar si se seleccionó alguna talla en este producto
+      let productSize = "Única"; // Valor por defecto
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
-      const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
-      if (!selectedSizeBtn) {
-        alert("SELECCIONE LA TALLA POR FAVOR");
-        return;
+      if (sizeButtons && sizeButtons.length > 0) {
+        const selectedSizeBtn = Array.from(sizeButtons).find(button => button.classList.contains('active-size'));
+        if (selectedSizeBtn) {
+          productSize = selectedSizeBtn.textContent;
+        } else {
+          alert("SELECCIONE LA TALLA POR FAVOR");
+          return;
+        }
       }
-      cartTotal += price;
-      alert("Producto agregado. Total en carrito: S/. " + cartTotal);
       
-      // Obtener datos del producto: nombre, imagen y talla seleccionada
       const productName = productCard.querySelector("h3").textContent;
       const productImg = productCard.querySelector("img").src;
-      const productSize = selectedSizeBtn.textContent;
       
       const productData = {
         name: productName,
         price: price,
-        size: productSize,
-        img: productImg
+        talla: productSize,
+        image: productImg,
+        quantity: 1
       };
 
-      // Leer el carrito actual del localStorage o inicializar un arreglo nuevo
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      
-      // Agregar el nuevo producto al carrito
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       cart.push(productData);
-      
-      // Guardar el carrito actualizado en el localStorage
-      localStorage.setItem("cart", JSON.stringify(cart));
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+      alert("Producto agregado al carrito.");
     }
 
     // Función para filtrar productos por subcategoría
     function filterProducts(category) {
-      // Activar el botón seleccionado
       const buttons = document.querySelectorAll('.subcategories button');
       buttons.forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
 
       const products = document.querySelectorAll('.product-card');
       products.forEach(product => {
-        // Si se selecciona "TODOS", se muestran todos los productos
-        if(category === 'ALL') {
-          product.style.display = 'block';
-        } else {
-          // Se compara con el atributo data-category
-          if(product.getAttribute('data-category') === category) {
-            product.style.display = 'block';
-          } else {
-            product.style.display = 'none';
-          }
-        }
+        product.style.display = (category === 'ALL' || product.getAttribute('data-category') === category) ? 'block' : 'none';
       });
     }
   </script>
