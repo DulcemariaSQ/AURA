@@ -342,6 +342,47 @@
       background-color: #f2f2f2;
       width: 200px;
     }
+    /* --- Banner de Otros Métodos --- */
+    .otros-pagos-banner {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .otros-pagos {
+      background: #fff;
+      padding: 20px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .otros-pagos-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+    }
+    .otros-pagos-img {
+      width: 150px;
+      height: auto;
+    }
+    .otros-pagos-text p {
+      margin: 5px 0;
+      font-size: 16px;
+      color: #000;
+      text-align: left;
+    }
+    .otros-pagos-note {
+      font-style: italic;
+      font-size: 14px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -428,28 +469,29 @@
     <div class="pdf-summary" id="pdf-summary"></div>
   </div>
 
+  <!-- Nuevo Banner de Otros Métodos -->
+  <div class="otros-pagos-banner">OTROS MÉTODOS:</div>
+  <div class="otros-pagos">
+    <div class="otros-pagos-content">
+      <img src="https://github.com/DulcemariaSQ/AURA/blob/main/e257af64-88c1-41a4-8027-00500f0a1922.jpg?raw=true" alt="Otros Métodos" class="otros-pagos-img" />
+      <div class="otros-pagos-text">
+        <p>Mi número de cuenta BCP Soles es 21570639720047</p>
+        <p>Mi número de cuenta interbancaria es 00221517063972004729</p>
+        <p>Mi número de Cuenta Cuenta Simple Soles en Interbank es: 4623301898840</p>
+        <p>Mi número de Cuenta Interbancario (CCI) en Interbank es: 00346201330189884091</p>
+      </div>
+    </div>
+    <p class="otros-pagos-note">Si preferiste estos otros métodos de pago, envíanos una captura de pantalla junto con tu cotización al siguiente correo: dulcemariasummy.silvaq@gmail.com a por whatsapp al número 946737333.</p>
+  </div>
+
   <script>
     /* Variable global para acumulado (opcional) */
     let cartTotal = 0;
 
     /* Carrito en sessionStorage */
     let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-    // Se elimina la inserción automática del producto de prueba,
-    // de modo que cuando se cierre la sesión o recargue la página, el carrito inicie vacío.
-    // if (cart.length === 0) {
-    //   cart.push({
-    //     image:
-    //       "https://raw.githubusercontent.com/DulcemariaSQ/AURA/main/ARGENTINA%201978%20LOCAL.jpg",
-    //     name: "ARGENTINA 1978 LOCAL (BASE)",
-    //     talla: "M",
-    //     price: 129,
-    //     quantity: 1,
-    //   });
-    //   sessionStorage.setItem("cart", JSON.stringify(cart));
-    // }
 
     // Función para agregar al carrito y guardar producto en sessionStorage  
-    // Si el producto tiene botones de talla, se utiliza el valor seleccionado; de lo contrario, se asigna "Única"
     function addToCart(btn, price) {
       const productCard = btn.closest('.product-card');
       const sizeButtons = productCard.querySelectorAll('.size-buttons button');
@@ -462,12 +504,9 @@
           productSize = selectedSizeBtn.textContent;
         }
       }
-      // Siempre se agrega con cantidad = 1
       const productName = productCard.querySelector("h3").textContent;
       const productImg = productCard.querySelector("img").src;
 
-      // Se crea el objeto con las claves que se usan al renderizar el carrito:
-      // "talla" para la talla, "image" para la imagen y quantity=1
       const productData = {
         name: productName,
         price: price,
@@ -476,12 +515,10 @@
         quantity: 1
       };
 
-      // Leer el carrito actual desde sessionStorage y actualizarlo
       let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       cart.push(productData);
       sessionStorage.setItem("cart", JSON.stringify(cart));
 
-      // Actualizar el renderizado
       renderCart();
     }
 
